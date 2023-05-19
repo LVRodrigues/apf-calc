@@ -1,26 +1,37 @@
 @use '@angular/material' as mat;
+@use './app/header/header.component.scss' as header;
+@use './app/footer/footer.component.scss' as footer;
+
 @include mat.core();
 
-$dark-theme: mat.define-dark-theme((color: (primary: mat.define-palette(mat.$pink-palette),
-                accent: mat.define-palette(mat.$blue-grey-palette),
-                warn: mat.define-palette(mat.$red-palette),
-            ),
-            typography: mat.define-typography-config(),
-            density: 0,
-        ));
+$dark-theme: mat.define-dark-theme((
+    color: (
+        primary: mat.define-palette(mat.$pink-palette),
+        accent: mat.define-palette(mat.$blue-grey-palette),
+        warn: mat.define-palette(mat.$red-palette),
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
+));
 
-$light-theme: mat.define-light-theme((color: (primary: mat.define-palette(mat.$indigo-palette),
-                accent: mat.define-palette(mat.$pink-palette),
-                warn: mat.define-palette(mat.$red-palette),
-            ),
-        ));
+$light-theme: mat.define-light-theme((
+    color: (
+        primary: mat.define-palette(mat.$indigo-palette),
+        accent: mat.define-palette(mat.$pink-palette),
+        warn: mat.define-palette(mat.$red-palette),
+    ),
+));
 
 @include mat.core-theme($dark-theme);
 @include mat.all-component-themes($dark-theme);
+@include header.theme($dark-theme);
+@include footer.theme($dark-theme);
 
 @media (prefers-color-scheme: light) {
     @include mat.core-theme($light-theme);
     @include mat.all-component-themes($light-theme);
+    @include header.theme($light-theme);
+    @include footer.theme($light-theme);
 }
 
 html,
@@ -34,16 +45,22 @@ body {
 }
 
 main {
-    min-height: 100vh;
-    margin: 1em;
-    // display: flex;
-    // flex-direction: row;
-    // flex-wrap: wrap;
-    // align-items: center;
-    // align-content: center;
-    // justify-content: space-between;
-    // justify-items: center;
+    min-height: calc(100vh - 128px);
+    margin-top: calc(64px + 2em);
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
 }
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    align-content: center;
+    justify-content: space-between;
+    justify-items: center;
+  }
 
 .center {
     margin: auto;

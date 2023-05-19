@@ -1,0 +1,31 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    @if $color-config !=null {
+        @include color($theme);
+    }
+
+    $typography-config: mat.get-typography-config($theme);
+    @if $typography-config !=null {
+        @include typography($theme);
+    }
+}
+
+@mixin color($theme) {
+    $color-config: mat.get-color-config($theme);
+    $accent-palette: map.get($color-config, 'accent');
+    .mat-toolbar-footer {
+        box-shadow: 0px -5px 5px mat.get-color-from-palette($accent-palette, 500);
+    }
+}
+
+@mixin typography($theme) {
+
+}
+
+.mat-toolbar-footer {
+    position: absolute;
+    top: calc(100% - 64px);
+}

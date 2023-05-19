@@ -8,7 +8,8 @@
       "request": "launch",
       "url": "http://localhost:4200/",
       "profile": "default",
-      "keepProfileChanges": true
+      "keepProfileChanges": true,
+      "firefoxArgs": ["-devtools"]
     },
     {
       "name": "ng serve",
