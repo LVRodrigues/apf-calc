@@ -1,6 +1,7 @@
 @use '@angular/material' as mat;
 @use './app/header/header.component.scss' as header;
 @use './app/footer/footer.component.scss' as footer;
+@use './app/menu/menu.component.scss' as menu;
 
 @include mat.core();
 
@@ -26,12 +27,14 @@ $light-theme: mat.define-light-theme((
 @include mat.all-component-themes($dark-theme);
 @include header.theme($dark-theme);
 @include footer.theme($dark-theme);
+@include menu.theme($dark-theme);
 
 @media (prefers-color-scheme: light) {
     @include mat.core-theme($light-theme);
     @include mat.all-component-themes($light-theme);
     @include header.theme($light-theme);
     @include footer.theme($light-theme);
+    @include menu.theme($light-theme);
 }
 
 html,
@@ -42,6 +45,12 @@ body {
 body {
     margin: 0;
     font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
 }
 
 main {
@@ -68,4 +77,10 @@ main {
 
 .spacer {
     flex: 1 1 auto;
-  }
+}
+
+
+.mat-divider-vertical {
+    height: 80%;
+    margin: 10px !important;
+}
