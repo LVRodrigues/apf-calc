@@ -11,12 +11,10 @@ import { ApfService } from '../apf.service';
 export class HeaderComponent {
 
   title: string;
-  score: number;
   project: Project;
 
   constructor(app: AppComponent, apf: ApfService) {
     this.title = app.title;
-    this.score = app.score;
     this.project = apf.project;
   }
 }

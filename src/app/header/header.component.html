@@ -3,18 +3,18 @@
         <span>{{title}}</span>
         <mat-divider vertical></mat-divider>
 
-        <div class="divTable">
+        <div class="divTable project-detail">
             <div class="divTableBody">
                 <div class="divTableRow">
-                    <div class="divTableCell">Projeto:</div>
+                    <div class="divTableHeading">Projeto:</div>
                     <div class="divTableCell">{{ project.name }}</div>
                 </div>
                 <div class="divTableRow">
-                    <div class="divTableCell">Descrição:</div>
+                    <div class="divTableHeading">Descrição:</div>
                     <div class="divTableCell">{{ project.description }}</div>
                 </div>
                 <div class="divTableRow">
-                    <div class="divTableCell">Data:</div>
+                    <div class="divTableHeading">Data:</div>
                     <div class="divTableCell">{{ project.date | date: 'dd/MM/yyyy' }}</div>
                 </div>
             </div>
@@ -23,6 +23,6 @@
         <span class="spacer"></span>
 
         <mat-divider vertical></mat-divider>
-        <span>{{score}} pontos</span>
+        <span>{{project.score}} pontos</span>
     </mat-toolbar-row>
 </mat-toolbar>

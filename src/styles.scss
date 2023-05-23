@@ -2,6 +2,7 @@
 @use './app/header/header.component.scss' as header;
 @use './app/footer/footer.component.scss' as footer;
 @use './app/menu/menu.component.scss' as menu;
+@use './app/home/home.component.scss' as home;
 
 @include mat.core();
 
@@ -28,6 +29,7 @@ $light-theme: mat.define-light-theme((
 @include header.theme($dark-theme);
 @include footer.theme($dark-theme);
 @include menu.theme($dark-theme);
+@include home.theme($dark-theme);
 
 @media (prefers-color-scheme: light) {
     @include mat.core-theme($light-theme);
@@ -35,6 +37,7 @@ $light-theme: mat.define-light-theme((
     @include header.theme($light-theme);
     @include footer.theme($light-theme);
     @include menu.theme($light-theme);
+    @include home.theme($light-theme);
 }
 
 html,
@@ -82,8 +85,36 @@ main {
     flex: 1 1 auto;
 }
 
+.card-action-button {
+    margin-left: 5px;
+}
 
 .mat-divider-vertical {
     height: 80%;
     margin: 10px !important;
+}
+
+.divTable{
+	display: table;
+}
+.divTableRow {
+	display: table-row;
+}
+.divTableHeading {
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+	display: table-cell;
+	padding: 3px;
+}
+.divTableHeading {
+	display: table-header-group;
+	font-weight: bold;
+}
+.divTableFoot {
+	display: table-footer-group;
+	font-weight: bold;
+}
+.divTableBody {
+	display: table-row-group;
 }

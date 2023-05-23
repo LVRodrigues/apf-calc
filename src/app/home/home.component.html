@@ -1,9 +1,59 @@
 <section class="container">
 
     <mat-card class="home-project">
-        <mat-card-content>
-            Como fazer responsivo?
+        <mat-card-content class="divTable">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div class="divTableHeading">Projeto:</div>
+                    <div class="divTableCell">{{ project.name }}</div>
+                </div>
+                
+                <div class="divTableRow">
+                    <div class="divTableHeading">Descrição:</div>
+                    <div class="divTableCell">{{ project.description }}</div>
+                </div>
+                
+                <div class="divTableRow">
+                    <div class="divTableHeading">Data:</div>
+                    <div class="divTableCell">{{ project.date | date: 'dd/MM/yyyy' }}</div>
+                </div>
+
+                <div class="divTableRow">
+                    <div class="divTableHeading">Responsável:</div>
+                    <div class="divTableCell">{{ project.responsible }}</div>
+                </div>
+
+                <div class="divTableRow">
+                    <div class="divTableHeading">Modulos:</div>
+                    <div class="divTableCell">{{ project.modules.length }}</div>
+                </div>
+
+                <div class="divTableRow">
+                    <div class="divTableHeading">Total:</div>
+                    <div class="divTableCell">{{ project.score }} pontos</div>
+                </div>
+            </div>
         </mat-card-content>
+
+        <mat-card-actions align="end" class="card-action-bar">
+            <button mat-mini-fab color="accent" matTooltip="Propriedades do projeto.">
+                <mat-icon fontIcon="settings"></mat-icon>
+            </button>
+
+            <button mat-mini-fab color="accent" matTooltip="Módulos.">
+                <mat-icon fontIcon="edit"></mat-icon>
+            </button>
+
+            <mat-divider vertical></mat-divider>
+
+            <button mat-mini-fab color="accent" matTooltip="Importar APF.">
+                <mat-icon fontIcon="import"></mat-icon>
+            </button>
+
+            <button mat-mini-fab color="accent" matTooltip="Exportar APF.">
+                <mat-icon fontIcon="export"></mat-icon>
+            </button>
+        </mat-card-actions>
     </mat-card>
 
     <mat-card class="home-graphic">
