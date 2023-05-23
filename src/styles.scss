@@ -51,11 +51,12 @@ header {
     position: fixed;
     top: 0;
     width: 100%;
+    z-index: 999;
 }
 
 main {
-    min-height: calc(100vh - 128px);
-    margin-top: calc(64px + 2em);
+    min-height: calc(100vh - 256px + 1em);
+    margin-top: calc(128px + 2em);
     margin-bottom: 1em;
     margin-left: 1em;
     margin-right: 1em;
@@ -65,10 +66,12 @@ main {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-items: center;
-    align-content: center;
+    align-items: flex-start;
+    align-content: flex-start;
     justify-content: space-between;
     justify-items: center;
+    gap: 1em;
+    z-index: 0;
   }
 
 .center {
