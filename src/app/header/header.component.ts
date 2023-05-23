@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { AppComponent } from '../app.component';
 import { Project } from '../model/project';
+import { ApfService } from '../apf.service';
 
 @Component({
   selector: 'app-header',
@@ -13,9 +14,9 @@ export class HeaderComponent {
   score: number;
   project: Project;
 
-  constructor(app: AppComponent) {
+  constructor(app: AppComponent, apf: ApfService) {
     this.title = app.title;
     this.score = app.score;
-    this.project = new Project();
+    this.project = apf.project;
   }
 }
