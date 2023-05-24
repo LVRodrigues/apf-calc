@@ -17,7 +17,73 @@
     $color-config: mat.get-color-config($theme);
     $primary-palette: map.get($color-config, 'primary');
 
-    // 50, 100, 200, 300, 400, 500, 600, 700, 800, 900, A100, A200, A400, A700, contrast, default, lighter, darker, text, default-contrast, lighter-contrast, darker-contrast, "50-contrast", "100-contrast", "200-contrast", "300-contrast", "400-contrast", "500-contrast", "600-contrast", "700-contrast", "800-contrast", "900-contrast", "A100-contrast", "A200-contrast", "A400-contrast", "A700-contrast", "contrast-contrast"
+    .cell01 {
+        background-color: mat.get-color-from-palette($primary-palette, 50);
+    }
+    .cell02 {
+        background-color: mat.get-color-from-palette($primary-palette, 100);
+    }
+    .cell03 {
+        background-color: mat.get-color-from-palette($primary-palette, 200);
+    }
+    .cell04 {
+        background-color: mat.get-color-from-palette($primary-palette, 300);
+    }
+    .cell05 {
+        background-color: mat.get-color-from-palette($primary-palette, 400);
+    }
+    .cell06 {
+        background-color: mat.get-color-from-palette($primary-palette, 500);
+    }
+    .cell07 {
+        background-color: mat.get-color-from-palette($primary-palette, 600);
+    }
+    .cell08 {
+        background-color: mat.get-color-from-palette($primary-palette, 700);
+    }
+    .cell09 {
+        background-color: mat.get-color-from-palette($primary-palette, 800);
+    }
+    .cell10 {
+        background-color: mat.get-color-from-palette($primary-palette, 900);
+    }
+    .cell11 {
+        background-color: mat.get-color-from-palette($primary-palette, A100);
+    }
+    .cell12 {
+        background-color: mat.get-color-from-palette($primary-palette, A200);
+    }
+    .cell13 {
+        background-color: mat.get-color-from-palette($primary-palette, A400);
+    }
+    .cell14 {
+        background-color: mat.get-color-from-palette($primary-palette, A700);
+    }
+    .cell15 {
+        // background-color: mat.get-color-from-palette($primary-palette, contrast);
+    }
+    .cell16 {
+        background-color: mat.get-color-from-palette($primary-palette, default);
+    }
+    .cell17 {
+        background-color: mat.get-color-from-palette($primary-palette, lighter);
+    }
+    .cell18 {
+        background-color: mat.get-color-from-palette($primary-palette, darker);
+    }
+    .cell19 {
+        background-color: mat.get-color-from-palette($primary-palette, text);
+    }
+    .cell20 {
+        background-color: mat.get-color-from-palette($primary-palette, default-contrast);
+    }
+    .cell21 {
+        background-color: mat.get-color-from-palette($primary-palette, lighter-contrast);
+    }
+    .cell22 {
+        background-color: mat.get-color-from-palette($primary-palette, darker-contrast);
+    }
+    //   lighter-contrast, darker-contrast, "50-contrast", "100-contrast", "200-contrast", "300-contrast", "400-contrast", "500-contrast", "600-contrast", "700-contrast", "800-contrast", "900-contrast", "A100-contrast", "A200-contrast", "A400-contrast", "A700-contrast", "contrast-contrast"
     .card-action-bar {
         background-color: mat.get-color-from-palette($primary-palette, contrast-contrast);
     }    
