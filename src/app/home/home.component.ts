@@ -26,7 +26,6 @@ export class HomeComponent {
         this.chartOptions = this.prepareChartOptions();
         this.data = [];
         this.timer = setInterval(() => {
-            console.log("timeout...");
             this.data = [];
             this.data.push({ name: 'Planejamento', value: 10});
             this.data.push({ name: 'Coordenação', value: 20});
@@ -48,11 +47,6 @@ export class HomeComponent {
                             color: 'white',
                         },
                     },
-                    title: {
-                        textStyle: {
-                            color: 'white',
-                        },
-                    },
                 };
             } else {
                 this.chartUpdate = {
@@ -67,11 +61,6 @@ export class HomeComponent {
                             color: 'black',
                         },
                     },
-                    title: {
-                        textStyle: {
-                            color: 'black',
-                        },
-                    },
                 };
             }
         }, 1000);
@@ -79,12 +68,6 @@ export class HomeComponent {
 
     prepareChartOptions(): EChartsOption {
         let result: EChartsOption = {
-            title: {
-                text: 'Distribuição de Horas',
-                textAlign: 'center',
-                left: '50%',
-                top: 20,
-            },
             tooltip: {
                 trigger: 'item',
                 formatter: '{b}<br/>{c} {a} ({d}%)',

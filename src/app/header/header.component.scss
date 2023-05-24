@@ -15,9 +15,6 @@
 
 @mixin color($config) {
     $accent: map.get($config, 'accent');
-    .mat-toolbar-header {
-        box-shadow: 0px 5px 5px mat.get-color-from-palette($accent);
-    }
 }
 
 @mixin typography($config) {

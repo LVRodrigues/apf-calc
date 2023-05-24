@@ -14,32 +14,14 @@
 }
 
 @mixin color($config) {
-    $primary: map.get($config, 'primary');
+    $accent: map.get($config, 'accent');
 
-    .card-action-bar {
-        background-color: mat.get-color-from-palette($primary, default);
-    }    
+    .mat-toolbar-menu {
+        box-shadow: 0px 5px 5px mat.get-color-from-palette($accent);
+    }   
 }
 
 @mixin typography($config) {
     
 }
 
-.home-project {
-    flex: 4 1 auto
-}
-
-.card-properties {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.home-graphic {
-    flex: 8 3 auto
-}
-
-.chart {
-    margin: auto;
-    min-height: 300px;
-    min-width: 300px;
-}

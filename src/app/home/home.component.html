@@ -1,7 +1,12 @@
 <section class="container">
 
     <mat-card class="home-project">
-        <mat-card-content class="divTable" style="margin-bottom: 1em;">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <span>Propriedades</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-card-content class="divTable card-properties">
             <div class="divTableBody">
                 <div class="divTableRow">
                     <div class="divTableHeading">Projeto:</div>
@@ -34,38 +39,20 @@
                 </div>
             </div>
         </mat-card-content>
-
-        <mat-card-footer>
-            <mat-toolbar color="primary">
-                <span class="spacer"></span>
-
-                <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Propriedades do projeto.">
-                    <mat-icon fontIcon="edit"></mat-icon>
-                </button>
-
-                <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Módulos.">
-                    <mat-icon fontIcon="storage"></mat-icon>
-                </button>
-
-                <mat-divider vertical></mat-divider>
-
-                <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Importar APF.">
-                    <mat-icon fontIcon="upload_file"></mat-icon>
-                </button>
-
-                <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Exportar APF.">
-                    <mat-icon fontIcon="download_file"></mat-icon>
-                </button>
-            </mat-toolbar>
-        </mat-card-footer>
     </mat-card>
 
     <mat-card class="home-graphic">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <span>Distribuição de Horas</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-card-content>
             <section echarts class="chart"
-                isResizable = "true"
                 [options]="chartOptions"
                 [merge]="chartUpdate">
             </section>
+        </mat-card-content>
     </mat-card>
 
 </section>
