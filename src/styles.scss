@@ -1,7 +1,6 @@
 @use '@angular/material' as mat;
 @use './app/header/header.component.scss' as header;
 @use './app/footer/footer.component.scss' as footer;
-@use './app/menu/menu.component.scss' as menu;
 @use './app/home/home.component.scss' as home;
 
 @include mat.core();
@@ -28,7 +27,6 @@ $light-theme: mat.define-light-theme((
 @include mat.all-component-themes($dark-theme);
 @include header.theme($dark-theme);
 @include footer.theme($dark-theme);
-@include menu.theme($dark-theme);
 @include home.theme($dark-theme);
 
 @media (prefers-color-scheme: light) {
@@ -36,7 +34,6 @@ $light-theme: mat.define-light-theme((
     @include mat.all-component-themes($light-theme);
     @include header.theme($light-theme);
     @include footer.theme($light-theme);
-    @include menu.theme($light-theme);
     @include home.theme($light-theme);
 }
 
@@ -58,8 +55,8 @@ header {
 }
 
 main {
-    min-height: calc(100vh - 256px + 1em);
-    margin-top: calc(128px + 2em);
+    min-height: calc(100vh - 192px + 1em);
+    margin-top: calc(64px + 2em);
     margin-bottom: 1em;
     margin-left: 1em;
     margin-right: 1em;
@@ -86,7 +83,8 @@ main {
 }
 
 .card-action-button {
-    margin-left: 5px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 .mat-divider-vertical {
