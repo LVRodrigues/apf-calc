@@ -61,9 +61,11 @@
     </mat-card>
 
     <mat-card class="home-graphic">
-        <mat-card-content>
-            Gráfico?
-        </mat-card-content>
+            <section echarts class="chart"
+                isResizable = "true"
+                [options]="chartOptions"
+                [merge]="chartUpdate">
+            </section>
     </mat-card>
 
 </section>
