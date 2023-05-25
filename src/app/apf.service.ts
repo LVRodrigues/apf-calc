@@ -18,5 +18,6 @@ export class ApfService {
             module.name = 'Módulo ' + i;
             this.project.modules[i] = module;
         }
+        this.project.score = 120;
     }
 }
