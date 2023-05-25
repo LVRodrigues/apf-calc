@@ -1,0 +1,44 @@
+<mat-card>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span>Propriedades do Projeto</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-card-content>
+        <mat-form-field>
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" id="name" [(ngModel)]="project.name" 
+                placeholder="Nome do projeto">
+        </mat-form-field>     
+
+        <mat-form-field>
+            <mat-label>Descrição</mat-label>
+            <input matInput type="text" id="description" [(ngModel)]="project.description" 
+                placeholder="Descrição sobre o projeto">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Responsável</mat-label>
+            <input matInput type="text" id="responsible" [(ngModel)]="project.responsible" 
+                placeholder="Responsável pelo projeto">
+        </mat-form-field>
+
+        <section class="container">
+            <mat-form-field class="item">
+                <mat-label>Data</mat-label>
+                <input matInput type="text" disabled="true" value="{{ project.date | date: 'dd/MM/yyyy' }}">
+            </mat-form-field>
+
+            <mat-form-field class="item">
+                <mat-label>Versão</mat-label>
+                <input matInput type="text" disabled="true" value="{{ project.version }}">
+            </mat-form-field>
+
+            <mat-form-field class="item">
+                <mat-label>Pontos</mat-label>
+                <input matInput type="text" disabled="true" value="{{ project.score }}">
+            </mat-form-field>
+        </section>
+    </mat-card-content>
+</mat-card>

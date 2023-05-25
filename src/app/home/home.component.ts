@@ -77,7 +77,7 @@ export class HomeComponent {
                 align: 'auto',
                 bottom: 10,
             },
-            calculable: true,
+            calculable: false,
             series: [
                 {
                 name: 'Horas',

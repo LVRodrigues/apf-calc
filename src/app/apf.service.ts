@@ -18,6 +18,9 @@ export class ApfService {
             module.name = 'Módulo ' + i;
             this.project.modules[i] = module;
         }
+        this.project.name = 'Desenv'
         this.project.score = 120;
+        this.project.description = 'Projeto de Exemplo';
+        this.project.responsible = 'Luciano Vieira Rodrigues';
     }
 }

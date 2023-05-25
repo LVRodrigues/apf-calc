@@ -1,12 +1,19 @@
 <mat-toolbar color="secundary" class="mat-toolbar-menu">
     <mat-toolbar-row>
+        <button mat-mini-fab color="accent" class="card-action-button" 
+            (click)="showHome()" *ngIf="!isHome()" matTooltip="Início.">
+            <mat-icon fontIcon="home"></mat-icon>
+        </button>
+
         <span class="spacer"></span>
 
-        <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Propriedades do projeto.">
+        <button mat-mini-fab color="accent" class="card-action-button" 
+            (click)="showProperties()" *ngIf="!isProperties()" matTooltip="Propriedades do projeto.">
             <mat-icon fontIcon="settings"></mat-icon>
         </button>
 
-        <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Módulos.">
+        <button mat-mini-fab color="accent" class="card-action-button" 
+            (click)="showModules()" *ngIf="!isModules()" matTooltip="Módulos.">
             <mat-icon fontIcon="storage"></mat-icon>
         </button>
 
