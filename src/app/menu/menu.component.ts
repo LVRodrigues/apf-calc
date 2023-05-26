@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map } from 'rxjs';
 import { ApfService } from '../apf.service';
 import { Project } from '../model/project';
+import { Module } from '../model/module';
 
 @Component({
     selector: 'app-menu',
@@ -61,7 +62,12 @@ export class MenuComponent {
         this.router.navigate(['/modules']);
     }
 
+    newModule(): void {
+        this.apf.project.modules.push(new Module());
+    }
+
     newProject(): void {
         this.apf.project = new Project();
+        this.showHome();
     }
 }

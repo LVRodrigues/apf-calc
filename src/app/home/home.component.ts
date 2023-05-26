@@ -14,15 +14,13 @@ import { Title } from '@angular/platform-browser';
 })  
 export class HomeComponent {
 
-    project: Project;
     chartOptions: EChartsOption;
     chartUpdate!: EChartsOption;
 
     private data: DataT[];
     private timer: any;
 
-    constructor(apf: ApfService) {
-        this.project = apf.project;
+    constructor(public apf: ApfService) {
         this.chartOptions = this.prepareChartOptions();
         this.data = [];
         this.timer = setInterval(() => {
