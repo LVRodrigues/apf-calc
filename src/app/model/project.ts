@@ -1,7 +1,7 @@
 import { Module } from "./module";
 
 export class Project {
-    name!: string;
+    name!: string ;
     description: string | undefined;
     responsible: string | undefined;
     date!: Date;
@@ -10,8 +10,6 @@ export class Project {
     modules!: Module[];
 
     constructor() {
-        this.name = "Indefinido";
-        // this.description = "Aguardando descrição."
         this.date = new Date();
         this.modules = [];
         this.version = 1;

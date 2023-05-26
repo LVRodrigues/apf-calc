@@ -10,7 +10,6 @@ export class Function {
 
     constructor() {
         this.id = 0;
-        this.name = "Função indefinida";
         this.type = FunctionType.ALI;
         this.datas = [];
     }

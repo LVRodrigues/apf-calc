@@ -6,7 +6,6 @@ export class Module {
 
     constructor() {
         this.id = 0;
-        this.name = 'Novo Módulo';
         this.functions = [];
     }
 }
