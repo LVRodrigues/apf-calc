@@ -14,11 +14,9 @@
 }
 
 @mixin color($config) {
-    $accent: map.get($config, 'accent');
 }
 
 @mixin typography($config) {
-    
 }
 
 .project-detail {

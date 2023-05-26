@@ -3,6 +3,8 @@
 @use './app/menu/menu.component.scss' as menu;
 @use './app/footer/footer.component.scss' as footer;
 @use './app/home/home.component.scss' as home;
+@use './app/properties/properties.component.scss' as properties;
+@use './app/modules/modules.component.scss' as modules;
 
 @include mat.core();
 
@@ -30,6 +32,8 @@ $light-theme: mat.define-light-theme((
 @include menu.theme($dark-theme);
 @include footer.theme($dark-theme);
 @include home.theme($dark-theme);
+@include properties.theme($dark-theme);
+@include modules.theme($dark-theme);
 
 @media (prefers-color-scheme: light) {
     @include mat.core-theme($light-theme);
@@ -38,6 +42,8 @@ $light-theme: mat.define-light-theme((
     @include menu.theme($light-theme);
     @include footer.theme($light-theme);
     @include home.theme($light-theme);
+    @include properties.theme($light-theme);
+    @include modules.theme($light-theme);
 }
 
 html,

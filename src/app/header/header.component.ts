@@ -11,15 +11,12 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-    title: string;
-    project: Project;
 
     constructor(
-        app: AppComponent,
-        apf: ApfService,
-        private router: Router) {
-        this.title = app.title;
-        this.project = apf.project;
+        public app: AppComponent,
+        public apf: ApfService,
+        private router: Router)
+    {
     }
 
     canShow(): boolean {

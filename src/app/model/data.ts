@@ -5,6 +5,5 @@ export class Data {
 
     constructor() {
         this.id = 0;
-        this.name = "DER ou RLR";
     }
 }

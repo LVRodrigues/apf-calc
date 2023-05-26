@@ -1,11 +1,16 @@
 <mat-toolbar color="secundary" class="mat-toolbar-menu">
     <mat-toolbar-row>
+        <span class="title">
+            [
+                {{ title }}
+            ]
+        </span>
+        <span class="spacer"></span>
+
         <button mat-mini-fab color="accent" class="card-action-button" 
             (click)="showHome()" *ngIf="!isHome()" matTooltip="Início.">
             <mat-icon fontIcon="home"></mat-icon>
         </button>
-
-        <span class="spacer"></span>
 
         <button mat-mini-fab color="accent" class="card-action-button" 
             (click)="showProperties()" *ngIf="!isProperties()" matTooltip="Propriedades do projeto.">
@@ -14,10 +19,20 @@
 
         <button mat-mini-fab color="accent" class="card-action-button" 
             (click)="showModules()" *ngIf="!isModules()" matTooltip="Módulos.">
-            <mat-icon fontIcon="storage"></mat-icon>
+            <mat-icon fontIcon="format_list_bulleted"></mat-icon>
+        </button>
+
+        <button mat-mini-fab color="accent" class="card-action-button" 
+            (click)="showModules()" *ngIf="isModules()" matTooltip="Adicionar Novo Módulo.">
+            <mat-icon fontIcon="format_list_bulleted_add"></mat-icon>
         </button>
 
         <mat-divider vertical></mat-divider>
+
+        <button mat-mini-fab color="accent" class="card-action-button" 
+            (click)="newProject()" matTooltip="Novo Projeto.">
+            <mat-icon fontIcon="dashboard"></mat-icon>
+        </button>
 
         <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Importar APF.">
             <mat-icon fontIcon="upload_file"></mat-icon>
