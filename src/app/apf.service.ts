@@ -16,6 +16,7 @@ export class ApfService {
             let module: Module = new Module();
             module.id = i;
             module.name = 'Módulo ' + i;
+            module.description = 'Não há uma descrição importantes ou significativa que possa ser utilizada.'
             this.project.modules[i] = module;
         }
         this.project.name = 'Desenv'

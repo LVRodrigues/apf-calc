@@ -1,1 +1,107 @@
-<p>modules works!</p>
+<section class="container">
+    <ng-container *ngIf="modules.length; else noModules">
+        <mat-card *ngFor="let module of modules" class="module'">
+            <mat-toolbar color="primary">
+                <mat-toolbar-row>
+                    <span>{{ module.name }}</span>
+                    <span class="spacer"></span>
+                    <mat-divider vertical></mat-divider>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        matTooltip="Editar Módulo">
+                        <mat-icon fontIcon="edit"></mat-icon>
+                    </button>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        matTooltip="Excluir Módulo">
+                        <mat-icon fontIcon="delete"></mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-card-content>
+                <div class="container module-content">
+                    <span class="description">
+                        {{ module.description }}
+                    </span>
+                    <button mat-mini-fab color="accent"
+                        matTooltip="Nova Função">
+                        <mat-icon fontIcon="functions"></mat-icon>
+                    </button>
+                </div>
+                <div class="divTable module-counters center">
+                    <div class="divTableHeading">
+                        <div class="divTableRow">
+                            <div class="divTableHead module-counter-header">
+                                ALI
+                            </div>
+                            <div class="divTableHead module-counter-header">
+                                AIE
+                            </div>
+                            <div class="divTableHead module-counter-header">
+                                EE
+                            </div>
+                            <div class="divTableHead module-counter-header">
+                                CE
+                            </div>
+                            <div class="divTableHead module-counter-header">
+                                SE
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableHead module-counter-cell">
+                                0
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                0
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                0
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                0
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                0
+                            </div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+
+    <ng-template #noModules>
+        <mat-card class="module">
+            <mat-card-content>
+                Nenhum módulo encontrado...
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+</section>
