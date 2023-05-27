@@ -22,7 +22,8 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { PropertiesComponent } from './properties/properties.component';
 import { ModulesComponent } from './modules/modules.component';
-import { NewModuleDialogComponent } from './modules/module-dialog/module-dialog.component';
+import { ModuleDialogComponent } from './modules/module-dialog/module-dialog.component';
+import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NewModuleDialogComponent } from './modules/module-dialog/module-dialog.
     MenuComponent,
     PropertiesComponent,
     ModulesComponent,
-    NewModuleDialogComponent
+    ModuleDialogComponent,
+    ConfirmDialogComponent
   ],
   imports: [
     BrowserModule,

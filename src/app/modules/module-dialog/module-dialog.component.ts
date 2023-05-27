@@ -7,7 +7,7 @@ import { Module } from 'src/app/model/module';
     templateUrl: './module-dialog.component.html',
     styleUrls: ['./module-dialog.component.scss']
 })
-export class NewModuleDialogComponent {
+export class ModuleDialogComponent {
 
     constructor(
         @Inject(MAT_DIALOG_DATA) public data: Module) 
