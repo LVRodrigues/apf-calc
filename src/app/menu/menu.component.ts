@@ -4,6 +4,8 @@ import { filter, map } from 'rxjs';
 import { ApfService } from '../apf.service';
 import { Project } from '../model/project';
 import { Module } from '../model/module';
+import { MatDialog } from '@angular/material/dialog';
+import { NewModuleDialogComponent } from '../modules/module-dialog/module-dialog.component';
 
 @Component({
     selector: 'app-menu',
@@ -14,10 +16,14 @@ export class MenuComponent {
 
     title: string | undefined;
 
+    private opened: boolean;
+
     constructor(
         private router: Router,
         private apf: ApfService,
+        private dialog: MatDialog,
     ) {
+        this.opened = false;
         this.router.events
             .pipe(
                 filter((event: any) => event instanceof NavigationEnd),
@@ -63,7 +69,25 @@ export class MenuComponent {
     }
 
     newModule(): void {
-        this.apf.project.modules.push(new Module());
+        if (!this.opened) {
+            this.opened = true;
+            let module = new Module();
+            const dialogRef = this.dialog.open(NewModuleDialogComponent, {
+              data: module,
+              maxHeight: '100%',
+              width: '540px',
+              maxWidth: '100%',
+              disableClose: false,
+              hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((data: Module) => {
+              if (data) {
+                data.id = this.apf.project.modules.length + 1;
+                this.apf.project.modules.push(data);
+              }
+              this.opened = false;
+            });
+          }
     }
 
     newProject(): void {

@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -21,6 +22,7 @@ import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { PropertiesComponent } from './properties/properties.component';
 import { ModulesComponent } from './modules/modules.component';
+import { NewModuleDialogComponent } from './modules/module-dialog/module-dialog.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,8 @@ import { ModulesComponent } from './modules/modules.component';
     HomeComponent,
     MenuComponent,
     PropertiesComponent,
-    ModulesComponent
+    ModulesComponent,
+    NewModuleDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -46,6 +49,7 @@ import { ModulesComponent } from './modules/modules.component';
     MatInputModule,
     FormsModule,
     ReactiveFormsModule,
+    MatDialogModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })
