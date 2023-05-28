@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { ApfService } from '../apf.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Module } from '../model/module';
+import { ModuleDialogComponent } from './module-dialog/module-dialog.component';
 
 @Component({
     selector: 'app-modules',
@@ -18,6 +19,30 @@ export class ModulesComponent {
         public dialog: MatDialog) 
     {
         this.opened = false;
+    }
+
+    edit(module: Module): void {
+        if (!this.opened) {
+            this.opened = true;
+            let data = new Module();
+            data.name = module.name;
+            data.description = module.description;
+            const dialogRef = this.dialog.open(ModuleDialogComponent, {
+                data: data,
+                maxHeight: '100%',
+                width: '540px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((data: Module) => {
+                if (data) {
+                    module.name = data.name;
+                    module.description = data.description;
+                }
+                this.opened = false;
+            });
+        }
     }
 
     delete(module: Module): void {
