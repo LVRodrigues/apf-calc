@@ -4,6 +4,7 @@ import { ApfService } from '../apf.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Module } from '../model/module';
 import { ModuleDialogComponent } from './module-dialog/module-dialog.component';
+import { FunctionWizardComponent } from './function-wizard/function-wizard.component';
 
 @Component({
     selector: 'app-modules',
@@ -62,6 +63,27 @@ export class ModulesComponent {
             dialogRef.afterClosed().subscribe((result: boolean) => {
                 if (result) {
                     this.apf.project.modules = this.apf.project.modules.filter(item => item.id != module.id);
+                }
+                this.opened = false;
+            });
+        }
+    }
+
+    newFunction(module: Module): void {
+        if (!this.opened) {
+            this.opened = true;
+            const dialogRef = this.dialog.open(FunctionWizardComponent, {
+                data: {},
+                maxHeight: '100%',
+                width: '540px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((result: boolean) => {
+                if (result) {
+                    // this.apf.project.modules = this.apf.project.modules.filter(item => item.id != module.id);
+                    console.log("Nova função adicionada.")
                 }
                 this.opened = false;
             });

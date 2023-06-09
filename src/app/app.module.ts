@@ -11,6 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -24,6 +25,7 @@ import { PropertiesComponent } from './properties/properties.component';
 import { ModulesComponent } from './modules/modules.component';
 import { ModuleDialogComponent } from './modules/module-dialog/module-dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { FunctionWizardComponent } from './modules/function-wizard/function-wizard.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     PropertiesComponent,
     ModulesComponent,
     ModuleDialogComponent,
-    ConfirmDialogComponent
+    ConfirmDialogComponent,
+    FunctionWizardComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +55,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     FormsModule,
     ReactiveFormsModule,
     MatDialogModule,
+    MatRadioModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })
