@@ -23,7 +23,26 @@
     </div>
 
     <div *ngIf="page === PageType.DATA_TYPE">
-        Data Type
+        <h3>ALI/AIE</h3>
+        <mat-form-field>
+            <mat-label>Lista de DER</mat-label>
+            <mat-chip-grid #chipGrid>
+              <mat-chip-row *ngFor="let der of dataDERs"
+                            (removed)="dataDERRemove(der)"
+                            [editable]="true"
+                            (edited)="dataDEREdit(der, $event)">
+                {{ der.name }}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input placeholder="Adicionar DER..."
+                     [matChipInputFor]="chipGrid"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="dataDERAdd($event)"/>
+            </mat-chip-grid>
+          </mat-form-field>
     </div>
 
     <div *ngIf="page === PageType.TRANSACTION_TYPE">

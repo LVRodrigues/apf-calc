@@ -1,7 +1,9 @@
+import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FunctionType } from 'src/app/model/function-type';
 import { Function } from 'src/app/model/function';
+import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 
 
 enum PageType {
@@ -12,6 +14,10 @@ enum PageType {
 }
 
 export interface DialogData {
+}
+
+export interface DER {
+    name: string;
 }
 
 @Component({
@@ -29,8 +35,12 @@ export class FunctionWizardComponent {
     description: string | undefined;
     functionType: FunctionType | undefined;
 
+    readonly separatorKeysCodes = [ENTER, COMMA] as const;
+    dataDERs: DER[];
+
     constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
         this.page = PageType.SELECT_TYPE;
+        this.dataDERs = [];
     }
 
     isNextVisible(): boolean {
@@ -47,14 +57,14 @@ export class FunctionWizardComponent {
                 break;
             case PageType.TRANSACTION_TYPE:
                 break;
-        
+
         }
         return result;
     }
 
     canNextSelectType(): boolean {
         return ((this.name != undefined) && (this.name.trim().length > 0) &&
-                (this.functionType != undefined));
+            (this.functionType != undefined));
     }
 
     doNext() {
@@ -91,5 +101,35 @@ export class FunctionWizardComponent {
 
     canConfirm(): boolean {
         return false;
+    }
+
+    /**
+     * ALI e AIE (Data Page)
+     */
+    dataDERAdd(event: MatChipInputEvent): void {
+        const value = (event.value || '').trim();
+        if (value) {
+            this.dataDERs.push({ name: value });
+        }
+        event.chipInput!.clear();
+    }
+
+    dataDERRemove(der: DER): void {
+        const index = this.dataDERs.indexOf(der);
+        if (index >= 0) {
+            this.dataDERs.splice(index, 1);
+        }
+    }
+
+    dataDEREdit(der: DER, event: MatChipEditedEvent) {
+        const value = event.value.trim();
+        if (!value) {
+            this.dataDERRemove(der);
+            return;
+        }
+        const index = this.dataDERs.indexOf(der);
+        if (index >= 0) {
+            this.dataDERs[index].name = value;
+        }
     }
 }

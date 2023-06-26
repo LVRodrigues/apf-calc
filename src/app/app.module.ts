@@ -12,6 +12,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatChipsModule } from '@angular/material/chips';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -56,6 +57,7 @@ import { FunctionWizardComponent } from './modules/function-wizard/function-wiza
     ReactiveFormsModule,
     MatDialogModule,
     MatRadioModule,
+    MatChipsModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })
