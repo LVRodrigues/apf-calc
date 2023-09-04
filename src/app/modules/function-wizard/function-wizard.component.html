@@ -4,7 +4,7 @@
     <div *ngIf="page === PageType.SELECT_TYPE">
         <mat-form-field appearance="fill">
             <mat-label>Nome</mat-label>
-            <input matInput type="text" id="name" [(ngModel)]="name" 
+            <input matInput type="text" id="name" [(ngModel)]="name"
                 placeholder="Nome da Função.">
         </mat-form-field>
         <mat-form-field appearance="fill">
@@ -23,7 +23,8 @@
     </div>
 
     <div *ngIf="page === PageType.DATA_TYPE">
-        <h3>ALI/AIE</h3>
+        <h3 *ngIf="functionType === FunctionType.ALI">[ALI] - {{ name }}</h3>
+        <h3 *ngIf="functionType === FunctionType.AIE">[AIE] - {{ name }}</h3>
         <mat-form-field>
             <mat-label>Lista de DER</mat-label>
             <mat-chip-grid #chipGrid>
@@ -46,15 +47,29 @@
     </div>
 
     <div *ngIf="page === PageType.DATA_TYPE_EXTRA">
-        Data Type Extra
+        <h3 *ngIf="functionType === FunctionType.ALI">[ALI] - {{ name }}</h3>
+        <h3 *ngIf="functionType === FunctionType.AIE">[AIE] - {{ name }}</h3>
+        <h4>Funções relacionadas:</h4>
+        <mat-checkbox class="example-margin" [(ngModel)]="checkRead" [disabled]="true">Consultar</mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="checkCreate">Incluir</mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="checkUpdate">Alterar</mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="checkDelete">Excluir</mat-checkbox>
     </div>
 
     <div *ngIf="page === PageType.TRANSACTION_TYPE">
         Transaction Type
-    </div>    
+    </div>
 
     <div *ngIf="page === PageType.RESULT">
-        Result
+        <h3>{{ name }}</h3>
+        <p>Informados {{ dataDERs.length }} DERs.</p>
+        <p>Criar automaticamente as funções de:</p>
+        <ul>
+            <li *ngIf="checkRead">Consultar</li>
+            <li *ngIf="checkCreate">Incluir</li>
+            <li *ngIf="checkUpdate">Alterar</li>
+            <li *ngIf="checkDelete">Excluir</li>
+        </ul>
     </div>
 </div>
 <div mat-dialog-actions>
@@ -70,9 +85,9 @@
         Próximo
         <mat-icon>navigate_next</mat-icon>
     </button>
-    
-    <button mat-raised-button [mat-dialog-close]="true" color="accent" 
-        disabled="!canConfirm()" *ngIf="isConfirmVisible()">
+
+    <button mat-raised-button [mat-dialog-close]="true" color="accent"
+        disabled="{{ !canConfirm() }}" *ngIf="isConfirmVisible()" (click)="doConfirm()">
         Confirmar
         <mat-icon>check</mat-icon>
     </button>

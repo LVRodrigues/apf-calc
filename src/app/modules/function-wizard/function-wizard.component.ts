@@ -39,9 +39,18 @@ export class FunctionWizardComponent {
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
     dataDERs: DER[];
 
+    checkCreate: boolean | undefined;
+    checkRead: boolean | undefined;
+    checkUpdate: boolean | undefined;
+    checkDelete: boolean | undefined;
+
     constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
         this.page = PageType.SELECT_TYPE;
         this.dataDERs = [];
+        this.checkCreate = false;
+        this.checkRead = false;
+        this.checkUpdate = false;
+        this.checkDelete = false;
     }
 
     isNextVisible(): boolean {
@@ -56,6 +65,9 @@ export class FunctionWizardComponent {
                 break;
             case PageType.DATA_TYPE:
                 result = this.canNextDataType();
+                break;
+            case PageType.DATA_TYPE_EXTRA:
+                result = true;
                 break;
             case PageType.TRANSACTION_TYPE:
                 break;
@@ -84,10 +96,13 @@ export class FunctionWizardComponent {
                 break;
             case PageType.DATA_TYPE:
                 this.page = PageType.DATA_TYPE_EXTRA;
+                this.checkRead = true;
                 break;
             case PageType.DATA_TYPE_EXTRA:
+                this.page = PageType.RESULT;
                 break;
             case PageType.TRANSACTION_TYPE:
+                this.page = PageType.RESULT;
                 break;
         }
     }
@@ -101,7 +116,25 @@ export class FunctionWizardComponent {
     }
 
     doPrevious() {
-        this.page--;
+        switch (this.page) {
+            case PageType.SELECT_TYPE:
+                break;
+            case PageType.DATA_TYPE:
+                this.page = PageType.SELECT_TYPE;
+                break;
+            case PageType.DATA_TYPE_EXTRA:
+                this.page = PageType.DATA_TYPE;
+                break;
+            case PageType.TRANSACTION_TYPE:
+                this.page = PageType.SELECT_TYPE;
+                break;
+            case PageType.RESULT:
+                if (this.functionType === FunctionType.ALI || this.functionType === FunctionType.AIE) {                
+                    this.page = PageType.DATA_TYPE_EXTRA;
+                } else {
+                    this.page = PageType.TRANSACTION_TYPE;
+                }
+        }
     }
 
     isConfirmVisible(): boolean {
@@ -109,7 +142,7 @@ export class FunctionWizardComponent {
     }
 
     canConfirm(): boolean {
-        return false;
+        return this.page == PageType.RESULT;
     }
 
     /**
@@ -140,5 +173,9 @@ export class FunctionWizardComponent {
         if (index >= 0) {
             this.dataDERs[index].name = value;
         }
+    }
+
+    doConfirm(): void {
+
     }
 }
