@@ -9,6 +9,7 @@ import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 enum PageType {
     SELECT_TYPE,
     DATA_TYPE,
+    DATA_TYPE_EXTRA,
     TRANSACTION_TYPE,
     RESULT,
 }
@@ -54,6 +55,7 @@ export class FunctionWizardComponent {
                 result = this.canNextSelectType();
                 break;
             case PageType.DATA_TYPE:
+                result = this.canNextDataType();
                 break;
             case PageType.TRANSACTION_TYPE:
                 break;
@@ -67,6 +69,10 @@ export class FunctionWizardComponent {
             (this.functionType != undefined));
     }
 
+    canNextDataType(): boolean {
+        return this.dataDERs.length > 0;
+    }
+
     doNext() {
         switch (this.page) {
             case PageType.SELECT_TYPE:
@@ -77,6 +83,9 @@ export class FunctionWizardComponent {
                 }
                 break;
             case PageType.DATA_TYPE:
+                this.page = PageType.DATA_TYPE_EXTRA;
+                break;
+            case PageType.DATA_TYPE_EXTRA:
                 break;
             case PageType.TRANSACTION_TYPE:
                 break;

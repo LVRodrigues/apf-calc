@@ -45,9 +45,13 @@
           </mat-form-field>
     </div>
 
+    <div *ngIf="page === PageType.DATA_TYPE_EXTRA">
+        Data Type Extra
+    </div>
+
     <div *ngIf="page === PageType.TRANSACTION_TYPE">
         Transaction Type
-    </div>
+    </div>    
 
     <div *ngIf="page === PageType.RESULT">
         Result
