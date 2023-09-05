@@ -16,9 +16,9 @@
         <mat-radio-group [(ngModel)]="functionType">
             <mat-radio-button [value]="FunctionType.ALI">ALI</mat-radio-button>
             <mat-radio-button [value]="FunctionType.AIE">AIE</mat-radio-button>
-            <mat-radio-button [value]="FunctionType.EE">EE</mat-radio-button>
-            <mat-radio-button [value]="FunctionType.CE">CE</mat-radio-button>
-            <mat-radio-button [value]="FunctionType.SE">SE</mat-radio-button>
+            <mat-radio-button [value]="FunctionType.EE" [disabled]="!hasFunctionData()">EE</mat-radio-button>
+            <mat-radio-button [value]="FunctionType.CE" [disabled]="!hasFunctionData()">CE</mat-radio-button>
+            <mat-radio-button [value]="FunctionType.SE" [disabled]="!hasFunctionData()">SE</mat-radio-button>
         </mat-radio-group>
     </div>
 

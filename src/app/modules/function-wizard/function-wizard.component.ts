@@ -4,7 +4,6 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FunctionType } from 'src/app/model/function-type';
 import { FunctionAIE, FunctionALI, FunctionEE, FunctionCE, FunctionData } from 'src/app/model/function';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
-import { DataSource } from '@angular/cdk/collections';
 import { Data } from 'src/app/model/data';
 import { Module } from 'src/app/model/module';
 
@@ -135,7 +134,7 @@ export class FunctionWizardComponent {
                 this.page = PageType.SELECT_TYPE;
                 break;
             case PageType.RESULT:
-                if (this.functionType === FunctionType.ALI || this.functionType === FunctionType.AIE) {                
+                if (this.functionType === FunctionType.ALI || this.functionType === FunctionType.AIE) {
                     this.page = PageType.DATA_TYPE_EXTRA;
                 } else {
                     this.page = PageType.TRANSACTION_TYPE;
@@ -149,6 +148,17 @@ export class FunctionWizardComponent {
 
     canConfirm(): boolean {
         return this.page == PageType.RESULT;
+    }
+
+    hasFunctionData(): boolean {
+        let result = false;
+        for (let fun of this.current.functions) {
+            if (fun.type === FunctionType.ALI || fun.type === FunctionType.AIE) {
+                result = true;
+                break;
+            }
+        }
+        return result;
     }
 
     /**

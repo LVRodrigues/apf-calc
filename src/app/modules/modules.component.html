@@ -66,27 +66,32 @@
                         </div>
                         <div class="divTableRow">
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countALI(module) == 0"
+                                    matTooltip="Detalhes das Funções de Dados ALI"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countAIE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Dados AIE"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countCE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações CE"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countEE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações EE"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countSE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações SE">
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
