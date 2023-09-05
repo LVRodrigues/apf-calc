@@ -5,6 +5,7 @@ import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.compone
 import { Module } from '../model/module';
 import { ModuleDialogComponent } from './module-dialog/module-dialog.component';
 import { FunctionWizardComponent } from './function-wizard/function-wizard.component';
+import { FunctionType } from '../model/function-type';
 
 @Component({
     selector: 'app-modules',
@@ -69,11 +70,13 @@ export class ModulesComponent {
         }
     }
 
-    newFunction(module: Module): void {
+    newFunction(_module: Module): void {
         if (!this.opened) {
             this.opened = true;
             const dialogRef = this.dialog.open(FunctionWizardComponent, {
-                data: {},
+                data: {
+                    module: _module
+                },
                 maxHeight: '100%',
                 width: '540px',
                 maxWidth: '100%',
@@ -88,5 +91,35 @@ export class ModulesComponent {
                 this.opened = false;
             });
         }
+    }
+
+    private countFunctionByType(type: FunctionType, module: Module): number {
+        let count = 0;
+        module.functions.forEach(fun => {
+            if (fun.type === type) {
+                count++;
+            }
+        })
+        return count;
+    }
+
+    countALI(module: Module): number {
+        return this.countFunctionByType(FunctionType.ALI, module);
+    }
+
+    countAIE(module: Module): number {
+        return this.countFunctionByType(FunctionType.AIE, module);
+    }
+
+    countEE(module: Module): number {
+        return this.countFunctionByType(FunctionType.EE, module);
+    }
+
+    countSE(module: Module): number {
+        return this.countFunctionByType(FunctionType.SE, module);
+    }
+
+    countCE(module: Module): number {
+        return this.countFunctionByType(FunctionType.CE, module);
     }
 }

@@ -2,8 +2,11 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FunctionType } from 'src/app/model/function-type';
-import { Function } from 'src/app/model/function';
+import { FunctionAIE, FunctionALI, FunctionEE, FunctionCE, FunctionData } from 'src/app/model/function';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
+import { DataSource } from '@angular/cdk/collections';
+import { Data } from 'src/app/model/data';
+import { Module } from 'src/app/model/module';
 
 
 enum PageType {
@@ -15,6 +18,7 @@ enum PageType {
 }
 
 export interface DialogData {
+    module: Module;
 }
 
 export interface DER {
@@ -31,20 +35,22 @@ export class FunctionWizardComponent {
     page: PageType;
     PageType = PageType;
     FunctionType = FunctionType;
+    current: Module;
 
-    name: string | undefined;
-    description: string | undefined;
-    functionType: FunctionType | undefined;
+    name!: string;
+    description!: string;
+    functionType!: FunctionType;
 
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
     dataDERs: DER[];
 
-    checkCreate: boolean | undefined;
-    checkRead: boolean | undefined;
-    checkUpdate: boolean | undefined;
-    checkDelete: boolean | undefined;
+    checkCreate: boolean;
+    checkRead: boolean;
+    checkUpdate: boolean;
+    checkDelete: boolean;
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
+        this.current = data.module;
         this.page = PageType.SELECT_TYPE;
         this.dataDERs = [];
         this.checkCreate = false;
@@ -176,6 +182,74 @@ export class FunctionWizardComponent {
     }
 
     doConfirm(): void {
+        let last = 0;
+        this.current.functions.forEach(fun => {
+            if (fun.id > last) {
+                last = fun.id;
+            }
+        });
+        if (this.functionType === FunctionType.ALI || this.functionType === FunctionType.AIE) {
+            this.doConfirmFunctionData(last);
+        } else {
+            this.doConfirmFunctionTransaction(last);
+        }
+
+    }
+
+    private doConfirmFunctionData(last: number): void {
+        let fun: FunctionData;
+        if (this.functionType == FunctionType.ALI) {
+            fun = new FunctionALI();
+        } else {
+            fun = new FunctionAIE();
+        }
+        fun.id = ++last;
+        fun.name = this.name;
+        fun.description = this.description;
+        this.current.functions.push(fun);
+
+        let i = 0;
+        this.dataDERs.forEach(der => {
+            let data = new Data();
+            data.id = ++i;
+            data.name = der.name;
+            fun.datas.push(data);
+        });
+
+        if (this.checkRead) {
+            let ce = new FunctionCE();
+            ce.id = ++last;
+            ce.name = 'Consultar ' + fun.name;
+            ce.datas.push(fun);
+            this.current.functions.push(ce);
+        }
+
+        if (this.checkCreate) {
+            let ee = new FunctionEE();
+            ee.id = ++last;
+            ee.name = 'Inserir ' + fun.name;
+            ee.datas.push(fun);
+            this.current.functions.push(ee);
+        }
+
+        if (this.checkUpdate) {
+            let ee = new FunctionEE();
+            ee.id = ++last;
+            ee.name = 'Alterar ' + fun.name;
+            ee.datas.push(fun);
+            this.current.functions.push(ee);
+        }
+
+        if (this.checkDelete) {
+            let ee = new FunctionEE();
+            ee.id = ++last;
+            ee.name = 'Excluir ' + fun.name;
+            ee.datas.push(fun);
+            this.current.functions.push(ee);
+        }
+    }
+
+    private doConfirmFunctionTransaction(last: number): void {
 
     }
 }

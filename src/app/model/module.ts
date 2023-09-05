@@ -1,3 +1,5 @@
+import { Function } from "./function";
+
 export class Module {
     id!: number;
     name!: string;
