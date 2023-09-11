@@ -14,6 +14,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -60,6 +61,7 @@ import { FunctionWizardComponent } from './modules/function-wizard/function-wiza
     MatRadioModule,
     MatChipsModule,
     MatCheckboxModule,
+    MatListModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })

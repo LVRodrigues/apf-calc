@@ -16,8 +16,8 @@
         <mat-radio-group [(ngModel)]="functionType">
             <mat-radio-button [value]="FunctionType.ALI">ALI</mat-radio-button>
             <mat-radio-button [value]="FunctionType.AIE">AIE</mat-radio-button>
-            <mat-radio-button [value]="FunctionType.EE" [disabled]="!hasFunctionData()">EE</mat-radio-button>
             <mat-radio-button [value]="FunctionType.CE" [disabled]="!hasFunctionData()">CE</mat-radio-button>
+            <mat-radio-button [value]="FunctionType.EE" [disabled]="!hasFunctionData()">EE</mat-radio-button>
             <mat-radio-button [value]="FunctionType.SE" [disabled]="!hasFunctionData()">SE</mat-radio-button>
         </mat-radio-group>
     </div>
@@ -57,19 +57,39 @@
     </div>
 
     <div *ngIf="page === PageType.TRANSACTION_TYPE">
-        Transaction Type
+        <h3 *ngIf="functionType === FunctionType.CE">[CE] - {{ name }}</h3>
+        <h3 *ngIf="functionType === FunctionType.EE">[EE] - {{ name }}</h3>
+        <h3 *ngIf="functionType === FunctionType.SE">[SE] - {{ name }}</h3>
+        <h4>Funções relacionadas:</h4>
+        <mat-selection-list [(ngModel)]="selectedsDataFunctions" [compareWith]="compareFunctions">
+            <mat-list-option *ngFor="let fun of listFunctionData()" [value]="fun">
+                {{ fun.name }}
+            </mat-list-option>
+        </mat-selection-list>
     </div>
 
     <div *ngIf="page === PageType.RESULT">
         <h3>{{ name }}</h3>
-        <p>Informados {{ dataDERs.length }} DERs.</p>
-        <p>Criar automaticamente as funções de:</p>
-        <ul>
-            <li *ngIf="checkRead">Consultar</li>
-            <li *ngIf="checkCreate">Incluir</li>
-            <li *ngIf="checkUpdate">Alterar</li>
-            <li *ngIf="checkDelete">Excluir</li>
-        </ul>
+        <ng-template 
+            [ngIf]="functionType === FunctionType.ALI || functionType === FunctionType.AIE"
+            [ngIfThen]="resultData" [ngIfElse]="resultTransaction">
+        </ng-template>
+        <ng-template #resultData>
+            <p>Informados {{ dataDERs.length }} DERs.</p>
+            <p>Criar automaticamente as funções de:</p>
+            <ul>
+                <li *ngIf="checkRead">Consultar</li>
+                <li *ngIf="checkCreate">Incluir</li>
+                <li *ngIf="checkUpdate">Alterar</li>
+                <li *ngIf="checkDelete">Excluir</li>
+            </ul>
+        </ng-template>
+        <ng-template #resultTransaction>
+            <p>Associar com as funções de dados:</p>
+            <ul>
+                <li *ngFor="let fun of selectedsDataFunctions">{{ fun.name }}</li>
+            </ul>
+        </ng-template>
     </div>
 </div>
 <div mat-dialog-actions>

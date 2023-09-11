@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Project } from './model/project';
 import { Module } from './model/module';
+import { FunctionAIE, FunctionALI } from './model/function';
 
 @Injectable({
     providedIn: 'root'
@@ -19,6 +20,31 @@ export class ApfService {
         mod1.id = 1;
         mod1.name = 'Primeiro'
         this.project.modules.push(mod1);
+
+        let fun1 = new FunctionALI();
+        fun1.id = 1;
+        fun1.name = 'Usuários';
+        fun1.description = 'Informações de Usuários do Sistema';
+        fun1.datas = [
+            {id: 1, name: 'id', description: undefined},
+            {id: 2, name: 'nome', description: undefined},
+            {id: 3, name: 'email', description: undefined},
+            {id: 4, name: 'endereco', description: undefined},
+            {id: 5, name: 'telefone', description: undefined},
+            {id: 6, name: 'cpf', description: undefined}
+        ]
+        mod1.functions.push(fun1);
+
+        let fun2 = new FunctionAIE();
+        fun2.id = 2;
+        fun2.name = 'LDAP';
+        fun2.description = 'Informações de Usuários do Externos';
+        fun2.datas = [
+            {id: 1, name: 'id', description: undefined},
+            {id: 2, name: 'nome', description: undefined},
+            {id: 3, name: 'email', description: undefined}
+        ]
+        mod1.functions.push(fun2);
 
         let mod2 = new Module();
         mod2.id = 2;

@@ -2,7 +2,7 @@ import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FunctionType } from 'src/app/model/function-type';
-import { FunctionAIE, FunctionALI, FunctionEE, FunctionCE, FunctionData } from 'src/app/model/function';
+import { Function, FunctionAIE, FunctionALI, FunctionEE, FunctionCE, FunctionData, FunctionTransaction, FunctionSE } from 'src/app/model/function';
 import { MatChipEditedEvent, MatChipInputEvent } from '@angular/material/chips';
 import { Data } from 'src/app/model/data';
 import { Module } from 'src/app/model/module';
@@ -48,6 +48,9 @@ export class FunctionWizardComponent {
     checkUpdate: boolean;
     checkDelete: boolean;
 
+    selectedsDataFunctions: FunctionData[];
+    compareFunctions = (o1: Function, o2: Function) => o1.id===o2.id;
+
     constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
         this.current = data.module;
         this.page = PageType.SELECT_TYPE;
@@ -56,6 +59,7 @@ export class FunctionWizardComponent {
         this.checkRead = false;
         this.checkUpdate = false;
         this.checkDelete = false;
+        this.selectedsDataFunctions = [];
     }
 
     isNextVisible(): boolean {
@@ -75,6 +79,7 @@ export class FunctionWizardComponent {
                 result = true;
                 break;
             case PageType.TRANSACTION_TYPE:
+                result = this.canNextTransactionType();
                 break;
 
         }
@@ -88,6 +93,10 @@ export class FunctionWizardComponent {
 
     canNextDataType(): boolean {
         return this.dataDERs.length > 0;
+    }
+
+    canNextTransactionType(): boolean {
+        return this.selectedsDataFunctions.length > 0;
     }
 
     doNext() {
@@ -150,17 +159,6 @@ export class FunctionWizardComponent {
         return this.page == PageType.RESULT;
     }
 
-    hasFunctionData(): boolean {
-        let result = false;
-        for (let fun of this.current.functions) {
-            if (fun.type === FunctionType.ALI || fun.type === FunctionType.AIE) {
-                result = true;
-                break;
-            }
-        }
-        return result;
-    }
-
     /**
      * ALI e AIE (Data Page)
      */
@@ -189,6 +187,31 @@ export class FunctionWizardComponent {
         if (index >= 0) {
             this.dataDERs[index].name = value;
         }
+    }
+
+    /*
+     * CE, EE e SE Page
+     */
+
+    hasFunctionData(): boolean {
+        let result = false;
+        for (let fun of this.current.functions) {
+            if (fun instanceof FunctionData) {
+                result = true;
+                break;
+            }
+        }
+        return result;
+    }
+
+    listFunctionData(): FunctionData[] {
+        let result: FunctionData[] = [];
+        for (let fun of this.current.functions) {
+            if (fun instanceof FunctionData) {
+                result.push(fun as FunctionData);
+            }
+        }
+        return result;
     }
 
     doConfirm(): void {
@@ -260,6 +283,27 @@ export class FunctionWizardComponent {
     }
 
     private doConfirmFunctionTransaction(last: number): void {
-
+        let fun: FunctionTransaction;
+        switch (this.functionType) {
+            case FunctionType.CE:
+                fun = new FunctionCE();
+                break;
+            case FunctionType.EE:
+                fun = new FunctionEE();
+                break;
+            case FunctionType.SE:
+                fun = new FunctionSE();
+                break;
+            default:
+                // FIXME Notificar falha.
+                return;
+        }
+        fun.id = ++last;
+        fun.name = this.name;
+        fun.description = this.description;
+        for (let data of this.selectedsDataFunctions) {
+            fun.datas.push(data);
+        }
+        this.current.functions.push(fun);
     }
 }
