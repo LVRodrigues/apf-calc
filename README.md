@@ -8,3 +8,5 @@ Calculadora de esforço de projeto usando Pontos de Função.
 
 * Angular 16
 * SAAS
+* eCharts
+* XML

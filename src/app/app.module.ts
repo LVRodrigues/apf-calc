@@ -29,6 +29,7 @@ import { ModulesComponent } from './modules/modules.component';
 import { ModuleDialogComponent } from './modules/module-dialog/module-dialog.component';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { FunctionWizardComponent } from './modules/function-wizard/function-wizard.component';
+import { ModuleDetailsComponent } from './modules/module-details/module-details.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { FunctionWizardComponent } from './modules/function-wizard/function-wiza
     ModulesComponent,
     ModuleDialogComponent,
     ConfirmDialogComponent,
-    FunctionWizardComponent
+    FunctionWizardComponent,
+    ModuleDetailsComponent
   ],
   imports: [
     BrowserModule,

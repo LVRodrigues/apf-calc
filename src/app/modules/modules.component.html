@@ -67,7 +67,8 @@
                         <div class="divTableRow">
                             <div class="divTableHead module-counter-cell">
                                 <button mat-mini-fab color="accent" [disabled]="countALI(module) == 0"
-                                    matTooltip="Detalhes das Funções de Dados ALI"> 
+                                    matTooltip="Detalhes das Funções de Dados ALI"
+                                    (click)="showDetail(module)"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>

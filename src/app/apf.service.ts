@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Project } from './model/project';
 import { Module } from './model/module';
-import { FunctionAIE, FunctionALI } from './model/function';
+import { FunctionAIE, FunctionALI, FunctionCE } from './model/function';
 
 @Injectable({
     providedIn: 'root'
@@ -26,12 +26,12 @@ export class ApfService {
         fun1.name = 'Usuários';
         fun1.description = 'Informações de Usuários do Sistema';
         fun1.datas = [
-            {id: 1, name: 'id', description: undefined},
-            {id: 2, name: 'nome', description: undefined},
-            {id: 3, name: 'email', description: undefined},
-            {id: 4, name: 'endereco', description: undefined},
-            {id: 5, name: 'telefone', description: undefined},
-            {id: 6, name: 'cpf', description: undefined}
+            { id: 1, name: 'id', description: undefined },
+            { id: 2, name: 'nome', description: undefined },
+            { id: 3, name: 'email', description: undefined },
+            { id: 4, name: 'endereco', description: undefined },
+            { id: 5, name: 'telefone', description: undefined },
+            { id: 6, name: 'cpf', description: undefined }
         ]
         mod1.functions.push(fun1);
 
@@ -40,11 +40,19 @@ export class ApfService {
         fun2.name = 'LDAP';
         fun2.description = 'Informações de Usuários do Externos';
         fun2.datas = [
-            {id: 1, name: 'id', description: undefined},
-            {id: 2, name: 'nome', description: undefined},
-            {id: 3, name: 'email', description: undefined}
+            { id: 1, name: 'id', description: undefined },
+            { id: 2, name: 'nome', description: undefined },
+            { id: 3, name: 'email', description: undefined }
         ]
         mod1.functions.push(fun2);
+
+        let fun3 = new FunctionCE();
+        fun3.id = 3;
+        fun3.name = 'Consultar';
+        fun3.description = 'Consultar Usuários e LDAP';
+        fun3.datas.push(fun1);
+        fun3.datas.push(fun2);
+        mod1.functions.push(fun3);
 
         let mod2 = new Module();
         mod2.id = 2;

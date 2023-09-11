@@ -6,6 +6,7 @@ import { Module } from '../model/module';
 import { ModuleDialogComponent } from './module-dialog/module-dialog.component';
 import { FunctionWizardComponent } from './function-wizard/function-wizard.component';
 import { FunctionType } from '../model/function-type';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-modules',
@@ -18,7 +19,8 @@ export class ModulesComponent {
 
     constructor(
         public apf: ApfService,
-        public dialog: MatDialog) 
+        public dialog: MatDialog,
+        public router: Router) 
     {
         this.opened = false;
     }
@@ -121,5 +123,9 @@ export class ModulesComponent {
 
     countCE(module: Module): number {
         return this.countFunctionByType(FunctionType.CE, module);
+    }
+
+    showDetail(module: Module): void {
+        this.router.navigate(['module-details', module]);
     }
 }
