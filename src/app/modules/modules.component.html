@@ -1,0 +1,116 @@
+<section class="container">
+    <ng-container *ngIf="apf.project.modules.length; else noModules">
+        <mat-card *ngFor="let module of apf.project.modules" class="module'">
+            <mat-toolbar color="primary">
+                <mat-toolbar-row>
+                    <span>{{ module.name }}</span>
+                    <span class="spacer"></span>
+                    <mat-divider vertical></mat-divider>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        (click)="edit(module)" matTooltip="Editar Módulo">
+                        <mat-icon fontIcon="edit"></mat-icon>
+                    </button>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        (click)="delete(module)" matTooltip="Excluir Módulo">
+                        <mat-icon fontIcon="delete"></mat-icon>
+                    </button>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        (click)="newFunction(module)" matTooltip="Nova Função">
+                        <mat-icon fontIcon="functions"></mat-icon>
+                    </button>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        (click)="showDetail(module)" matTooltip="Gráfico de Detalhes">
+                        <mat-icon fontIcon="account_tree"></mat-icon>
+                    </button>
+                </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-card-content>
+                <div class="container module-content">
+                    <span class="description">
+                        {{ module.description }}
+                    </span>
+                </div>
+                <div class="divTable module-counters center">
+                    <div class="divTableHeading">
+                        <div class="divTableRow">
+                            <div class="divTableHead module-counter-header">
+                                ALI
+                            </div>
+                            <div class="divTableHead module-counter-header">
+                                AIE
+                            </div>
+                            <div class="divTableHead module-counter-header">
+                                CE
+                            </div>
+                            <div class="divTableHead module-counter-header">
+                                EE
+                            </div>
+                            <div class="divTableHead module-counter-header">
+                                SE
+                            </div>
+                        </div>
+                    </div>
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableHead module-counter-cell">
+                                {{ countALI(module) }}
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                {{ countAIE(module) }}
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                {{ countCE(module) }}
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                {{ countEE(module) }}
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                {{ countSE(module) }}
+                            </div>
+                        </div>
+                        <div class="divTableRow">
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent" [disabled]="countALI(module) == 0"
+                                    matTooltip="Detalhes das Funções de Dados ALI"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent" [disabled]="countAIE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Dados AIE"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent" [disabled]="countCE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações CE"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent" [disabled]="countEE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações EE"> 
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                            <div class="divTableHead module-counter-cell">
+                                <button mat-mini-fab color="accent" [disabled]="countSE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações SE">
+                                    <mat-icon fontIcon="checklist"></mat-icon>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </ng-container>
+
+    <ng-template #noModules>
+        <mat-card class="module">
+            <mat-card-content>
+                Nenhum módulo encontrado...
+            </mat-card-content>
+        </mat-card>
+    </ng-template>
+</section>

@@ -1,0 +1,65 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    @if $color-config !=null {
+        @include color($color-config);
+    }
+
+    $typography-config: mat.get-typography-config($theme);
+    @if $typography-config !=null {
+        @include typography($typography-config);
+    }
+}
+
+@mixin color($config) {
+    $color: map.get($config, 'accent');
+    
+    .module-counter-header {
+        background-color: mat.get-color-from-palette($color, default);
+        color: mat.get-color-from-palette($color, default-contrast);;
+    }
+    
+    .module-counter-cell {
+        background-color: mat.get-color-from-palette($color, A100);
+        color: mat.get-color-from-palette($color, A100-contrast);;
+    }    
+}
+
+@mixin typography($config) {
+}
+
+.module-content {
+    margin-bottom: 1em;
+    justify-items: flex-end;
+    align-items: flex-end;
+}
+
+.description {
+    word-wrap: normal;
+    max-width: 280px;
+    height: auto;
+}
+
+.module {
+    flex: 12 2 auto;
+}
+
+.module-counters {
+    text-align: center;
+}
+
+.module-counter-header {
+    width: 50px;
+    display: table-cell;
+    background-clip: padding-box;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}
+
+.module-counter-cell {
+    background-clip: padding-box;
+    border: 1px solid transparent;
+    border-radius: 5px;
+}

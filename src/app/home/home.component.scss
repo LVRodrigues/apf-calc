@@ -1,0 +1,40 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    @if $color-config !=null {
+        @include color($color-config);
+    }
+
+    $typography-config: mat.get-typography-config($theme);
+    @if $typography-config !=null {
+        @include typography($typography-config);
+    }
+}
+
+@mixin color($config) {
+    $primary: map.get($config, 'primary');
+
+    .card-action-bar {
+        background-color: mat.get-color-from-palette($primary, default);
+    }    
+}
+
+@mixin typography($config) {
+}
+
+.home-project {
+    flex: 4 1 auto
+}
+
+.home-graphic {
+    flex: 8 3 auto
+}
+
+.chart {
+    margin: auto;
+    margin-top: -80px;
+    height: 330px;
+    width: 330px;
+}

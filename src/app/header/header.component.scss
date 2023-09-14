@@ -1,0 +1,25 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    @if $color-config !=null {
+        @include color($color-config);
+    }
+
+    $typography-config: mat.get-typography-config($theme);
+    @if $typography-config !=null {
+        @include typography($typography-config);
+    }
+}
+
+@mixin color($config) {
+}
+
+@mixin typography($config) {
+}
+
+.project-detail {
+    font-size: x-small;
+    line-height: normal;
+}

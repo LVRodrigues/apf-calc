@@ -1,0 +1,55 @@
+<section class="container">
+
+    <mat-card class="home-project">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <span>Propriedades</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-card-content class="divTable">
+            <div class="divTableBody">
+                <div class="divTableRow">
+                    <div class="divTableHeading">Projeto:</div>
+                    <div class="divTableCell">{{ apf.project.name }}</div>
+                </div>
+                
+                <div class="divTableRow">
+                    <div class="divTableHeading">Descrição:</div>
+                    <div class="divTableCell">{{ apf.project.description }}</div>
+                </div>
+                
+                <div class="divTableRow">
+                    <div class="divTableHeading">Responsável:</div>
+                    <div class="divTableCell">{{ apf.project.responsible }}</div>
+                </div>
+
+                <div class="divTableRow">
+                    <div class="divTableHeading">Data:</div>
+                    <div class="divTableCell">{{ apf.project.date | date: 'dd/MM/yyyy' }}</div>
+                </div>                
+
+                <div class="divTableRow">
+                    <div class="divTableHeading">Modulos:</div>
+                    <div class="divTableCell">{{ apf.project.modules.length }}</div>
+                </div>
+
+                <div class="divTableRow">
+                    <div class="divTableHeading">Total:</div>
+                    <div class="divTableCell">{{ apf.project.score }} pontos</div>
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="home-graphic">
+        <mat-toolbar color="primary">
+            <mat-toolbar-row>
+                <span>Distribuição de Horas</span>
+            </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-card-content>
+            <section echarts class="chart" [options]="chartOptions" [merge]="chartUpdate"></section>
+        </mat-card-content>
+    </mat-card>
+    
+</section>

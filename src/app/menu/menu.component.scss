@@ -1,0 +1,33 @@
+@use 'sass:map';
+@use '@angular/material' as mat;
+
+@mixin theme($theme) {
+    $color-config: mat.get-color-config($theme);
+    @if $color-config !=null {
+        @include color($color-config);
+    }
+
+    $typography-config: mat.get-typography-config($theme);
+    @if $typography-config !=null {
+        @include typography($typography-config);
+    }
+}
+
+@mixin color($config) {
+    $accent: map.get($config, 'accent');
+
+    .mat-toolbar-menu {
+        box-shadow: 0px 5px 5px mat.get-color-from-palette($accent);
+    }   
+
+    .title {
+        color: mat.get-color-from-palette($accent);
+    }
+}
+
+@mixin typography($config) {
+}
+
+.title {
+    font-size: x-large;
+}

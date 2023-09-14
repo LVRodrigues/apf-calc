@@ -1,39 +1,135 @@
-
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
+@use './app/header/header.component.scss' as header;
+@use './app/menu/menu.component.scss' as menu;
+@use './app/footer/footer.component.scss' as footer;
+@use './app/home/home.component.scss' as home;
+@use './app/properties/properties.component.scss' as properties;
+@use './app/modules/modules.component.scss' as modules;
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$apf-calc-primary: mat.define-palette(mat.$indigo-palette);
-$apf-calc-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$apf-calc-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$apf-calc-theme: mat.define-light-theme((
-  color: (
-    primary: $apf-calc-primary,
-    accent: $apf-calc-accent,
-    warn: $apf-calc-warn,
-  )
+$dark-theme: mat.define-dark-theme((
+    color: (
+        primary: mat.define-palette(mat.$brown-palette, 900),
+        accent: mat.define-palette(mat.$orange-palette, A200, A400, A700),
+        warn: mat.define-palette(mat.$red-palette),
+    ),
+    typography: mat.define-typography-config(),
+    density: 0,
 ));
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-@include mat.all-component-themes($apf-calc-theme);
+$light-theme: mat.define-light-theme((
+    color: (
+        primary: mat.define-palette(mat.$brown-palette, 500),
+        accent: mat.define-palette(mat.$orange-palette, A200, A400, A700),
+        warn: mat.define-palette(mat.$red-palette),
+    ),
+));
 
-/* You can add global styles to this file, and also import other style files */
+@include mat.core-theme($dark-theme);
+@include mat.all-component-themes($dark-theme);
+@include header.theme($dark-theme);
+@include menu.theme($dark-theme);
+@include footer.theme($dark-theme);
+@include home.theme($dark-theme);
+@include properties.theme($dark-theme);
+@include modules.theme($dark-theme);
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+@media (prefers-color-scheme: light) {
+    @include mat.core-theme($light-theme);
+    @include mat.all-component-themes($light-theme);
+    @include header.theme($light-theme);
+    @include menu.theme($light-theme);
+    @include footer.theme($light-theme);
+    @include home.theme($light-theme);
+    @include properties.theme($light-theme);
+    @include modules.theme($light-theme);
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+
+main {
+    min-height: calc(100vh - 256px + 1em);
+    margin-top: calc(128px + 2em);
+    margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: space-between;
+    justify-items: center;
+    gap: 1em;
+    z-index: 0;
+  }
+
+.center {
+    margin: auto;
+}
+
+.spacer {
+    flex: 1 1 auto;
+}
+
+.card-action-button {
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.mat-divider-vertical {
+    height: 80%;
+    margin: 10px !important;
+}
+
+.mat-mdc-card-content {
+    margin-top: 1em;
+}
+
+.mat-mdc-form-field {
+    width: 100%;
+}
+
+.divTable{
+	display: table;
+}
+.divTableRow {
+	display: table-row;
+}
+.divTableHeading {
+	display: table-header-group;
+}
+.divTableCell, .divTableHead {
+	display: table-cell;
+	padding: 3px;
+}
+.divTableHeading {
+	display: table-header-group;
+	font-weight: bold;
+}
+.divTableFoot {
+	display: table-footer-group;
+	font-weight: bold;
+}
+.divTableBody {
+	display: table-row-group;
+}
