@@ -1,5 +1,11 @@
-<p>module-details works!</p>
-<p>Múdulo: {{ module.id }}</p>
-<p>Name: {{ module.name }}</p>
-<p>Descrição: {{ module.description }}</p>
-<p>Funções: {{ module.functions }}</p>
+<section class="container">
+
+    <mat-card class="module-detail-card">
+        <mat-toolbar color="primary">
+            {{ module.name }}
+        </mat-toolbar>
+        <mat-card-content>
+            <section echarts [options]="chartOptions" [merge]="chartUpdate"></section>
+        </mat-card-content>
+    </mat-card>
+</section>
