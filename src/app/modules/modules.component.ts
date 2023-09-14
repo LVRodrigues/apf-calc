@@ -125,7 +125,7 @@ export class ModulesComponent {
         return this.countFunctionByType(FunctionType.CE, module);
     }
 
-    showDetail(module: Module): void {
-        this.router.navigate(['module-details', module]);
+    showGraph(module: Module): void {
+        this.router.navigate(['module-graph', module]);
     }
 }
