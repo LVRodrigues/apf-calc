@@ -14,6 +14,14 @@
                         (click)="delete(module)" matTooltip="Excluir Módulo">
                         <mat-icon fontIcon="delete"></mat-icon>
                     </button>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        (click)="newFunction(module)" matTooltip="Nova Função">
+                        <mat-icon fontIcon="functions"></mat-icon>
+                    </button>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        (click)="showDetail(module)" matTooltip="Gráfico de Detalhes">
+                        <mat-icon fontIcon="account_tree"></mat-icon>
+                    </button>
                 </mat-toolbar-row>
             </mat-toolbar>
             <mat-card-content>
@@ -21,10 +29,6 @@
                     <span class="description">
                         {{ module.description }}
                     </span>
-                    <button mat-mini-fab color="accent"
-                        matTooltip="Nova Função">
-                        <mat-icon fontIcon="functions"></mat-icon>
-                    </button>
                 </div>
                 <div class="divTable module-counters center">
                     <div class="divTableHeading">
@@ -36,10 +40,10 @@
                                 AIE
                             </div>
                             <div class="divTableHead module-counter-header">
-                                EE
+                                CE
                             </div>
                             <div class="divTableHead module-counter-header">
-                                CE
+                                EE
                             </div>
                             <div class="divTableHead module-counter-header">
                                 SE
@@ -49,44 +53,49 @@
                     <div class="divTableBody">
                         <div class="divTableRow">
                             <div class="divTableHead module-counter-cell">
-                                0
+                                {{ countALI(module) }}
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                0
+                                {{ countAIE(module) }}
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                0
+                                {{ countCE(module) }}
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                0
+                                {{ countEE(module) }}
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                0
+                                {{ countSE(module) }}
                             </div>
                         </div>
                         <div class="divTableRow">
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countALI(module) == 0"
+                                    matTooltip="Detalhes das Funções de Dados ALI"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countAIE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Dados AIE"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countCE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações CE"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countEE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações EE"> 
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>
                             <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent"> 
+                                <button mat-mini-fab color="accent" [disabled]="countSE(module) == 0"
+                                    matTooltip="Detalhes das Funções de Transações SE">
                                     <mat-icon fontIcon="checklist"></mat-icon>
                                 </button>
                             </div>

@@ -1,0 +1,11 @@
+<section class="container">
+
+    <mat-card class="module-detail-card">
+        <mat-toolbar color="primary">
+            {{ module.name }}
+        </mat-toolbar>
+        <mat-card-content>
+            <section echarts [options]="chartOptions" [merge]="chartUpdate"></section>
+        </mat-card-content>
+    </mat-card>
+</section>

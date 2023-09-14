@@ -1,0 +1,118 @@
+<h1 mat-dialog-title>Nova Função</h1>
+
+<div mat-dialog-content>
+    <div *ngIf="page === PageType.SELECT_TYPE">
+        <mat-form-field appearance="fill">
+            <mat-label>Nome</mat-label>
+            <input matInput type="text" id="name" [(ngModel)]="name"
+                placeholder="Nome da Função.">
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+            <mat-label>Descrição</mat-label>
+            <input matInput type="text" id="description" [(ngModel)]="description"
+                placeholder="Descrição sobre a Função.">
+        </mat-form-field>
+        <label>Tipo de Função:</label>
+        <mat-radio-group [(ngModel)]="functionType">
+            <mat-radio-button [value]="FunctionType.ALI">ALI</mat-radio-button>
+            <mat-radio-button [value]="FunctionType.AIE">AIE</mat-radio-button>
+            <mat-radio-button [value]="FunctionType.CE" [disabled]="!hasFunctionData()">CE</mat-radio-button>
+            <mat-radio-button [value]="FunctionType.EE" [disabled]="!hasFunctionData()">EE</mat-radio-button>
+            <mat-radio-button [value]="FunctionType.SE" [disabled]="!hasFunctionData()">SE</mat-radio-button>
+        </mat-radio-group>
+    </div>
+
+    <div *ngIf="page === PageType.DATA_TYPE">
+        <h3 *ngIf="functionType === FunctionType.ALI">[ALI] - {{ name }}</h3>
+        <h3 *ngIf="functionType === FunctionType.AIE">[AIE] - {{ name }}</h3>
+        <mat-form-field>
+            <mat-label>Lista de DER</mat-label>
+            <mat-chip-grid #chipGrid>
+              <mat-chip-row *ngFor="let der of dataDERs"
+                            (removed)="dataDERRemove(der)"
+                            [editable]="true"
+                            (edited)="dataDEREdit(der, $event)">
+                {{ der.name }}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input placeholder="Adicionar DER..."
+                     [matChipInputFor]="chipGrid"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="dataDERAdd($event)"/>
+            </mat-chip-grid>
+          </mat-form-field>
+    </div>
+
+    <div *ngIf="page === PageType.DATA_TYPE_EXTRA">
+        <h3 *ngIf="functionType === FunctionType.ALI">[ALI] - {{ name }}</h3>
+        <h3 *ngIf="functionType === FunctionType.AIE">[AIE] - {{ name }}</h3>
+        <h4>Funções relacionadas:</h4>
+        <mat-checkbox class="example-margin" [(ngModel)]="checkRead" [disabled]="true">Consultar</mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="checkCreate">Incluir</mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="checkUpdate">Alterar</mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="checkDelete">Excluir</mat-checkbox>
+    </div>
+
+    <div *ngIf="page === PageType.TRANSACTION_TYPE">
+        <h3 *ngIf="functionType === FunctionType.CE">[CE] - {{ name }}</h3>
+        <h3 *ngIf="functionType === FunctionType.EE">[EE] - {{ name }}</h3>
+        <h3 *ngIf="functionType === FunctionType.SE">[SE] - {{ name }}</h3>
+        <h4>Funções relacionadas:</h4>
+        <mat-selection-list [(ngModel)]="selectedsDataFunctions" [compareWith]="compareFunctions">
+            <mat-list-option *ngFor="let fun of listFunctionData()" [value]="fun">
+                {{ fun.name }}
+            </mat-list-option>
+        </mat-selection-list>
+    </div>
+
+    <div *ngIf="page === PageType.RESULT">
+        <h3>{{ name }}</h3>
+        <ng-template 
+            [ngIf]="functionType === FunctionType.ALI || functionType === FunctionType.AIE"
+            [ngIfThen]="resultData" [ngIfElse]="resultTransaction">
+        </ng-template>
+        <ng-template #resultData>
+            <p>Informados {{ dataDERs.length }} DERs.</p>
+            <p>Criar automaticamente as funções de:</p>
+            <ul>
+                <li *ngIf="checkRead">Consultar</li>
+                <li *ngIf="checkCreate">Incluir</li>
+                <li *ngIf="checkUpdate">Alterar</li>
+                <li *ngIf="checkDelete">Excluir</li>
+            </ul>
+        </ng-template>
+        <ng-template #resultTransaction>
+            <p>Associar com as funções de dados:</p>
+            <ul>
+                <li *ngFor="let fun of selectedsDataFunctions">{{ fun.name }}</li>
+            </ul>
+        </ng-template>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <hr width="100%">
+    <span class="spacer"></span>
+    <button mat-raised-button color="accent" disabled="{{ !canPrevious() }}" *ngIf="isPreviousVisible()"
+        (click)="doPrevious()">
+        Anterior
+        <mat-icon>navigate_before</mat-icon>
+    </button>
+    <button mat-raised-button color="accent" disabled="{{ !canNext() }}" *ngIf="isNextVisible()"
+        (click)="doNext()">
+        Próximo
+        <mat-icon>navigate_next</mat-icon>
+    </button>
+
+    <button mat-raised-button [mat-dialog-close]="true" color="accent"
+        disabled="{{ !canConfirm() }}" *ngIf="isConfirmVisible()" (click)="doConfirm()">
+        Confirmar
+        <mat-icon>check</mat-icon>
+    </button>
+    <button mat-raised-button mat-dialog-close color="accent">
+        Cancelar
+        <mat-icon>cancel</mat-icon>
+    </button>
+</div>

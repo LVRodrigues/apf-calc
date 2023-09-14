@@ -4,6 +4,9 @@ import { ApfService } from '../apf.service';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
 import { Module } from '../model/module';
 import { ModuleDialogComponent } from './module-dialog/module-dialog.component';
+import { FunctionWizardComponent } from './function-wizard/function-wizard.component';
+import { FunctionType } from '../model/function-type';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-modules',
@@ -16,7 +19,8 @@ export class ModulesComponent {
 
     constructor(
         public apf: ApfService,
-        public dialog: MatDialog) 
+        public dialog: MatDialog,
+        public router: Router) 
     {
         this.opened = false;
     }
@@ -66,5 +70,62 @@ export class ModulesComponent {
                 this.opened = false;
             });
         }
+    }
+
+    newFunction(_module: Module): void {
+        if (!this.opened) {
+            this.opened = true;
+            const dialogRef = this.dialog.open(FunctionWizardComponent, {
+                data: {
+                    module: _module
+                },
+                maxHeight: '100%',
+                width: '540px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((result: boolean) => {
+                if (result) {
+                    // this.apf.project.modules = this.apf.project.modules.filter(item => item.id != module.id);
+                    console.log("Nova função adicionada.")
+                }
+                this.opened = false;
+            });
+        }
+    }
+
+    private countFunctionByType(type: FunctionType, module: Module): number {
+        let count = 0;
+        module.functions.forEach(fun => {
+            if (fun.type === type) {
+                count++;
+            }
+        })
+        return count;
+    }
+
+    countALI(module: Module): number {
+        return this.countFunctionByType(FunctionType.ALI, module);
+    }
+
+    countAIE(module: Module): number {
+        return this.countFunctionByType(FunctionType.AIE, module);
+    }
+
+    countEE(module: Module): number {
+        return this.countFunctionByType(FunctionType.EE, module);
+    }
+
+    countSE(module: Module): number {
+        return this.countFunctionByType(FunctionType.SE, module);
+    }
+
+    countCE(module: Module): number {
+        return this.countFunctionByType(FunctionType.CE, module);
+    }
+
+    showDetail(module: Module): void {
+        this.router.navigate(['module-details', module]);
     }
 }
