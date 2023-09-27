@@ -7,6 +7,7 @@ import { ModuleDialogComponent } from './module-dialog/module-dialog.component';
 import { FunctionWizardComponent } from './function-wizard/function-wizard.component';
 import { FunctionType } from '../model/function-type';
 import { Router } from '@angular/router';
+import { ModuleDetailComponent } from './module-detail/module-detail.component';
 
 @Component({
     selector: 'app-modules',
@@ -14,8 +15,8 @@ import { Router } from '@angular/router';
     styleUrls: ['./modules.component.scss']
 })
 export class ModulesComponent {
-
     private opened: boolean;
+    FunctionType = FunctionType;
 
     constructor(
         public apf: ApfService,
@@ -72,12 +73,12 @@ export class ModulesComponent {
         }
     }
 
-    newFunction(_module: Module): void {
+    newFunction(module: Module): void {
         if (!this.opened) {
             this.opened = true;
             const dialogRef = this.dialog.open(FunctionWizardComponent, {
                 data: {
-                    module: _module
+                    module: module
                 },
                 maxHeight: '100%',
                 width: '540px',
@@ -127,5 +128,25 @@ export class ModulesComponent {
 
     showGraph(module: Module): void {
         this.router.navigate(['module-graph', module]);
+    }
+
+    showDetail(module: Module, type: FunctionType) {
+        if (!this.opened) {
+            this.opened = true;
+            const dialogRef = this.dialog.open(ModuleDetailComponent, {
+                data: {
+                    module: module,
+                    functionType: type
+                },
+                maxHeight: '100%',
+                width: '540px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe(() => {
+                this.opened = false;
+            });
+        }        
     }
 }

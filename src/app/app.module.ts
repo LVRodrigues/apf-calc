@@ -15,6 +15,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -30,6 +31,7 @@ import { ModuleDialogComponent } from './modules/module-dialog/module-dialog.com
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { FunctionWizardComponent } from './modules/function-wizard/function-wizard.component';
 import { ModuleGraphComponent } from './modules/module-graph/module-graph.component';
+import { ModuleDetailComponent } from './modules/module-detail/module-detail.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,8 @@ import { ModuleGraphComponent } from './modules/module-graph/module-graph.compon
     ModuleDialogComponent,
     ConfirmDialogComponent,
     FunctionWizardComponent,
-    ModuleGraphComponent
+    ModuleGraphComponent,
+    ModuleDetailComponent
   ],
   imports: [
     BrowserModule,
@@ -64,6 +67,7 @@ import { ModuleGraphComponent } from './modules/module-graph/module-graph.compon
     MatChipsModule,
     MatCheckboxModule,
     MatListModule,
+    MatTableModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })
