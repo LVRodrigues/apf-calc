@@ -3,13 +3,22 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "debug (Edge)",
+      "type": "msedge",
+      "request": "launch",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}",
+      "runtimeExecutable": "/opt/microsoft/msedge/msedge"
+    },
+    {
       "name": "debug",
       "type": "firefox",
       "request": "launch",
+      "reAttach": true,
       "url": "http://localhost:4200/",
       "profile": "default",
       "keepProfileChanges": true,
-      "firefoxArgs": ["-devtools"]
+      "firefoxArgs": ["-devtools"],
     },
     {
       "name": "ng serve",

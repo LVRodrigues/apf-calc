@@ -22,11 +22,11 @@ type Link = {
 }
 
 @Component({
-    selector: 'app-module-details',
-    templateUrl: './module-details.component.html',
-    styleUrls: ['./module-details.component.scss']
+    selector: 'app-module-graph',
+    templateUrl: './module-graph.component.html',
+    styleUrls: ['./module-graph.component.scss']
 })
-export class ModuleDetailsComponent {
+export class ModuleGraphComponent {
 
     private CATEGORY_DATA : Category = {
         id: 0,
