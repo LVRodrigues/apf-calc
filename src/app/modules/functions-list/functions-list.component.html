@@ -1,0 +1,50 @@
+<section class="container">
+    <mat-card class="unique-item">
+        <mat-toolbar color="primary">
+            {{ module.name }}
+            <span class="spacer"></span>
+            <mat-divider vertical="true"></mat-divider>
+            0 pontos
+        </mat-toolbar>
+        <mat-card-content>
+            <table mat-table [dataSource]="module.functions">
+                <ng-container matColumnDef="name">
+                    <th mat-header-cell *matHeaderCellDef>Nome</th>
+                    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef>Tipo</th>
+                    <td mat-cell *matCellDef="let element">{{ element.type }} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="complex">
+                    <th mat-header-cell *matHeaderCellDef>Complexidade</th>
+                    <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="value">
+                    <th mat-header-cell *matHeaderCellDef>Custo</th>
+                    <td mat-cell *matCellDef="let element">{{ element.type }}</td>
+                </ng-container>
+
+                <ng-container matColumnDef="actions">
+                    <th mat-header-cell *matHeaderCellDef>Ações</th>
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-mini-fab class="card-action-button" color="accent" 
+                            (click)="edit(element)" matTooltip="Editar">
+                            <mat-icon fontIcon="edit"></mat-icon>
+                        </button>
+                        <button mat-mini-fab class="card-action-button" color="accent" disabled="{{ !canRemove(element) }}"
+                            (click)="remove(element)" matTooltip="Excluir">
+                            <mat-icon fontIcon="delete"></mat-icon>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                <tr mat-row *matRowDef="let row; columns: columns;"></tr>                
+            </table>
+        </mat-card-content>
+    </mat-card>
+</section>
