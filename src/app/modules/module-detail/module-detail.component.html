@@ -1,22 +1,20 @@
 <h3 mat-dialog-title>Selecione uma ação</h3>
 <div mat-dialog-content class="content">
-    <table mat-table [dataSource]="selectedFunctions()">
-        <ng-container matColumnDef="Nome">
+    <table mat-table [dataSource]="selecteds">
+        <ng-container matColumnDef="name">
             <th mat-header-cell *matHeaderCellDef>Nome</th>
             <td mat-cell *matCellDef="let element"> {{ element.name }} </td>
         </ng-container>
-        <ng-container matColumnDef="Editar">
-            <th mat-header-cell *matHeaderCellDef>Editar</th>
+        <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>Ações</th>
             <td mat-cell *matCellDef="let element"> 
-                <button mat-mini-fab color="accent" (click)="edit(element)" matTooltip="Editar Função">
+                <button mat-mini-fab color="accent" class="card-action-button"
+                    (click)="edit(element)" matTooltip="Editar Função">
                     <mat-icon fontIcon="edit"></mat-icon>
                 </button>
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="Excluir">
-            <th mat-header-cell *matHeaderCellDef>Excluir</th>
-            <td mat-cell *matCellDef="let element"> 
-                <button mat-mini-fab color="accent" (click)="delete(element)" matTooltip="Ecluir Função">
+                <button mat-mini-fab color="accent" class="card-action-button"
+                    (click)="delete(element)" disabled="{{ !canDelete(element) }}"
+                    matTooltip="Excluir Função">
                     <mat-icon fontIcon="delete"></mat-icon>
                 </button>
             </td>
@@ -25,10 +23,17 @@
         <tr mat-header-row *matHeaderRowDef="columns"></tr>
         <tr mat-row *matRowDef="let row; columns: columns;"></tr>
     </table>
+    <p *ngIf="data.functionType === FunctionType.ALI || data.functionType === FunctionType.AIE">
+        Funções de dados não podem ser excluídas se forem referenciadas por outras funções.
+    </p>
 </div>
 <div mat-dialog-actions>
     <hr width="100%">
     <span class="spacer"></span>
+    <button mat-raised-button [mat-dialog-close]="true" color="accent" (click)="doConfirm()">
+        Confirmar
+        <mat-icon>check</mat-icon>
+    </button>    
     <button mat-raised-button [mat-dialog-close]="true" color="accent">
         Cancelar
         <mat-icon>cancel</mat-icon>
