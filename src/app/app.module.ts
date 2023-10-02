@@ -31,7 +31,6 @@ import { ModuleDialogComponent } from './modules/module-dialog/module-dialog.com
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { FunctionWizardComponent } from './modules/function-wizard/function-wizard.component';
 import { ModuleGraphComponent } from './modules/module-graph/module-graph.component';
-import { ModuleDetailComponent } from './modules/module-detail/module-detail.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +45,6 @@ import { ModuleDetailComponent } from './modules/module-detail/module-detail.com
     ConfirmDialogComponent,
     FunctionWizardComponent,
     ModuleGraphComponent,
-    ModuleDetailComponent
   ],
   imports: [
     BrowserModule,

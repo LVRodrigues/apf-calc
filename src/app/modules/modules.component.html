@@ -14,14 +14,6 @@
                         (click)="delete(module)" matTooltip="Excluir Módulo">
                         <mat-icon fontIcon="delete"></mat-icon>
                     </button>
-                    <button mat-mini-fab class="card-action-button" color="accent"
-                        (click)="newFunction(module)" matTooltip="Nova Função">
-                        <mat-icon fontIcon="functions"></mat-icon>
-                    </button>
-                    <button mat-mini-fab class="card-action-button" color="accent"
-                        (click)="showGraph(module)" matTooltip="Gráfico de Detalhes">
-                        <mat-icon fontIcon="account_tree"></mat-icon>
-                    </button>
                 </mat-toolbar-row>
             </mat-toolbar>
             <mat-card-content>
@@ -68,46 +60,27 @@
                                 {{ countSE(module) }}
                             </div>
                         </div>
-                        <div class="divTableRow">
-                            <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent" [disabled]="countALI(module) == 0"
-                                    matTooltip="Detalhes das Funções de Dados ALI"
-                                    (click)="showDetail(module, FunctionType.ALI)"> 
-                                    <mat-icon fontIcon="checklist"></mat-icon>
-                                </button>
-                            </div>
-                            <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent" [disabled]="countAIE(module) == 0"
-                                    matTooltip="Detalhes das Funções de Dados AIE"
-                                    (click)="showDetail(module, FunctionType.AIE)"> 
-                                    <mat-icon fontIcon="checklist"></mat-icon>
-                                </button>
-                            </div>
-                            <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent" [disabled]="countCE(module) == 0"
-                                    matTooltip="Detalhes das Funções de Transações CE"
-                                    (click)="showDetail(module, FunctionType.CE)"> 
-                                    <mat-icon fontIcon="checklist"></mat-icon>
-                                </button>
-                            </div>
-                            <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent" [disabled]="countEE(module) == 0"
-                                    matTooltip="Detalhes das Funções de Transações EE"
-                                    (click)="showDetail(module, FunctionType.EE)"> 
-                                    <mat-icon fontIcon="checklist"></mat-icon>
-                                </button>
-                            </div>
-                            <div class="divTableHead module-counter-cell">
-                                <button mat-mini-fab color="accent" [disabled]="countSE(module) == 0"
-                                    matTooltip="Detalhes das Funções de Transações SE"
-                                    (click)="showDetail(module, FunctionType.SE)">
-                                    <mat-icon fontIcon="checklist"></mat-icon>
-                                </button>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </mat-card-content>
+            <mat-card-footer>
+                <mat-card-actions>
+                    <span class="module-value">0 pontos</span>
+                    <span class="spacer"></span>
+                    <button mat-mini-fab class="card-action-button" color="accent"
+                        (click)="newFunction(module)" matTooltip="Nova Função">
+                        <mat-icon fontIcon="functions"></mat-icon>
+                    </button>
+                    <button mat-mini-fab class="card-action-button" color="accent" [disabled]="module.functions.length === 0"
+                        (click)="showGraph(module)" matTooltip="Gráfico do Módulo">
+                        <mat-icon fontIcon="schema"></mat-icon>
+                    </button>
+                    <button mat-mini-fab class="card-action-button" color="accent" [disabled]="module.functions.length === 0"
+                        (click)="showDetail(module)" matTooltip="Funções do Módulo">
+                        <mat-icon fontIcon="manage_search"></mat-icon>
+                    </button>
+                </mat-card-actions>
+            </mat-card-footer>
         </mat-card>
     </ng-container>
 
