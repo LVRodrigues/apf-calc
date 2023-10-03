@@ -6,6 +6,7 @@ import { ModulesComponent } from './modules/modules.component';
 import { ModuleGraphComponent } from './modules/module-graph/module-graph.component';
 import { FunctionsListComponent } from './modules/functions-list/functions-list.component';
 import { FunctionEditDataComponent } from './modules/function-edit-data/function-edit-data.component';
+import { FunctionEditTransactionComponent } from './modules/function-edit-transaction/function-edit-transaction.component';
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,6 +16,7 @@ const routes: Routes = [
     { path: 'module-graph', component: ModuleGraphComponent, data: { title: 'Detalhes do Módulo'} },
     { path: 'functions-list', component: FunctionsListComponent, data: { title: 'Lista de Funções'} },
     { path: 'function-edit-data', component: FunctionEditDataComponent, data: { title: 'Editar Função'} },
+    { path: 'function-edit-transaction', component: FunctionEditTransactionComponent, data: { title: 'Editar Função'} },
 ];
 
 @NgModule({

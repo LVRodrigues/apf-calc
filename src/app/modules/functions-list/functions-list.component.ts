@@ -30,7 +30,7 @@ export class FunctionsListComponent {
         if (item instanceof FunctionData) {
             this.router.navigate(['function-edit-data'], {queryParams: { module: this.module.id, function: item.id}});
         } else {
-            throw Error("Não implementado");
+            this.router.navigate(['function-edit-transaction'], {queryParams: { module: this.module.id, function: item.id}});
         }
     }
 
