@@ -130,7 +130,6 @@ export class ModulesComponent {
     }
 
     showDetail(module: Module): void {
-        throw new Error('Method not implemented.');
+        this.router.navigate(['functions-list', module]);
     }
-        
 }
