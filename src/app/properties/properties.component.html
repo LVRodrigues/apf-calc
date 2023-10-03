@@ -2,6 +2,16 @@
     <mat-toolbar color="primary">
         <mat-toolbar-row>
             <span>Propriedades do Projeto</span>
+            <span class="spacer"></span>
+            <mat-divider vertical></mat-divider>
+            <button mat-mini-fab class="card-action-button" color="accent" 
+                (click)="confirm()" matTooltip="Salvar">
+                <mat-icon>check</mat-icon>
+            </button>
+            <button mat-mini-fab class="card-action-button" color="accent" 
+                (click)="cancel()" matTooltip="Canclear">
+                <mat-icon>close</mat-icon>
+            </button>
         </mat-toolbar-row>
     </mat-toolbar>
 
