@@ -21,18 +21,17 @@ export class FunctionsListComponent {
     ) {
         this.module = new Module();
         this.activatedRoute.paramMap.subscribe((params) => {
-            let id = +params.get('id')!;
-            for (let m of apf.project.modules) {
-                if (m.id === id) {
-                    this.module = m
-                    break;
-                }
-            }
+            let id      = +params.get('id')!;
+            this.module = this.apf.project.module(id)!;
         });
     }
 
     edit(item: Function): void {
-        throw Error("Não implementado");
+        if (item instanceof FunctionData) {
+            this.router.navigate(['function-edit-data'], {queryParams: { module: this.module.id, function: item.id}});
+        } else {
+            throw Error("Não implementado");
+        }
     }
 
     remove(item: Function): void {

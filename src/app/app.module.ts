@@ -32,6 +32,8 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
 import { FunctionWizardComponent } from './modules/function-wizard/function-wizard.component';
 import { ModuleGraphComponent } from './modules/module-graph/module-graph.component';
 import { FunctionsListComponent } from './modules/functions-list/functions-list.component';
+import { FunctionEditDataComponent } from './modules/function-edit-data/function-edit-data.component';
+import { EditDataDialogComponent } from './modules/function-edit-data/edit-data-dialog/edit-data-dialog.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +49,8 @@ import { FunctionsListComponent } from './modules/functions-list/functions-list.
     FunctionWizardComponent,
     ModuleGraphComponent,
     FunctionsListComponent,
+    FunctionEditDataComponent,
+    EditDataDialogComponent,
   ],
   imports: [
     BrowserModule,

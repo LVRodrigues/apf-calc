@@ -19,8 +19,8 @@ export class ModulesComponent {
 
     constructor(
         public apf: ApfService,
-        public dialog: MatDialog,
-        public router: Router) 
+        private dialog: MatDialog,
+        private router: Router) 
     {
         this.opened = false;
     }

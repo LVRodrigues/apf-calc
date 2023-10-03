@@ -8,11 +8,11 @@
                     <mat-divider vertical></mat-divider>
                     <button mat-mini-fab class="card-action-button" color="accent"
                         (click)="edit(module)" matTooltip="Editar Módulo">
-                        <mat-icon fontIcon="edit"></mat-icon>
+                        <mat-icon>edit</mat-icon>
                     </button>
                     <button mat-mini-fab class="card-action-button" color="accent"
                         (click)="delete(module)" matTooltip="Excluir Módulo">
-                        <mat-icon fontIcon="delete"></mat-icon>
+                        <mat-icon>delete</mat-icon>
                     </button>
                 </mat-toolbar-row>
             </mat-toolbar>
@@ -69,15 +69,15 @@
                     <span class="spacer"></span>
                     <button mat-mini-fab class="card-action-button" color="accent"
                         (click)="newFunction(module)" matTooltip="Nova Função">
-                        <mat-icon fontIcon="functions"></mat-icon>
+                        <mat-icon>functions</mat-icon>
                     </button>
                     <button mat-mini-fab class="card-action-button" color="accent" [disabled]="module.functions.length === 0"
                         (click)="showGraph(module)" matTooltip="Gráfico do Módulo">
-                        <mat-icon fontIcon="schema"></mat-icon>
+                        <mat-icon>schema</mat-icon>
                     </button>
                     <button mat-mini-fab class="card-action-button" color="accent" [disabled]="module.functions.length === 0"
                         (click)="showDetail(module)" matTooltip="Funções do Módulo">
-                        <mat-icon fontIcon="manage_search"></mat-icon>
+                        <mat-icon>manage_search</mat-icon>
                     </button>
                 </mat-card-actions>
             </mat-card-footer>
