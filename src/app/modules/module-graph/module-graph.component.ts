@@ -47,23 +47,17 @@ export class ModuleGraphComponent {
     private links: Link[];
 
     constructor(
-        private router: Router,
         private activatedRoute: ActivatedRoute,
         private apf: ApfService
     ) {
         this.module = new Module();
         this.activatedRoute.paramMap.subscribe((params) => {
-            let id = +params.get('id')!;
-            for (let m of apf.project.modules) {
-                if (m.id === id) {
-                    this.module = m
-                    break;
-                }
-            }
+            let id      = +params.get('id')!;
+            this.module = this.apf.project.module(id)!;
         });
-        this.data = this.loadData();
-        this.links = this.loadLinks();
-        this.chartOptions = this.prepareChartOptions();
+        this.data           = this.loadData();
+        this.links          = this.loadLinks();
+        this.chartOptions   = this.prepareChartOptions();
     }
 
     loadData(): Data[] {

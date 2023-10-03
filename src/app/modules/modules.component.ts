@@ -14,13 +14,13 @@ import { Router } from '@angular/router';
     styleUrls: ['./modules.component.scss']
 })
 export class ModulesComponent {
-
     private opened: boolean;
+    FunctionType = FunctionType;
 
     constructor(
         public apf: ApfService,
-        public dialog: MatDialog,
-        public router: Router) 
+        private dialog: MatDialog,
+        private router: Router) 
     {
         this.opened = false;
     }
@@ -72,12 +72,12 @@ export class ModulesComponent {
         }
     }
 
-    newFunction(_module: Module): void {
+    newFunction(module: Module): void {
         if (!this.opened) {
             this.opened = true;
             const dialogRef = this.dialog.open(FunctionWizardComponent, {
                 data: {
-                    module: _module
+                    module: module
                 },
                 maxHeight: '100%',
                 width: '540px',
@@ -127,5 +127,9 @@ export class ModulesComponent {
 
     showGraph(module: Module): void {
         this.router.navigate(['module-graph', module]);
+    }
+
+    showDetail(module: Module): void {
+        this.router.navigate(['functions-list', module]);
     }
 }

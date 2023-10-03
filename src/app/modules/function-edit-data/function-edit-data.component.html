@@ -1,0 +1,70 @@
+<section class="container">
+    <mat-card class="unique-item">
+        <mat-toolbar color="primary">
+            Função de Dados ({{ Functiontype[data.type] }})
+            <span class="spacer"></span>
+            <mat-divider vertical></mat-divider>
+            <button mat-mini-fab class="card-action-button" color="accent" 
+                (click)="confirm()" matTooltip="Salvar">
+                <mat-icon>check</mat-icon>
+            </button>
+            <button mat-mini-fab class="card-action-button" color="accent" 
+                (click)="cancel()" matTooltip="Canclear">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar>
+        <mat-card-content>
+            <mat-form-field appearance="fill">
+                <mat-label>Nome</mat-label>
+                <input matInput type="text" id="name" [(ngModel)]="data.name"
+                    placeholder="Nome da Função.">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Descrição</mat-label>
+                <input matInput type="text" id="description" [(ngModel)]="data.description"
+                    placeholder="Descrição sobre a Função.">
+            </mat-form-field>
+
+            <mat-card appearance="outlined">
+                <mat-card-header class="der-header">
+                    Dados Elementares Referenciados (DER)
+                </mat-card-header>
+                <mat-card-content>
+                    <table mat-table [dataSource]="data.datas">
+                        <ng-container matColumnDef="name">
+                            <th mat-header-cell *matHeaderCellDef>Nome</th>
+                            <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                        </ng-container>
+        
+                        <ng-container matColumnDef="description">
+                            <th mat-header-cell *matHeaderCellDef>Descrição</th>
+                            <td mat-cell *matCellDef="let element">{{ element.description }} </td>
+                        </ng-container>
+        
+                        <ng-container matColumnDef="actions">
+                            <th mat-header-cell *matHeaderCellDef>
+                                <button mat-mini-fab class="card-action-button" color="accent" 
+                                    (click)="add()" matTooltip="Adicionar">
+                                    <mat-icon>add</mat-icon>
+                                </button>
+                            </th>
+                            <td mat-cell *matCellDef="let element">
+                                <button mat-mini-fab class="card-action-button" color="accent" 
+                                    (click)="edit(element)" matTooltip="Editar">
+                                    <mat-icon>edit</mat-icon>
+                                </button>
+                                <button mat-mini-fab class="card-action-button" color="accent" 
+                                    (click)="remove(element)" matTooltip="Excluir">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </td>
+                        </ng-container>
+
+                        <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: columns;"></tr>    
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </mat-card-content>
+    </mat-card>
+</section>

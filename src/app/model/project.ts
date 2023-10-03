@@ -15,4 +15,9 @@ export class Project {
         this.version = 1;
         this.score = 0;
     }
+
+    public module(id: number): Module | undefined {
+        let result = this.modules.find(value => value.id === id);
+        return result;
+    }
 }
