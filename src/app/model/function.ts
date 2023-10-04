@@ -15,6 +15,10 @@ export abstract class Function {
     public abstract get type(): FunctionType;
 
     public abstract get complex(): ComplexType;
+
+    public get value(): number {
+        return 1;
+    }
 };
 
 export abstract class FunctionData extends Function {

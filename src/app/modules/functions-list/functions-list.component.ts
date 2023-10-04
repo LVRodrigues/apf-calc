@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApfService } from 'src/app/apf.service';
+import { ComplexType } from 'src/app/model/complex-type';
 import { Function, FunctionData, FunctionTransaction } from 'src/app/model/function';
+import { FunctionType } from 'src/app/model/function-type';
 import { Module } from 'src/app/model/module';
 
 @Component({
@@ -13,6 +15,9 @@ export class FunctionsListComponent {
 
     columns: string[] = ['name', 'type', 'complex', 'value', 'actions'];
     module: Module;
+
+    FunctionType = FunctionType;
+    ComplexType = ComplexType;
 
     constructor(
         private router: Router,
