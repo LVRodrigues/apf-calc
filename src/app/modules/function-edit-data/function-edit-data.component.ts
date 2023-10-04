@@ -47,15 +47,19 @@ export class FunctionEditDataComponent {
                 this.data.id          = this.original.id;
                 this.data.name        = this.original.name;
                 this.data.description = this.original.description;
-                this.data.der        = this.original.der;
+                this.data.der         = this.original.der;
+                this.data.rlr         = this.original.rlr;
             }
         });
     }
 
-    add(): void {
+    addDER(): void {
         if (!this.opened) {
             this.opened = true;
-            let data = new Data();
+            let data = {
+                title: 'DER (Dado Elementar Relacionado)',
+                value: new Data()
+            };
             const dialogRef = this.dialog.open(EditDataDialogComponent, {
                 data: data,
                 maxHeight: '100%',
@@ -80,14 +84,17 @@ export class FunctionEditDataComponent {
         }
     }
     
-    remove(item: Data): void {
+    removeDER(item: Data): void {
         this.data.der = this.data.der.filter(v => v.id != item.id);
     }
         
-    edit(item: Data): void {
+    editDER(item: Data): void {
         if (!this.opened) {
             this.opened = true;
-            let data = {...item};
+            let data = {
+                title: 'DER (Dado Elementar Relacionado)',
+                value: {...item}
+            };
             const dialogRef = this.dialog.open(EditDataDialogComponent, {
                 data: data,
                 maxHeight: '100%',
@@ -106,10 +113,77 @@ export class FunctionEditDataComponent {
         }
     }    
 
+    addRLR(): void {
+        if (!this.opened) {
+            this.opened = true;
+            let data = {
+                title: 'RLR (Registro Elementar Relacionado)',
+                value: new Data()
+            };
+            const dialogRef = this.dialog.open(EditDataDialogComponent, {
+                data: data,
+                maxHeight: '100%',
+                width: '540px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((data: Data) => {
+                if (data) {
+                    let last: number = -1;
+                    this.data.rlr.forEach(item => {
+                        if (item.id > last) {
+                            last = item.id;
+                        }
+                    });
+                    data.id = ++last;
+                    this.data.rlr = [data, ...this.data.rlr];
+                }
+                this.opened = false;
+            });
+        }
+    }
+    
+    removeRLR(item: Data): void {
+        this.data.rlr = this.data.rlr.filter(v => v.id != item.id);
+    }
+        
+    editRLR(item: Data): void {
+        if (!this.opened) {
+            this.opened = true;
+            let data = {
+                title: 'RLR (Registro Elementar Relacionado)',
+                value: {...item}
+            };
+            const dialogRef = this.dialog.open(EditDataDialogComponent, {
+                data: data,
+                maxHeight: '100%',
+                width: '540px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((data: Data) => {
+                if (data) {
+                    item.name = data.name;
+                    item.description = data.description;
+                }
+                this.opened = false;
+            });
+        }
+    }        
+
+    canConfirm(): boolean {
+        return this.data.name.length > 0 
+            && this.data.der.length > 0 
+            && this.data.rlr.length > 0;
+    }
+
     confirm(): void {
         this.original.name          = this.data.name;
         this.original.description   = this.data.description;
-        this.original.der          = this.data.der;
+        this.original.der           = this.data.der;
+        this.original.rlr           = this.data.rlr;
         this.naviageBack();
     }
 

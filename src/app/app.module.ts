@@ -16,6 +16,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -74,6 +75,7 @@ import { FunctionEditTransactionComponent } from './modules/function-edit-transa
     MatCheckboxModule,
     MatListModule,
     MatTableModule,
+    MatTabsModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })

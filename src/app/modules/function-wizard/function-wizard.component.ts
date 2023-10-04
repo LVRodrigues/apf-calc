@@ -292,18 +292,14 @@ export class FunctionWizardComponent {
 
         let i = 0;
         this.dataDER.forEach(der => {
-            let data = new Data();
-            data.id = ++i;
-            data.name = der.name;
-            fun.der.push(data);
+            der.id = ++i;
+            fun.der.push(der);
         });
 
         i = 0;
-        this.dataRLR.forEach(der => {
-            let data = new Data();
-            data.id = ++i;
-            data.name = der.name;
-            fun.rlr.push(data);
+        this.dataRLR.forEach(rlr => {
+            rlr.id = ++i;
+            fun.rlr.push(rlr);
         });
 
         if (this.checkRead) {

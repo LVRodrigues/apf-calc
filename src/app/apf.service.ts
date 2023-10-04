@@ -33,7 +33,10 @@ export class ApfService {
             { id: 4, name: 'endereco', description: undefined },
             { id: 5, name: 'telefone', description: undefined },
             { id: 6, name: 'cpf', description: undefined }
-        ]
+        ];
+        fun1.rlr = [
+            { id: 1, name: 'Usuário', description: undefined}
+        ];
         mod1.functions.push(fun1);
 
         let fun2 = new FunctionAIE();
@@ -44,7 +47,13 @@ export class ApfService {
             { id: 1, name: 'id', description: undefined },
             { id: 2, name: 'nome', description: undefined },
             { id: 3, name: 'email', description: undefined }
-        ]
+        ];
+        fun2.rlr = [
+            { id: 1, name: 'Usuário', description: undefined },
+            { id: 2, name: 'Fornecedor', description: undefined },
+            { id: 3, name: 'Autônome', description: undefined },
+            { id: 4, name: 'Visitante', description: undefined }
+        ];
         mod1.functions.push(fun2);
 
         let fun3 = new FunctionCE();
