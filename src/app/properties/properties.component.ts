@@ -21,8 +21,8 @@ export class PropertiesComponent {
         this.project.description    = this.apf.project.description;
         this.project.date           = this.apf.project.date;
         this.project.responsible    = this.apf.project.responsible;
-        this.project.score          = this.apf.project.score;
         this.project.version        = this.apf.project.version;
+        this.project.modules        = this.apf.project.modules;
     }
 
     confirm(): void {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Project } from './model/project';
 import { Module } from './model/module';
 import { FunctionAIE, FunctionALI, FunctionCE, FunctionEE, FunctionSE } from './model/function';
+import { Data } from './model/data';
 
 @Injectable({
     providedIn: 'root'
@@ -52,7 +53,10 @@ export class ApfService {
             { id: 1, name: 'Usuário', description: undefined },
             { id: 2, name: 'Fornecedor', description: undefined },
             { id: 3, name: 'Autônome', description: undefined },
-            { id: 4, name: 'Visitante', description: undefined }
+            { id: 4, name: 'Visitante', description: undefined },
+            { id: 5, name: 'Dependente', description: undefined },
+            { id: 6, name: 'Sabotador', description: undefined },
+            { id: 7, name: 'Sistema', description: undefined },
         ];
         mod1.functions.push(fun2);
 
@@ -68,11 +72,18 @@ export class ApfService {
         fun4.id = 4;
         fun4.name = 'Fornecedor';
         fun4.description = 'Teste de fonecimento e CRUD';
-        fun4.der = [
-            { id: 1, name: 'id', description: undefined },
-            { id: 2, name: 'nome', description: undefined },
-            { id: 3, name: 'email', description: undefined }
-        ]        
+        for (let i = 1; i < 60; i++) {
+            let der: Data = {
+                id: i, 
+                name: 'Name__'+i, 
+                description: undefined
+            };
+            fun4.der.push(der);
+        }
+        fun4.rlr = [
+            { id: 1, name: 'Fornecedor', description: undefined },
+            { id: 2, name: 'Cobrador', description: undefined }
+        ];
         mod1.functions.push(fun4);
 
         let fun5 = new FunctionCE();
