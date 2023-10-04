@@ -10,7 +10,8 @@ import { Module } from 'src/app/model/module';
 
 enum PageType {
     SELECT_TYPE,
-    DATA_TYPE,
+    DATA_TYPE_DER,
+    DATA_TYPE_RLR,
     DATA_TYPE_EXTRA,
     TRANSACTION_TYPE,
     RESULT,
@@ -42,6 +43,7 @@ export class FunctionWizardComponent {
 
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
     dataDERs: DER[];
+    dataRLRs: DER[];
 
     checkCreate: boolean;
     checkRead: boolean;
@@ -55,6 +57,7 @@ export class FunctionWizardComponent {
         this.current = data.module;
         this.page = PageType.SELECT_TYPE;
         this.dataDERs = [];
+        this.dataRLRs = [];
         this.checkCreate = false;
         this.checkRead = false;
         this.checkUpdate = false;
@@ -72,8 +75,11 @@ export class FunctionWizardComponent {
             case PageType.SELECT_TYPE:
                 result = this.canNextSelectType();
                 break;
-            case PageType.DATA_TYPE:
-                result = this.canNextDataType();
+            case PageType.DATA_TYPE_DER:
+                result = this.canNextDataTypeDER();
+                break;
+            case PageType.DATA_TYPE_RLR:
+                result = this.canNextDataTypeRLR();
                 break;
             case PageType.DATA_TYPE_EXTRA:
                 result = true;
@@ -91,9 +97,13 @@ export class FunctionWizardComponent {
             (this.functionType != undefined));
     }
 
-    canNextDataType(): boolean {
+    canNextDataTypeDER(): boolean {
         return this.dataDERs.length > 0;
     }
+
+    canNextDataTypeRLR(): boolean {
+        return this.dataRLRs.length > 0;
+    }    
 
     canNextTransactionType(): boolean {
         return this.selectedsDataFunctions.length > 0;
@@ -103,12 +113,15 @@ export class FunctionWizardComponent {
         switch (this.page) {
             case PageType.SELECT_TYPE:
                 if (this.functionType === FunctionType.ALI || this.functionType === FunctionType.AIE) {
-                    this.page = PageType.DATA_TYPE;
+                    this.page = PageType.DATA_TYPE_DER;
                 } else {
                     this.page = PageType.TRANSACTION_TYPE;
                 }
                 break;
-            case PageType.DATA_TYPE:
+            case PageType.DATA_TYPE_DER:
+                this.page = PageType.DATA_TYPE_RLR;
+                break;
+            case PageType.DATA_TYPE_RLR:
                 this.page = PageType.DATA_TYPE_EXTRA;
                 this.checkRead = true;
                 break;
@@ -133,11 +146,14 @@ export class FunctionWizardComponent {
         switch (this.page) {
             case PageType.SELECT_TYPE:
                 break;
-            case PageType.DATA_TYPE:
+            case PageType.DATA_TYPE_DER:
                 this.page = PageType.SELECT_TYPE;
                 break;
+            case PageType.DATA_TYPE_RLR:
+                this.page = PageType.DATA_TYPE_DER;
+                break;
             case PageType.DATA_TYPE_EXTRA:
-                this.page = PageType.DATA_TYPE;
+                this.page = PageType.DATA_TYPE_RLR;
                 break;
             case PageType.TRANSACTION_TYPE:
                 this.page = PageType.SELECT_TYPE;
@@ -188,6 +204,33 @@ export class FunctionWizardComponent {
             this.dataDERs[index].name = value;
         }
     }
+
+    dataRLRAdd(event: MatChipInputEvent): void {
+        const value = (event.value || '').trim();
+        if (value) {
+            this.dataRLRs.push({ name: value });
+        }
+        event.chipInput!.clear();
+    }
+
+    dataRLRRemove(der: DER): void {
+        const index = this.dataRLRs.indexOf(der);
+        if (index >= 0) {
+            this.dataRLRs.splice(index, 1);
+        }
+    }
+
+    dataRLREdit(der: DER, event: MatChipEditedEvent) {
+        const value = event.value.trim();
+        if (!value) {
+            this.dataRLRRemove(der);
+            return;
+        }
+        const index = this.dataRLRs.indexOf(der);
+        if (index >= 0) {
+            this.dataRLRs[index].name = value;
+        }
+    }    
 
     /*
      * CE, EE e SE Page
@@ -247,6 +290,14 @@ export class FunctionWizardComponent {
             data.id = ++i;
             data.name = der.name;
             fun.ders.push(data);
+        });
+
+        i = 0;
+        this.dataRLRs.forEach(der => {
+            let data = new Data();
+            data.id = ++i;
+            data.name = der.name;
+            fun.rlrs.push(data);
         });
 
         if (this.checkRead) {
