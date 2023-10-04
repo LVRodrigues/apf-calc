@@ -27,11 +27,11 @@
         <mat-form-field>
             <mat-label>Dados Elementares Relacionados (DER)</mat-label>
             <mat-chip-grid #chipGrid>
-              <mat-chip-row *ngFor="let der of dataDERs"
-                            (removed)="dataDERRemove(der)"
+              <mat-chip-row *ngFor="let data of dataDERs"
+                            (removed)="dataDERRemove(data)"
                             [editable]="true"
-                            (edited)="dataDEREdit(der, $event)">
-                {{ der.name }}
+                            (edited)="dataDEREdit(data, $event)">
+                {{ data.name }}
                 <button matChipRemove>
                   <mat-icon>close</mat-icon>
                 </button>
@@ -50,11 +50,11 @@
         <mat-form-field>
             <mat-label>Registros Elementares Relacionados (RLR)</mat-label>
             <mat-chip-grid #chipGrid>
-              <mat-chip-row *ngFor="let der of dataRLRs"
-                            (removed)="dataRLRRemove(der)"
+              <mat-chip-row *ngFor="let data of dataRLRs"
+                            (removed)="dataRLRRemove(data)"
                             [editable]="true"
-                            (edited)="dataRLREdit(der, $event)">
-                {{ der.name }}
+                            (edited)="dataRLREdit(data, $event)">
+                {{ data.name }}
                 <button matChipRemove>
                   <mat-icon>close</mat-icon>
                 </button>

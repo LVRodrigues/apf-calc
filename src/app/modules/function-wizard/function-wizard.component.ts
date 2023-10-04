@@ -21,10 +21,6 @@ export interface DialogData {
     module: Module;
 }
 
-export interface DER {
-    name: string;
-}
-
 @Component({
     selector: 'app-function-wizard',
     templateUrl: './function-wizard.component.html',
@@ -42,8 +38,8 @@ export class FunctionWizardComponent {
     functionType!: FunctionType;
 
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
-    dataDERs: DER[];
-    dataRLRs: DER[];
+    dataDERs: Data[];
+    dataRLRs: Data[];
 
     checkCreate: boolean;
     checkRead: boolean;
@@ -181,25 +177,30 @@ export class FunctionWizardComponent {
     dataDERAdd(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
         if (value) {
-            this.dataDERs.push({ name: value });
+            let data: Data = {
+                id: 1,
+                name: value,
+                description: undefined
+            };
+            this.dataDERs.push(data);
         }
         event.chipInput!.clear();
     }
 
-    dataDERRemove(der: DER): void {
-        const index = this.dataDERs.indexOf(der);
+    dataDERRemove(data: Data): void {
+        const index = this.dataDERs.indexOf(data);
         if (index >= 0) {
             this.dataDERs.splice(index, 1);
         }
     }
 
-    dataDEREdit(der: DER, event: MatChipEditedEvent) {
+    dataDEREdit(data: Data, event: MatChipEditedEvent) {
         const value = event.value.trim();
         if (!value) {
-            this.dataDERRemove(der);
+            this.dataDERRemove(data);
             return;
         }
-        const index = this.dataDERs.indexOf(der);
+        const index = this.dataDERs.indexOf(data);
         if (index >= 0) {
             this.dataDERs[index].name = value;
         }
@@ -208,25 +209,30 @@ export class FunctionWizardComponent {
     dataRLRAdd(event: MatChipInputEvent): void {
         const value = (event.value || '').trim();
         if (value) {
-            this.dataRLRs.push({ name: value });
+            let data: Data = {
+                id: 1,
+                name: value,
+                description: undefined
+            };
+            this.dataRLRs.push(data);
         }
         event.chipInput!.clear();
     }
 
-    dataRLRRemove(der: DER): void {
-        const index = this.dataRLRs.indexOf(der);
+    dataRLRRemove(data: Data): void {
+        const index = this.dataRLRs.indexOf(data);
         if (index >= 0) {
             this.dataRLRs.splice(index, 1);
         }
     }
 
-    dataRLREdit(der: DER, event: MatChipEditedEvent) {
+    dataRLREdit(data: Data, event: MatChipEditedEvent) {
         const value = event.value.trim();
         if (!value) {
-            this.dataRLRRemove(der);
+            this.dataRLRRemove(data);
             return;
         }
-        const index = this.dataRLRs.indexOf(der);
+        const index = this.dataRLRs.indexOf(data);
         if (index >= 0) {
             this.dataRLRs[index].name = value;
         }
@@ -289,7 +295,7 @@ export class FunctionWizardComponent {
             let data = new Data();
             data.id = ++i;
             data.name = der.name;
-            fun.ders.push(data);
+            fun.der.push(data);
         });
 
         i = 0;
@@ -297,7 +303,7 @@ export class FunctionWizardComponent {
             let data = new Data();
             data.id = ++i;
             data.name = der.name;
-            fun.rlrs.push(data);
+            fun.rlr.push(data);
         });
 
         if (this.checkRead) {

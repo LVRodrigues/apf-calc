@@ -18,13 +18,13 @@ export abstract class Function {
 };
 
 export abstract class FunctionData extends Function {
-    ders: Data[];
-    rlrs: Data[];
+    der: Data[];
+    rlr: Data[];
 
     constructor() {
         super();
-        this.ders = [];
-        this.rlrs = [];
+        this.der = [];
+        this.rlr = [];
     }
 
     public override get complex(): ComplexType {

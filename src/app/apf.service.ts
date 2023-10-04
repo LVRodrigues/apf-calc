@@ -26,7 +26,7 @@ export class ApfService {
         fun1.id = 1;
         fun1.name = 'Usuários';
         fun1.description = 'Informações de Usuários do Sistema';
-        fun1.ders = [
+        fun1.der = [
             { id: 1, name: 'id', description: undefined },
             { id: 2, name: 'nome', description: undefined },
             { id: 3, name: 'email', description: undefined },
@@ -40,7 +40,7 @@ export class ApfService {
         fun2.id = 2;
         fun2.name = 'LDAP';
         fun2.description = 'Informações de Usuários do Externos';
-        fun2.ders = [
+        fun2.der = [
             { id: 1, name: 'id', description: undefined },
             { id: 2, name: 'nome', description: undefined },
             { id: 3, name: 'email', description: undefined }
@@ -59,7 +59,7 @@ export class ApfService {
         fun4.id = 4;
         fun4.name = 'Fornecedor';
         fun4.description = 'Teste de fonecimento e CRUD';
-        fun4.ders = [
+        fun4.der = [
             { id: 1, name: 'id', description: undefined },
             { id: 2, name: 'nome', description: undefined },
             { id: 3, name: 'email', description: undefined }
