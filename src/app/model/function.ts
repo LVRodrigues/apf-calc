@@ -1,36 +1,45 @@
+import { ComplexType } from "./complex-type";
 import { Data } from "./data";
 import { FunctionType } from "./function-type";
 
 export abstract class Function {
-    id!: number;
-    name!: string;
+    id: number;
+    name: string;
     description: string | undefined;
-    protected _type: FunctionType;
 
     constructor() {
         this.id = 0;
-        this._type = FunctionType.ALI;
+        this.name = "indefinido";
     }
 
-    public get type() {
-        return this._type;
-    }
+    public abstract get type(): FunctionType;
+
+    public abstract get complex(): ComplexType;
 };
 
 export abstract class FunctionData extends Function {
-    datas!: Data[];
+    ders: Data[];
+    rlrs: Data[];
 
     constructor() {
         super();
-        this.datas = [];
+        this.ders = [];
+        this.rlrs = [];
     }
+
+    public override get complex(): ComplexType {
+        return ComplexType.LOW;
+    }    
 };
 
 export class FunctionALI extends FunctionData {
 
     constructor() {
         super();
-        this._type = FunctionType.ALI;
+    }
+
+    public override get type() {
+        return FunctionType.ALI;
     }
 }
 
@@ -38,33 +47,46 @@ export class FunctionAIE extends FunctionData {
 
     constructor() {
         super();
-        this._type = FunctionType.AIE;
     }
+
+    public override get type() {
+        return FunctionType.AIE;
+    }    
 }
 
 export abstract class FunctionTransaction extends Function {
-    datas!: FunctionData[]
+    datas: FunctionData[]
 
     constructor() {
         super();
         this.datas = [];
     }
+
+    public override get complex(): ComplexType {
+        return ComplexType.LOW;
+    }    
 }
 
 export class FunctionEE extends FunctionTransaction {
 
     constructor() {
         super();
-        this._type = FunctionType.EE;
     }
+
+    public override get type() {
+        return FunctionType.EE;
+    }    
 }
 
 export class FunctionCE extends FunctionTransaction {
 
     constructor() {
         super();
-        this._type = FunctionType.CE;
     }
+
+    public override get type() {
+        return FunctionType.CE;
+    }    
 }
 
 
@@ -72,6 +94,9 @@ export class FunctionSE extends FunctionTransaction {
 
     constructor() {
         super();
-        this._type = FunctionType.SE;
+    }
+
+    public override get type() {
+        return FunctionType.SE;
     }
 }

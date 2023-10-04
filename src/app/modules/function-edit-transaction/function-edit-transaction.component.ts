@@ -36,7 +36,7 @@ export class FunctionEditTransactionComponent {
             let functionID  = +params.get('function')!;
             let fun         = this.module.function(functionID)!;
             if (fun instanceof FunctionTransaction) {
-                this.original = fun;
+                this.original   = fun;
                 switch (this.original.type) {
                     case FunctionType.CE:
                         this.data = new FunctionCE();

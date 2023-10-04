@@ -246,7 +246,7 @@ export class FunctionWizardComponent {
             let data = new Data();
             data.id = ++i;
             data.name = der.name;
-            fun.datas.push(data);
+            fun.ders.push(data);
         });
 
         if (this.checkRead) {

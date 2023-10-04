@@ -47,7 +47,7 @@ export class FunctionEditDataComponent {
                 this.data.id          = this.original.id;
                 this.data.name        = this.original.name;
                 this.data.description = this.original.description;
-                this.data.datas       = this.original.datas;
+                this.data.ders        = this.original.ders;
             }
         });
     }
@@ -67,13 +67,13 @@ export class FunctionEditDataComponent {
             dialogRef.afterClosed().subscribe((data: Data) => {
                 if (data) {
                     let last: number = -1;
-                    this.data.datas.forEach(item => {
+                    this.data.ders.forEach(item => {
                         if (item.id > last) {
                             last = item.id;
                         }
                     });
                     data.id = ++last;
-                    this.data.datas = [data, ...this.data.datas];
+                    this.data.ders = [data, ...this.data.ders];
                 }
                 this.opened = false;
             });
@@ -81,7 +81,7 @@ export class FunctionEditDataComponent {
     }
     
     remove(item: Data): void {
-        this.data.datas = this.data.datas.filter(v => v.id != item.id);
+        this.data.ders = this.data.ders.filter(v => v.id != item.id);
     }
         
     edit(item: Data): void {
@@ -109,7 +109,7 @@ export class FunctionEditDataComponent {
     confirm(): void {
         this.original.name          = this.data.name;
         this.original.description   = this.data.description;
-        this.original.datas         = this.data.datas;
+        this.original.ders          = this.data.ders;
         this.naviageBack();
     }
 
