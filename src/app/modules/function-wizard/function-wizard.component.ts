@@ -38,8 +38,8 @@ export class FunctionWizardComponent {
     functionType!: FunctionType;
 
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
-    dataDERs: Data[];
-    dataRLRs: Data[];
+    dataDER: Data[];
+    dataRLR: Data[];
 
     checkCreate: boolean;
     checkRead: boolean;
@@ -52,8 +52,8 @@ export class FunctionWizardComponent {
     constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
         this.current = data.module;
         this.page = PageType.SELECT_TYPE;
-        this.dataDERs = [];
-        this.dataRLRs = [];
+        this.dataDER = [];
+        this.dataRLR = [];
         this.checkCreate = false;
         this.checkRead = false;
         this.checkUpdate = false;
@@ -94,11 +94,11 @@ export class FunctionWizardComponent {
     }
 
     canNextDataTypeDER(): boolean {
-        return this.dataDERs.length > 0;
+        return this.dataDER.length > 0;
     }
 
     canNextDataTypeRLR(): boolean {
-        return this.dataRLRs.length > 0;
+        return this.dataRLR.length > 0;
     }    
 
     canNextTransactionType(): boolean {
@@ -182,15 +182,15 @@ export class FunctionWizardComponent {
                 name: value,
                 description: undefined
             };
-            this.dataDERs.push(data);
+            this.dataDER.push(data);
         }
         event.chipInput!.clear();
     }
 
     dataDERRemove(data: Data): void {
-        const index = this.dataDERs.indexOf(data);
+        const index = this.dataDER.indexOf(data);
         if (index >= 0) {
-            this.dataDERs.splice(index, 1);
+            this.dataDER.splice(index, 1);
         }
     }
 
@@ -200,9 +200,9 @@ export class FunctionWizardComponent {
             this.dataDERRemove(data);
             return;
         }
-        const index = this.dataDERs.indexOf(data);
+        const index = this.dataDER.indexOf(data);
         if (index >= 0) {
-            this.dataDERs[index].name = value;
+            this.dataDER[index].name = value;
         }
     }
 
@@ -214,15 +214,15 @@ export class FunctionWizardComponent {
                 name: value,
                 description: undefined
             };
-            this.dataRLRs.push(data);
+            this.dataRLR.push(data);
         }
         event.chipInput!.clear();
     }
 
     dataRLRRemove(data: Data): void {
-        const index = this.dataRLRs.indexOf(data);
+        const index = this.dataRLR.indexOf(data);
         if (index >= 0) {
-            this.dataRLRs.splice(index, 1);
+            this.dataRLR.splice(index, 1);
         }
     }
 
@@ -232,9 +232,9 @@ export class FunctionWizardComponent {
             this.dataRLRRemove(data);
             return;
         }
-        const index = this.dataRLRs.indexOf(data);
+        const index = this.dataRLR.indexOf(data);
         if (index >= 0) {
-            this.dataRLRs[index].name = value;
+            this.dataRLR[index].name = value;
         }
     }    
 
@@ -291,7 +291,7 @@ export class FunctionWizardComponent {
         this.current.functions.push(fun);
 
         let i = 0;
-        this.dataDERs.forEach(der => {
+        this.dataDER.forEach(der => {
             let data = new Data();
             data.id = ++i;
             data.name = der.name;
@@ -299,7 +299,7 @@ export class FunctionWizardComponent {
         });
 
         i = 0;
-        this.dataRLRs.forEach(der => {
+        this.dataRLR.forEach(der => {
             let data = new Data();
             data.id = ++i;
             data.name = der.name;

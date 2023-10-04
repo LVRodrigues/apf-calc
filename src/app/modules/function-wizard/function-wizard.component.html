@@ -25,9 +25,9 @@
     <div *ngIf="page === PageType.DATA_TYPE_DER">
         <h3>[{{FunctionType[functionType]}}] - {{ name }}</h3>
         <mat-form-field>
-            <mat-label>Dados Elementares Relacionados (DER)</mat-label>
+            <mat-label>DER (Dados Elementares Relacionados)</mat-label>
             <mat-chip-grid #chipGrid>
-              <mat-chip-row *ngFor="let data of dataDERs"
+              <mat-chip-row *ngFor="let data of dataDER"
                             (removed)="dataDERRemove(data)"
                             [editable]="true"
                             (edited)="dataDEREdit(data, $event)">
@@ -36,7 +36,7 @@
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-chip-row>
-              <input placeholder="Adicionar Dado Elementar Relacionado (DER)..."
+              <input placeholder="Adicionar DER..."
                      [matChipInputFor]="chipGrid"
                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                      [matChipInputAddOnBlur]="true"
@@ -48,9 +48,9 @@
     <div *ngIf="page === PageType.DATA_TYPE_RLR">
         <h3>[{{FunctionType[functionType]}}] - {{ name }}</h3>
         <mat-form-field>
-            <mat-label>Registros Elementares Relacionados (RLR)</mat-label>
+            <mat-label>RLR (Registros Elementares Relacionados)</mat-label>
             <mat-chip-grid #chipGrid>
-              <mat-chip-row *ngFor="let data of dataRLRs"
+              <mat-chip-row *ngFor="let data of dataRLR"
                             (removed)="dataRLRRemove(data)"
                             [editable]="true"
                             (edited)="dataRLREdit(data, $event)">
@@ -59,7 +59,7 @@
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-chip-row>
-              <input placeholder="Adicionar Registro Elementar Relacionado (RLR)..."
+              <input placeholder="Adicionar RLR..."
                      [matChipInputFor]="chipGrid"
                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                      [matChipInputAddOnBlur]="true"
@@ -94,8 +94,8 @@
             [ngIfThen]="resultData" [ngIfElse]="resultTransaction">
         </ng-template>
         <ng-template #resultData>
-            <p>Informados {{ dataDERs.length }} DERs.</p>
-            <P>Informados {{ dataRLRs.length }} RLRs.</P>
+            <p>DER: {{ dataDER.length }}.</p>
+            <P>RLR: {{ dataRLR.length }}.</P>
             <p>Criar automaticamente as funções de:</p>
             <ul>
                 <li *ngIf="checkRead">Consultar</li>
