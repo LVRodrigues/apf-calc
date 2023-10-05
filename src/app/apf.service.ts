@@ -67,7 +67,12 @@ export class ApfService {
         fun3.alrs.push(fun1);
         fun3.alrs.push(fun2);
         fun3.ders = [
-            { id: 1, name: 'CPF', description: undefined }
+            { id: 1, name: 'CPF', description: undefined },
+            { id: 2, name: 'Nome', description: undefined },
+            { id: 3, name: 'Telefone', description: undefined },
+            { id: 4, name: 'Email', description: undefined },
+            { id: 5, name: 'RG', description: undefined },
+            { id: 6, name: 'Apelido', description: undefined },
         ];
         mod1.functions.push(fun3);
 
@@ -139,10 +144,14 @@ export class ApfService {
         fun9.alrs.push(fun1);
         fun9.alrs.push(fun2);
         fun9.alrs.push(fun4);
-        fun9.ders = [
-            { id: 1, name: 'CNPJ', description: undefined },
-            { id: 2, name: 'CPF', description: undefined}
-        ];          
+        for (let i = 1; i < 25; i++) {
+            let der: Data = {
+                id: i, 
+                name: 'Name__'+i, 
+                description: undefined
+            };
+            fun9.ders.push(der);
+        }
         mod1.functions.push(fun9);
 
         let mod2 = new Module();
