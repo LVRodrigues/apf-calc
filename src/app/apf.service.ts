@@ -27,7 +27,7 @@ export class ApfService {
         fun1.id = 1;
         fun1.name = 'Usuários';
         fun1.description = 'Informações de Usuários do Sistema';
-        fun1.der = [
+        fun1.ders = [
             { id: 1, name: 'id', description: undefined },
             { id: 2, name: 'nome', description: undefined },
             { id: 3, name: 'email', description: undefined },
@@ -35,7 +35,7 @@ export class ApfService {
             { id: 5, name: 'telefone', description: undefined },
             { id: 6, name: 'cpf', description: undefined }
         ];
-        fun1.rlr = [
+        fun1.rlrs = [
             { id: 1, name: 'Usuário', description: undefined}
         ];
         mod1.functions.push(fun1);
@@ -44,12 +44,12 @@ export class ApfService {
         fun2.id = 2;
         fun2.name = 'LDAP';
         fun2.description = 'Informações de Usuários do Externos';
-        fun2.der = [
+        fun2.ders = [
             { id: 1, name: 'id', description: undefined },
             { id: 2, name: 'nome', description: undefined },
             { id: 3, name: 'email', description: undefined }
         ];
-        fun2.rlr = [
+        fun2.rlrs = [
             { id: 1, name: 'Usuário', description: undefined },
             { id: 2, name: 'Fornecedor', description: undefined },
             { id: 3, name: 'Autônome', description: undefined },
@@ -64,8 +64,8 @@ export class ApfService {
         fun3.id = 3;
         fun3.name = 'Consultar Usuários';
         fun3.description = 'Consultar Usuários e LDAP';
-        fun3.datas.push(fun1);
-        fun3.datas.push(fun2);
+        fun3.alrs.push(fun1);
+        fun3.alrs.push(fun2);
         mod1.functions.push(fun3);
 
         let fun4 = new FunctionALI();
@@ -78,9 +78,9 @@ export class ApfService {
                 name: 'Name__'+i, 
                 description: undefined
             };
-            fun4.der.push(der);
+            fun4.ders.push(der);
         }
-        fun4.rlr = [
+        fun4.rlrs = [
             { id: 1, name: 'Fornecedor', description: undefined },
             { id: 2, name: 'Cobrador', description: undefined }
         ];
@@ -90,37 +90,37 @@ export class ApfService {
         fun5.id = 5;
         fun5.name = 'Consultar Fornecedor';
         fun5.description = 'Consultar Fonecedor do banco de dados';
-        fun5.datas.push(fun4);
+        fun5.alrs.push(fun4);
         mod1.functions.push(fun5);
 
         let fun6 = new FunctionEE();
         fun6.id = 6;
         fun6.name = 'Incluir Fornecedor';
         fun6.description = 'Incluir Fonecedor do banco de dados';
-        fun6.datas.push(fun4);
+        fun6.alrs.push(fun4);
         mod1.functions.push(fun6);
 
         let fun7 = new FunctionEE();
         fun7.id = 7;
         fun7.name = 'Alterar Fornecedor';
         fun7.description = 'Alterar Fonecedor do banco de dados';
-        fun7.datas.push(fun4);
+        fun7.alrs.push(fun4);
         mod1.functions.push(fun7);
 
         let fun8 = new FunctionEE();
         fun8.id = 8;
         fun8.name = 'Excluir Fornecedor';
         fun8.description = 'Excluir Fonecedor do banco de dados';
-        fun8.datas.push(fun4);
+        fun8.alrs.push(fun4);
         mod1.functions.push(fun8);
 
         let fun9 = new FunctionSE();
         fun9.id = 9;
         fun9.name = 'Relatório';
         fun9.description = 'Relatório consolidado';
-        fun9.datas.push(fun1);
-        fun9.datas.push(fun2);
-        fun9.datas.push(fun4);
+        fun9.alrs.push(fun1);
+        fun9.alrs.push(fun2);
+        fun9.alrs.push(fun4);
         mod1.functions.push(fun9);
 
         let mod2 = new Module();

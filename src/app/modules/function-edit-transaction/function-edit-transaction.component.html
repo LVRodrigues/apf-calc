@@ -30,7 +30,7 @@
                     Arquivos Lógicos Referenciados (ALR)
                 </mat-card-header>
                 <mat-card-content>
-                    <mat-selection-list [(ngModel)]="data.datas" [compareWith]="compareFunctions">
+                    <mat-selection-list [(ngModel)]="data.alrs" [compareWith]="compareFunctions">
                         <mat-list-option *ngFor="let fun of listFunctionData()" [value]="fun">
                             {{ fun.name }}
                         </mat-list-option>

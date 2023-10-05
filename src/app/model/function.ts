@@ -18,28 +18,28 @@ export abstract class Function {
 };
 
 export abstract class FunctionData extends Function {
-    der: Data[];
-    rlr: Data[];
+    ders: Data[];
+    rlrs: Data[];
 
     constructor() {
         super();
-        this.der = [];
-        this.rlr = [];
+        this.ders = [];
+        this.rlrs = [];
     }
 
     public override get complex(): ComplexType {
         let result = ComplexType.LOW;
         switch (true) {
-            case (this.rlr.length === 1):
-                if (this.der.length > 50) {
+            case (this.rlrs.length === 1):
+                if (this.ders.length > 50) {
                     result = ComplexType.MEDIUM;
                 }
                 break;
-            case (this.rlr.length <= 5):
+            case (this.rlrs.length <= 5):
                 switch (true) {
-                    case (this.der.length <= 19):
+                    case (this.ders.length <= 19):
                         break;
-                    case (this.der.length <= 50):
+                    case (this.ders.length <= 50):
                         result = ComplexType.MEDIUM;
                         break;
                     default:
@@ -47,7 +47,7 @@ export abstract class FunctionData extends Function {
                 }
                 break;
             default:
-                if (this.der.length <= 19) {
+                if (this.ders.length <= 19) {
                     result = ComplexType.MEDIUM;
                 } else {
                     result = ComplexType.HIGH;
@@ -96,11 +96,13 @@ export class FunctionAIE extends FunctionData {
 }
 
 export abstract class FunctionTransaction extends Function {
-    datas: FunctionData[]
+    alrs: FunctionData[];
+    ders: Data[];
 
     constructor() {
         super();
-        this.datas = [];
+        this.alrs = [];
+        this.ders = [];
     }
 
     public override get complex(): ComplexType {

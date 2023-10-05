@@ -53,7 +53,7 @@ export class FunctionEditTransactionComponent {
                 this.data.id          = this.original.id;
                 this.data.name        = this.original.name;
                 this.data.description = this.original.description;
-                this.data.datas       = this.original.datas;
+                this.data.alrs       = this.original.alrs;
             }
         });
     }    
@@ -61,7 +61,7 @@ export class FunctionEditTransactionComponent {
     confirm(): void {
         this.original.name          = this.data.name;
         this.original.description   = this.data.description;
-        this.original.datas         = this.data.datas;
+        this.original.alrs         = this.data.alrs;
         this.naviageBack();
     }
 

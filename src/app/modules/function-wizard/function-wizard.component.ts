@@ -13,7 +13,8 @@ enum PageType {
     DATA_TYPE_DER,
     DATA_TYPE_RLR,
     DATA_TYPE_EXTRA,
-    TRANSACTION_TYPE,
+    TRANSACTION_TYPE_ALR,
+    TRANSACTION_TYPE_DER,
     RESULT,
 }
 
@@ -37,6 +38,7 @@ export class FunctionWizardComponent {
     description!: string;
     functionType!: FunctionType;
 
+    compareFunctions = (o1: Function, o2: Function) => o1.id===o2.id;
     readonly separatorKeysCodes = [ENTER, COMMA] as const;
     dataDER: Data[];
     dataRLR: Data[];
@@ -46,19 +48,19 @@ export class FunctionWizardComponent {
     checkUpdate: boolean;
     checkDelete: boolean;
 
-    selectedsDataFunctions: FunctionData[];
-    compareFunctions = (o1: Function, o2: Function) => o1.id===o2.id;
+    selectedALR: FunctionData[];
+    
 
     constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {
-        this.current = data.module;
-        this.page = PageType.SELECT_TYPE;
-        this.dataDER = [];
-        this.dataRLR = [];
+        this.current     = data.module;
+        this.page        = PageType.SELECT_TYPE;
+        this.dataDER     = [];
+        this.dataRLR     = [];
         this.checkCreate = false;
-        this.checkRead = false;
+        this.checkRead   = false;
         this.checkUpdate = false;
         this.checkDelete = false;
-        this.selectedsDataFunctions = [];
+        this.selectedALR = [];
     }
 
     isNextVisible(): boolean {
@@ -80,10 +82,12 @@ export class FunctionWizardComponent {
             case PageType.DATA_TYPE_EXTRA:
                 result = true;
                 break;
-            case PageType.TRANSACTION_TYPE:
-                result = this.canNextTransactionType();
+            case PageType.TRANSACTION_TYPE_ALR:
+                result = this.canNextTransactionTypeARL();
                 break;
-
+            case PageType.TRANSACTION_TYPE_DER:
+                result = this.canNextTransactionTypeDER();
+                break;
         }
         return result;
     }
@@ -101,8 +105,16 @@ export class FunctionWizardComponent {
         return this.dataRLR.length > 0;
     }    
 
-    canNextTransactionType(): boolean {
-        return this.selectedsDataFunctions.length > 0;
+    canNextTransactionTypeARL(): boolean {
+        let result = true;
+        if (this.functionType == FunctionType.CE) {
+            result = this.selectedALR.length > 0;
+        }
+        return result;
+    }
+
+    canNextTransactionTypeDER(): boolean {
+        return this.dataDER.length > 0;
     }
 
     doNext() {
@@ -111,7 +123,7 @@ export class FunctionWizardComponent {
                 if (this.functionType === FunctionType.ALI || this.functionType === FunctionType.AIE) {
                     this.page = PageType.DATA_TYPE_DER;
                 } else {
-                    this.page = PageType.TRANSACTION_TYPE;
+                    this.page = PageType.TRANSACTION_TYPE_ALR;
                 }
                 break;
             case PageType.DATA_TYPE_DER:
@@ -124,7 +136,10 @@ export class FunctionWizardComponent {
             case PageType.DATA_TYPE_EXTRA:
                 this.page = PageType.RESULT;
                 break;
-            case PageType.TRANSACTION_TYPE:
+            case PageType.TRANSACTION_TYPE_ALR:
+                this.page = PageType.TRANSACTION_TYPE_DER;
+                break;
+            case PageType.TRANSACTION_TYPE_DER:
                 this.page = PageType.RESULT;
                 break;
         }
@@ -151,14 +166,17 @@ export class FunctionWizardComponent {
             case PageType.DATA_TYPE_EXTRA:
                 this.page = PageType.DATA_TYPE_RLR;
                 break;
-            case PageType.TRANSACTION_TYPE:
+            case PageType.TRANSACTION_TYPE_ALR:
                 this.page = PageType.SELECT_TYPE;
+                break;
+            case PageType.TRANSACTION_TYPE_DER:
+                this.page = PageType.TRANSACTION_TYPE_ALR;
                 break;
             case PageType.RESULT:
                 if (this.functionType === FunctionType.ALI || this.functionType === FunctionType.AIE) {
                     this.page = PageType.DATA_TYPE_EXTRA;
                 } else {
-                    this.page = PageType.TRANSACTION_TYPE;
+                    this.page = PageType.TRANSACTION_TYPE_DER;
                 }
         }
     }
@@ -293,20 +311,20 @@ export class FunctionWizardComponent {
         let i = 0;
         this.dataDER.forEach(der => {
             der.id = ++i;
-            fun.der.push(der);
+            fun.ders.push(der);
         });
 
         i = 0;
         this.dataRLR.forEach(rlr => {
             rlr.id = ++i;
-            fun.rlr.push(rlr);
+            fun.rlrs.push(rlr);
         });
 
         if (this.checkRead) {
             let ce = new FunctionCE();
             ce.id = ++last;
             ce.name = 'Consultar ' + fun.name;
-            ce.datas.push(fun);
+            ce.alrs.push(fun);
             this.current.functions.push(ce);
         }
 
@@ -314,7 +332,7 @@ export class FunctionWizardComponent {
             let ee = new FunctionEE();
             ee.id = ++last;
             ee.name = 'Inserir ' + fun.name;
-            ee.datas.push(fun);
+            ee.alrs.push(fun);
             this.current.functions.push(ee);
         }
 
@@ -322,7 +340,7 @@ export class FunctionWizardComponent {
             let ee = new FunctionEE();
             ee.id = ++last;
             ee.name = 'Alterar ' + fun.name;
-            ee.datas.push(fun);
+            ee.alrs.push(fun);
             this.current.functions.push(ee);
         }
 
@@ -330,7 +348,7 @@ export class FunctionWizardComponent {
             let ee = new FunctionEE();
             ee.id = ++last;
             ee.name = 'Excluir ' + fun.name;
-            ee.datas.push(fun);
+            ee.alrs.push(fun);
             this.current.functions.push(ee);
         }
     }
@@ -348,15 +366,19 @@ export class FunctionWizardComponent {
                 fun = new FunctionSE();
                 break;
             default:
-                // FIXME Notificar falha.
-                return;
+                throw Error("Tipo inválido...");
         }
         fun.id = ++last;
         fun.name = this.name;
         fun.description = this.description;
-        for (let data of this.selectedsDataFunctions) {
-            fun.datas.push(data);
+        for (let data of this.selectedALR) {
+            fun.alrs.push(data);
         }
+        let i = 0;
+        this.dataDER.forEach(der => {
+            der.id = ++i;
+            fun.ders.push(der);
+        });
         this.current.functions.push(fun);
     }
 }

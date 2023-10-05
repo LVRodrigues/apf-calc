@@ -2,13 +2,21 @@
 
 ![GitHub](https://img.shields.io/github/license/LVRodrigues/cpp-fifo)
 
-![Static Badge](https://img.shields.io/badge/angular-16-blue) 
+![Static Badge](https://img.shields.io/badge/angular-16-blue?logo=angular) 
 ![Static Badge](https://img.shields.io/badge/SAAS-yellow)
 ![Static Badge](https://img.shields.io/badge/NGXecharts-yellow)
 ![Static Badge](https://img.shields.io/badge/XML-yellow)
 
 
-Calculadora de esforço de projeto usando Pontos de Função.
+Calculadora de esforço de projeto usando Análise de Pontos de Função, baseado nas informações do
+[International Function Point Users Group](https://ifpug.org).
+
+# Links Úteis
+
+* [![Static Badge](https://img.shields.io/badge/Manual_do_Usuário-blue)](https://github.com/LVRodrigues/apf-calc/wiki/Manual-do-Usu%C3%A1rio)
+
+* [![Static Badge](https://img.shields.io/badge/Function_Point_Analisys-blue)](https://ifpug.org/ifpug-standards/fpa)
+
 
 ## Diagrama de Classes
 

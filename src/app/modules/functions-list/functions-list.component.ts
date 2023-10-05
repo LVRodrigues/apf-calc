@@ -49,7 +49,7 @@ export class FunctionsListComponent {
             try {
                 this.module.functions.forEach(fun => {
                     if (fun instanceof FunctionTransaction) {
-                        fun.datas.forEach(data => {
+                        fun.alrs.forEach(data => {
                             if (data.id === item.id) {
                                 throw Error("Função de data em uso");
                             }

@@ -47,8 +47,8 @@ export class FunctionEditDataComponent {
                 this.data.id          = this.original.id;
                 this.data.name        = this.original.name;
                 this.data.description = this.original.description;
-                this.data.der         = this.original.der;
-                this.data.rlr         = this.original.rlr;
+                this.data.ders         = this.original.ders;
+                this.data.rlrs         = this.original.rlrs;
             }
         });
     }
@@ -71,13 +71,13 @@ export class FunctionEditDataComponent {
             dialogRef.afterClosed().subscribe((data: Data) => {
                 if (data) {
                     let last: number = -1;
-                    this.data.der.forEach(item => {
+                    this.data.ders.forEach(item => {
                         if (item.id > last) {
                             last = item.id;
                         }
                     });
                     data.id = ++last;
-                    this.data.der = [data, ...this.data.der];
+                    this.data.ders = [data, ...this.data.ders];
                 }
                 this.opened = false;
             });
@@ -85,7 +85,7 @@ export class FunctionEditDataComponent {
     }
     
     removeDER(item: Data): void {
-        this.data.der = this.data.der.filter(v => v.id != item.id);
+        this.data.ders = this.data.ders.filter(v => v.id != item.id);
     }
         
     editDER(item: Data): void {
@@ -131,13 +131,13 @@ export class FunctionEditDataComponent {
             dialogRef.afterClosed().subscribe((data: Data) => {
                 if (data) {
                     let last: number = -1;
-                    this.data.rlr.forEach(item => {
+                    this.data.rlrs.forEach(item => {
                         if (item.id > last) {
                             last = item.id;
                         }
                     });
                     data.id = ++last;
-                    this.data.rlr = [data, ...this.data.rlr];
+                    this.data.rlrs = [data, ...this.data.rlrs];
                 }
                 this.opened = false;
             });
@@ -145,7 +145,7 @@ export class FunctionEditDataComponent {
     }
     
     removeRLR(item: Data): void {
-        this.data.rlr = this.data.rlr.filter(v => v.id != item.id);
+        this.data.rlrs = this.data.rlrs.filter(v => v.id != item.id);
     }
         
     editRLR(item: Data): void {
@@ -175,15 +175,15 @@ export class FunctionEditDataComponent {
 
     canConfirm(): boolean {
         return this.data.name.length > 0 
-            && this.data.der.length > 0 
-            && this.data.rlr.length > 0;
+            && this.data.ders.length > 0 
+            && this.data.rlrs.length > 0;
     }
 
     confirm(): void {
         this.original.name          = this.data.name;
         this.original.description   = this.data.description;
-        this.original.der           = this.data.der;
-        this.original.rlr           = this.data.rlr;
+        this.original.ders           = this.data.ders;
+        this.original.rlrs           = this.data.rlrs;
         this.naviageBack();
     }
 
