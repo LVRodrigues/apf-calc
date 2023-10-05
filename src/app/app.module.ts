@@ -34,7 +34,7 @@ import { FunctionWizardComponent } from './modules/function-wizard/function-wiza
 import { ModuleGraphComponent } from './modules/module-graph/module-graph.component';
 import { FunctionsListComponent } from './modules/functions-list/functions-list.component';
 import { FunctionEditDataComponent } from './modules/function-edit-data/function-edit-data.component';
-import { EditDataDialogComponent } from './modules/function-edit-data/edit-data-dialog/edit-data-dialog.component';
+import { EditDataDialogComponent } from './modules/edit-data-dialog/edit-data-dialog.component';
 import { FunctionEditTransactionComponent } from './modules/function-edit-transaction/function-edit-transaction.component';
 
 @NgModule({

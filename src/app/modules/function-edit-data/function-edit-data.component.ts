@@ -6,7 +6,7 @@ import { Data } from 'src/app/model/data';
 import { FunctionAIE, FunctionALI, FunctionData } from 'src/app/model/function';
 import { FunctionType } from 'src/app/model/function-type';
 import { Module } from 'src/app/model/module';
-import { EditDataDialogComponent } from './edit-data-dialog/edit-data-dialog.component';
+import { EditDataDialogComponent } from 'src/app/modules/edit-data-dialog/edit-data-dialog.component';
 
 @Component({
     selector: 'app-function-edit-data',
