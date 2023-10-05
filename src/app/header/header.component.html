@@ -1,9 +1,8 @@
 <mat-toolbar color="primary" class="mat-toolbar-header">
     <mat-toolbar-row>
-        <span>{{ app.title }}</span>
-
+        <span>{{ app.title }} </span>
+        
         <mat-divider vertical *ngIf="canShow()"></mat-divider>
-
         <div class="divTable project-detail" *ngIf="canShow()">
             <div class="divTableBody">
                 <div class="divTableRow">
@@ -21,7 +20,11 @@
             </div>
         </div>
 
-        <span class="spacer" *ngIf="canShow()"></span>
+        <span class="spacer"></span>
+        <mat-divider vertical></mat-divider>
+        <span>Em desenvolvimento</span>
+
+        <!-- <span class="spacer" *ngIf="canShow()"></span> -->
         <mat-divider vertical *ngIf="canShow()"></mat-divider>
         <span *ngIf="canShow()">{{ apf.project.score }} pontos</span>
     </mat-toolbar-row>

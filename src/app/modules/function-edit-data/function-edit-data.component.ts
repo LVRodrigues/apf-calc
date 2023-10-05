@@ -6,7 +6,7 @@ import { Data } from 'src/app/model/data';
 import { FunctionAIE, FunctionALI, FunctionData } from 'src/app/model/function';
 import { FunctionType } from 'src/app/model/function-type';
 import { Module } from 'src/app/model/module';
-import { EditDataDialogComponent } from './edit-data-dialog/edit-data-dialog.component';
+import { EditDataDialogComponent } from 'src/app/modules/edit-data-dialog/edit-data-dialog.component';
 
 @Component({
     selector: 'app-function-edit-data',
@@ -47,15 +47,19 @@ export class FunctionEditDataComponent {
                 this.data.id          = this.original.id;
                 this.data.name        = this.original.name;
                 this.data.description = this.original.description;
-                this.data.datas       = this.original.datas;
+                this.data.ders         = this.original.ders;
+                this.data.rlrs         = this.original.rlrs;
             }
         });
     }
 
-    add(): void {
+    addDER(): void {
         if (!this.opened) {
             this.opened = true;
-            let data = new Data();
+            let data = {
+                title: 'DER (Dado Elementar Relacionado)',
+                value: new Data()
+            };
             const dialogRef = this.dialog.open(EditDataDialogComponent, {
                 data: data,
                 maxHeight: '100%',
@@ -67,27 +71,30 @@ export class FunctionEditDataComponent {
             dialogRef.afterClosed().subscribe((data: Data) => {
                 if (data) {
                     let last: number = -1;
-                    this.data.datas.forEach(item => {
+                    this.data.ders.forEach(item => {
                         if (item.id > last) {
                             last = item.id;
                         }
                     });
                     data.id = ++last;
-                    this.data.datas = [data, ...this.data.datas];
+                    this.data.ders = [data, ...this.data.ders];
                 }
                 this.opened = false;
             });
         }
     }
     
-    remove(item: Data): void {
-        this.data.datas = this.data.datas.filter(v => v.id != item.id);
+    removeDER(item: Data): void {
+        this.data.ders = this.data.ders.filter(v => v.id != item.id);
     }
         
-    edit(item: Data): void {
+    editDER(item: Data): void {
         if (!this.opened) {
             this.opened = true;
-            let data = {...item};
+            let data = {
+                title: 'DER (Dado Elementar Relacionado)',
+                value: {...item}
+            };
             const dialogRef = this.dialog.open(EditDataDialogComponent, {
                 data: data,
                 maxHeight: '100%',
@@ -106,10 +113,77 @@ export class FunctionEditDataComponent {
         }
     }    
 
+    addRLR(): void {
+        if (!this.opened) {
+            this.opened = true;
+            let data = {
+                title: 'RLR (Registro Elementar Relacionado)',
+                value: new Data()
+            };
+            const dialogRef = this.dialog.open(EditDataDialogComponent, {
+                data: data,
+                maxHeight: '100%',
+                width: '540px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((data: Data) => {
+                if (data) {
+                    let last: number = -1;
+                    this.data.rlrs.forEach(item => {
+                        if (item.id > last) {
+                            last = item.id;
+                        }
+                    });
+                    data.id = ++last;
+                    this.data.rlrs = [data, ...this.data.rlrs];
+                }
+                this.opened = false;
+            });
+        }
+    }
+    
+    removeRLR(item: Data): void {
+        this.data.rlrs = this.data.rlrs.filter(v => v.id != item.id);
+    }
+        
+    editRLR(item: Data): void {
+        if (!this.opened) {
+            this.opened = true;
+            let data = {
+                title: 'RLR (Registro Elementar Relacionado)',
+                value: {...item}
+            };
+            const dialogRef = this.dialog.open(EditDataDialogComponent, {
+                data: data,
+                maxHeight: '100%',
+                width: '540px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((data: Data) => {
+                if (data) {
+                    item.name = data.name;
+                    item.description = data.description;
+                }
+                this.opened = false;
+            });
+        }
+    }        
+
+    canConfirm(): boolean {
+        return this.data.name.length > 0 
+            && this.data.ders.length > 0 
+            && this.data.rlrs.length > 0;
+    }
+
     confirm(): void {
         this.original.name          = this.data.name;
         this.original.description   = this.data.description;
-        this.original.datas         = this.data.datas;
+        this.original.ders           = this.data.ders;
+        this.original.rlrs           = this.data.rlrs;
         this.naviageBack();
     }
 
