@@ -66,6 +66,9 @@ export class ApfService {
         fun3.description = 'Consultar Usuários e LDAP';
         fun3.alrs.push(fun1);
         fun3.alrs.push(fun2);
+        fun3.ders = [
+            { id: 1, name: 'CPF', description: undefined }
+        ];
         mod1.functions.push(fun3);
 
         let fun4 = new FunctionALI();
@@ -91,6 +94,9 @@ export class ApfService {
         fun5.name = 'Consultar Fornecedor';
         fun5.description = 'Consultar Fonecedor do banco de dados';
         fun5.alrs.push(fun4);
+        fun5.ders = [
+            { id: 1, name: 'CNPJ', description: undefined }
+        ];
         mod1.functions.push(fun5);
 
         let fun6 = new FunctionEE();
@@ -98,6 +104,10 @@ export class ApfService {
         fun6.name = 'Incluir Fornecedor';
         fun6.description = 'Incluir Fonecedor do banco de dados';
         fun6.alrs.push(fun4);
+        fun6.ders = [
+            { id: 1, name: 'CNPJ', description: undefined },
+            { id: 2, name: 'Nome', description: undefined}
+        ];        
         mod1.functions.push(fun6);
 
         let fun7 = new FunctionEE();
@@ -105,6 +115,10 @@ export class ApfService {
         fun7.name = 'Alterar Fornecedor';
         fun7.description = 'Alterar Fonecedor do banco de dados';
         fun7.alrs.push(fun4);
+        fun7.ders = [
+            { id: 1, name: 'CNPJ', description: undefined },
+            { id: 2, name: 'Nome', description: undefined}
+        ];          
         mod1.functions.push(fun7);
 
         let fun8 = new FunctionEE();
@@ -112,6 +126,10 @@ export class ApfService {
         fun8.name = 'Excluir Fornecedor';
         fun8.description = 'Excluir Fonecedor do banco de dados';
         fun8.alrs.push(fun4);
+        fun8.ders = [
+            { id: 1, name: 'CNPJ', description: undefined },
+            { id: 2, name: 'Nome', description: undefined}
+        ];          
         mod1.functions.push(fun8);
 
         let fun9 = new FunctionSE();
@@ -121,6 +139,10 @@ export class ApfService {
         fun9.alrs.push(fun1);
         fun9.alrs.push(fun2);
         fun9.alrs.push(fun4);
+        fun9.ders = [
+            { id: 1, name: 'CNPJ', description: undefined },
+            { id: 2, name: 'CPF', description: undefined}
+        ];          
         mod1.functions.push(fun9);
 
         let mod2 = new Module();
