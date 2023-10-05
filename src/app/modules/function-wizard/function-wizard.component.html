@@ -22,21 +22,22 @@
         </mat-radio-group>
     </div>
 
-    <div *ngIf="page === PageType.DATA_TYPE">
+    <!-- DER é semelhante para funções de dados e de transações. Página compartilhada... -->
+    <div *ngIf="(page === PageType.DATA_TYPE_DER) || (page === PageType.TRANSACTION_TYPE_DER)">
         <h3>[{{FunctionType[functionType]}}] - {{ name }}</h3>
         <mat-form-field>
-            <mat-label>Dados Elementares Relacionados (DER)</mat-label>
+            <mat-label>DER (Dados Elementares Relacionados)</mat-label>
             <mat-chip-grid #chipGrid>
-              <mat-chip-row *ngFor="let der of dataDERs"
-                            (removed)="dataDERRemove(der)"
+              <mat-chip-row *ngFor="let data of dataDER"
+                            (removed)="dataDERRemove(data)"
                             [editable]="true"
-                            (edited)="dataDEREdit(der, $event)">
-                {{ der.name }}
+                            (edited)="dataDEREdit(data, $event)">
+                {{ data.name }}
                 <button matChipRemove>
                   <mat-icon>close</mat-icon>
                 </button>
               </mat-chip-row>
-              <input placeholder="Adicionar Dado Elementar Relacionado (DER)..."
+              <input placeholder="Adicionar DER..."
                      [matChipInputFor]="chipGrid"
                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
                      [matChipInputAddOnBlur]="true"
@@ -44,6 +45,29 @@
             </mat-chip-grid>
           </mat-form-field>
     </div>
+
+    <div *ngIf="page === PageType.DATA_TYPE_RLR">
+        <h3>[{{FunctionType[functionType]}}] - {{ name }}</h3>
+        <mat-form-field>
+            <mat-label>RLR (Registros Elementares Relacionados)</mat-label>
+            <mat-chip-grid #chipGrid>
+              <mat-chip-row *ngFor="let data of dataRLR"
+                            (removed)="dataRLRRemove(data)"
+                            [editable]="true"
+                            (edited)="dataRLREdit(data, $event)">
+                {{ data.name }}
+                <button matChipRemove>
+                  <mat-icon>close</mat-icon>
+                </button>
+              </mat-chip-row>
+              <input placeholder="Adicionar RLR..."
+                     [matChipInputFor]="chipGrid"
+                     [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                     [matChipInputAddOnBlur]="true"
+                     (matChipInputTokenEnd)="dataRLRAdd($event)"/>
+            </mat-chip-grid>
+        </mat-form-field>
+    </div>    
 
     <div *ngIf="page === PageType.DATA_TYPE_EXTRA">
         <h3>[{{FunctionType[functionType]}}] - {{ name }}</h3>
@@ -54,10 +78,10 @@
         <mat-checkbox class="example-margin" [(ngModel)]="checkDelete">Excluir</mat-checkbox>
     </div>
 
-    <div *ngIf="page === PageType.TRANSACTION_TYPE">
+    <div *ngIf="page === PageType.TRANSACTION_TYPE_ALR">
         <h3>[{{FunctionType[functionType]}}] - {{ name }}</h3>
-        <h4>Arquivos Lógicos Relacionados (ALR)</h4>
-        <mat-selection-list [(ngModel)]="selectedsDataFunctions" [compareWith]="compareFunctions">
+        <h4>ALR (Arquivos Lógicos Relacionados)</h4>
+        <mat-selection-list [(ngModel)]="selectedALR" [compareWith]="compareFunctions">
             <mat-list-option *ngFor="let fun of listFunctionData()" [value]="fun">
                 {{ fun.name }}
             </mat-list-option>
@@ -71,7 +95,8 @@
             [ngIfThen]="resultData" [ngIfElse]="resultTransaction">
         </ng-template>
         <ng-template #resultData>
-            <p>Informados {{ dataDERs.length }} DERs.</p>
+            <p>DER: {{ dataDER.length }}.</p>
+            <P>RLR: {{ dataRLR.length }}.</P>
             <p>Criar automaticamente as funções de:</p>
             <ul>
                 <li *ngIf="checkRead">Consultar</li>
@@ -83,7 +108,7 @@
         <ng-template #resultTransaction>
             <p>Associar com as funções de dados:</p>
             <ul>
-                <li *ngFor="let fun of selectedsDataFunctions">{{ fun.name }}</li>
+                <li *ngFor="let fun of selectedALR">{{ fun.name }}</li>
             </ul>
         </ng-template>
     </div>

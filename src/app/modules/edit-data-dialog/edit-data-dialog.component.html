@@ -1,19 +1,19 @@
-<h1 mat-dialog-title>Dado Elementar Referenciado (DER)</h1>
+<h1 mat-dialog-title> {{ data.title }} </h1>
 <div mat-dialog-content class="content">
     <mat-form-field appearance="fill">
         <mat-label>Nome</mat-label>
-        <input matInput type="text" id="name" [(ngModel)]="data.name" placeholder="Nome do dado elementar.">
+        <input matInput type="text" id="name" [(ngModel)]="data.value.name" placeholder="Nome do dado elementar.">
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Descrição</mat-label>
-        <input matInput type="text" id="description" [(ngModel)]="data.description"
+        <input matInput type="text" id="description" [(ngModel)]="data.value.description"
             placeholder="Descrição sobre o dado elementar.">
     </mat-form-field>
 </div>
 <div mat-dialog-actions>
     <hr width="100%">
     <span class="spacer"></span>
-    <button mat-raised-button [mat-dialog-close]="data" color="accent" [disabled]="!data.name">
+    <button mat-raised-button [mat-dialog-close]="data.value" color="accent" [disabled]="!data.value.name">
         Confirmar
         <mat-icon>check</mat-icon>
     </button>

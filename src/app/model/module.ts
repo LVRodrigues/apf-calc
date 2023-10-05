@@ -16,4 +16,10 @@ export class Module {
         let result = this.functions.find(value => value.id === id);
         return result;
     }
+
+    public get value(): number {
+        let result = 0;
+        this.functions.forEach(item => result += item.value);
+        return result;
+    }
 }

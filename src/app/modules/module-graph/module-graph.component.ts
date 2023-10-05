@@ -77,7 +77,7 @@ export class ModuleGraphComponent {
         let result : Link[] = [];
         this.module.functions.forEach((fun) => {
             if (fun instanceof FunctionTransaction) {
-                fun.datas.forEach((data) => {
+                fun.alrs.forEach((data) => {
                     let link: Link = {
                         source: data.id.toString(),
                         target: fun.id.toString(),

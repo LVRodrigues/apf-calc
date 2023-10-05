@@ -14,9 +14,9 @@ const routes: Routes = [
     { path: 'properties', component: PropertiesComponent, data: { title: 'Propriedades' } },
     { path: 'modules', component: ModulesComponent, data: { title: 'Módulos' } },
     { path: 'module-graph', component: ModuleGraphComponent, data: { title: 'Detalhes do Módulo'} },
-    { path: 'functions-list', component: FunctionsListComponent, data: { title: 'Lista de Funções'} },
-    { path: 'function-edit-data', component: FunctionEditDataComponent, data: { title: 'Editar Função'} },
-    { path: 'function-edit-transaction', component: FunctionEditTransactionComponent, data: { title: 'Editar Função'} },
+    { path: 'functions-list', component: FunctionsListComponent, data: { title: 'Funções'} },
+    { path: 'function-edit-data', component: FunctionEditDataComponent, data: { title: 'Função de Dados'} },
+    { path: 'function-edit-transaction', component: FunctionEditTransactionComponent, data: { title: 'Função de Transação'} },
 ];
 
 @NgModule({

@@ -5,7 +5,6 @@ export class Project {
     description: string | undefined;
     responsible: string | undefined;
     date!: Date;
-    score!: number;
     version!: number;
     modules!: Module[];
 
@@ -13,11 +12,16 @@ export class Project {
         this.date = new Date();
         this.modules = [];
         this.version = 1;
-        this.score = 0;
     }
 
     public module(id: number): Module | undefined {
         let result = this.modules.find(value => value.id === id);
+        return result;
+    }
+
+    public get score(): number {
+        let result = 0;
+        this.modules.forEach(item => result += item.value);
         return result;
     }
 }

@@ -16,6 +16,7 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -33,7 +34,7 @@ import { FunctionWizardComponent } from './modules/function-wizard/function-wiza
 import { ModuleGraphComponent } from './modules/module-graph/module-graph.component';
 import { FunctionsListComponent } from './modules/functions-list/functions-list.component';
 import { FunctionEditDataComponent } from './modules/function-edit-data/function-edit-data.component';
-import { EditDataDialogComponent } from './modules/function-edit-data/edit-data-dialog/edit-data-dialog.component';
+import { EditDataDialogComponent } from './modules/edit-data-dialog/edit-data-dialog.component';
 import { FunctionEditTransactionComponent } from './modules/function-edit-transaction/function-edit-transaction.component';
 
 @NgModule({
@@ -74,6 +75,7 @@ import { FunctionEditTransactionComponent } from './modules/function-edit-transa
     MatCheckboxModule,
     MatListModule,
     MatTableModule,
+    MatTabsModule,
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     })

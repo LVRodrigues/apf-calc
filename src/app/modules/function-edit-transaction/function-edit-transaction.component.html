@@ -5,6 +5,7 @@
             <span class="spacer"></span>
             <mat-divider vertical></mat-divider>
             <button mat-mini-fab class="card-action-button" color="accent" 
+                disabled="{{ ! canConfirm() }}"
                 (click)="confirm()" matTooltip="Salvar">
                 <mat-icon>check</mat-icon>
             </button>
@@ -26,15 +27,52 @@
             </mat-form-field>
 
             <mat-card appearance="outlined">
-                <mat-card-header class="alr-header">
-                    Arquivos Lógicos Referenciados (ALR)
-                </mat-card-header>
                 <mat-card-content>
-                    <mat-selection-list [(ngModel)]="data.datas" [compareWith]="compareFunctions">
-                        <mat-list-option *ngFor="let fun of listFunctionData()" [value]="fun">
-                            {{ fun.name }}
-                        </mat-list-option>
-                    </mat-selection-list>
+                    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+                        <mat-tab label="ALR (Arquivos Lógicos Referenciados)">
+                            <mat-selection-list [(ngModel)]="data.alrs" [compareWith]="compareFunctions">
+                                <mat-list-option *ngFor="let fun of listFunctionData()" [value]="fun">
+                                    {{ fun.name }}
+                                </mat-list-option>
+                            </mat-selection-list>
+                        </mat-tab>
+
+                        <mat-tab label="DER (Dados Elementares Relacionados)">
+                            <table mat-table [dataSource]="data.ders">
+                                <ng-container matColumnDef="name">
+                                    <th mat-header-cell *matHeaderCellDef>Nome</th>
+                                    <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                                </ng-container>
+                
+                                <ng-container matColumnDef="description">
+                                    <th mat-header-cell *matHeaderCellDef>Descrição</th>
+                                    <td mat-cell *matCellDef="let element">{{ element.description }} </td>
+                                </ng-container>
+                
+                                <ng-container matColumnDef="actions">
+                                    <th mat-header-cell *matHeaderCellDef>
+                                        <button mat-mini-fab class="card-action-button" color="accent" 
+                                            (click)="addDER()" matTooltip="Adicionar">
+                                            <mat-icon>add</mat-icon>
+                                        </button>
+                                    </th>
+                                    <td mat-cell *matCellDef="let element">
+                                        <button mat-mini-fab class="card-action-button" color="accent" 
+                                            (click)="editDER(element)" matTooltip="Editar">
+                                            <mat-icon>edit</mat-icon>
+                                        </button>
+                                        <button mat-mini-fab class="card-action-button" color="accent" 
+                                            (click)="removeDER(element)" matTooltip="Excluir">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </td>
+                                </ng-container>
+        
+                                <tr mat-header-row *matHeaderRowDef="columns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: columns;"></tr>    
+                            </table>                    
+                        </mat-tab>
+                    </mat-tab-group>
                 </mat-card-content>
             </mat-card>
         </mat-card-content>
