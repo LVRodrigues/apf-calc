@@ -9,8 +9,6 @@ import { FunctionEditDataComponent } from './modules/function-edit-data/function
 import { FunctionEditTransactionComponent } from './modules/function-edit-transaction/function-edit-transaction.component';
 
 const routes: Routes = [
-    { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: '**', component: HomeComponent },
     { path: 'home', component: HomeComponent, data: { title: 'Início' } },
     { path: 'properties', component: PropertiesComponent, data: { title: 'Propriedades' } },
     { path: 'modules', component: ModulesComponent, data: { title: 'Módulos' } },
@@ -18,6 +16,8 @@ const routes: Routes = [
     { path: 'functions-list', component: FunctionsListComponent, data: { title: 'Funções'} },
     { path: 'function-edit-data', component: FunctionEditDataComponent, data: { title: 'Função de Dados'} },
     { path: 'function-edit-transaction', component: FunctionEditTransactionComponent, data: { title: 'Função de Transação'} },
+    { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '**', component: HomeComponent },    
 ];
 
 @NgModule({

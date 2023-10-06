@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-footer',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class FooterComponent {
 
+  constructor(public app: AppComponent) {
+}
 }
