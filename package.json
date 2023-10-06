@@ -7,7 +7,8 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "debug": "ng serve --configuration development --host=127.0.0.1"
+    "debug": "ng serve --configuration development --host=127.0.0.1",
+    "github": "ng build --configuration production --base-href='apf-calc'"
   },
   "private": true,
   "dependencies": {

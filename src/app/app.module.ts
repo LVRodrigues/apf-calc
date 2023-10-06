@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -37,50 +37,57 @@ import { FunctionEditDataComponent } from './modules/function-edit-data/function
 import { EditDataDialogComponent } from './modules/edit-data-dialog/edit-data-dialog.component';
 import { FunctionEditTransactionComponent } from './modules/function-edit-transaction/function-edit-transaction.component';
 
+import localePT from '@angular/common/locales/pt';
+import localeExtraPT from '@angular/common/locales/extra/pt';
+import { registerLocaleData } from '@angular/common';
+registerLocaleData(localePT, 'pt', localeExtraPT);
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    FooterComponent,
-    HomeComponent,
-    MenuComponent,
-    PropertiesComponent,
-    ModulesComponent,
-    ModuleDialogComponent,
-    ConfirmDialogComponent,
-    FunctionWizardComponent,
-    ModuleGraphComponent,
-    FunctionsListComponent,
-    FunctionEditDataComponent,
-    EditDataDialogComponent,
-    FunctionEditTransactionComponent,
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    MatButtonModule,
-    MatIconModule,
-    MatTooltipModule,
-    MatDividerModule,
-    MatCardModule,
-    MatFormFieldModule,
-    MatInputModule,
-    FormsModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatRadioModule,
-    MatChipsModule,
-    MatCheckboxModule,
-    MatListModule,
-    MatTableModule,
-    MatTabsModule,
-    NgxEchartsModule.forRoot({
-      echarts: () => import('echarts')
-    })
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+    declarations: [
+        AppComponent,
+        HeaderComponent,
+        FooterComponent,
+        HomeComponent,
+        MenuComponent,
+        PropertiesComponent,
+        ModulesComponent,
+        ModuleDialogComponent,
+        ConfirmDialogComponent,
+        FunctionWizardComponent,
+        ModuleGraphComponent,
+        FunctionsListComponent,
+        FunctionEditDataComponent,
+        EditDataDialogComponent,
+        FunctionEditTransactionComponent,
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        BrowserAnimationsModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatIconModule,
+        MatTooltipModule,
+        MatDividerModule,
+        MatCardModule,
+        MatFormFieldModule,
+        MatInputModule,
+        FormsModule,
+        ReactiveFormsModule,
+        MatDialogModule,
+        MatRadioModule,
+        MatChipsModule,
+        MatCheckboxModule,
+        MatListModule,
+        MatTableModule,
+        MatTabsModule,
+        NgxEchartsModule.forRoot({
+            echarts: () => import('echarts')
+        })
+    ],
+    providers: [
+        { provide: LOCALE_ID, useValue: 'pt' },
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
