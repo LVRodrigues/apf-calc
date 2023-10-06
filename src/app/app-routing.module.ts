@@ -10,6 +10,7 @@ import { FunctionEditTransactionComponent } from './modules/function-edit-transa
 
 const routes: Routes = [
     { path: '', redirectTo: 'home', pathMatch: 'full' },
+    { path: '**', component: HomeComponent },
     { path: 'home', component: HomeComponent, data: { title: 'Início' } },
     { path: 'properties', component: PropertiesComponent, data: { title: 'Propriedades' } },
     { path: 'modules', component: ModulesComponent, data: { title: 'Módulos' } },
