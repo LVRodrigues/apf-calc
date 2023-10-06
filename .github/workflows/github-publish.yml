@@ -23,7 +23,7 @@ jobs:
       - name: Install
         run: npm install
       - name: Build
-        run: npm run build --base-href "/apf-calc/"
+        run: npm run build --base-href "https://lvrodrigues.github.io/apf-calc/"
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
         with:
