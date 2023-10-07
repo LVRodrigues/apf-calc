@@ -24,8 +24,8 @@ Usando o fluxo de trabalho [Git Flow](https://www.atlassian.com/git/tutorials/co
 ```bash
 git flow release start <id>
 npm run release
-git commit -a
-git flow release finish '<id>'
+git commit -a -m "Versão ???"
+git flow release finish
 ```
 
 ## Diagrama de Classes
