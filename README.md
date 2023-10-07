@@ -19,7 +19,7 @@ Calculadora de esforço de projeto usando Análise de Pontos de Função, basead
 
 ## Publicar nova versão.
 
-Usando o fluxo de trabalho [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow), execute os comandos:
+Usando o fluxo de trabalho [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow), execute os comandos:
 
 ```bash
 git flow release start <id>
