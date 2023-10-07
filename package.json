@@ -8,7 +8,8 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "debug": "ng serve --configuration development --host=127.0.0.1",
-    "github": "ng build --configuration production --base-href='apf-calc'"
+    "github": "ng build --configuration production --base-href='apf-calc'",
+    "release": "npm --no-git-tag-version version patch && node ./release.js"
   },
   "private": true,
   "dependencies": {
@@ -24,7 +25,9 @@
     "@angular/router": "^16.0.0",
     "@types/node": "^20.8.2",
     "echarts": "^5.4.2",
+    "moment-timezone": "^0.5.43",
     "ngx-echarts": "^16.0.0",
+    "replace-in-file": "^7.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
