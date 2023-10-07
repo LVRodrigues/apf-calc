@@ -7,6 +7,8 @@ import { Module } from '../model/module';
 import { MatDialog } from '@angular/material/dialog';
 import { ModuleDialogComponent } from '../modules/module-dialog/module-dialog.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
+import { readFileSync, writeFileSync } from 'fs';
 
 @Component({
     selector: 'app-menu',
@@ -113,5 +115,28 @@ export class MenuComponent {
                 this.opened = false;
             });
         }
+    }
+
+    import() {
+        throw Error('Ainda não implementado.')
+    }
+
+    export() {
+        const options = {
+            processEntities:false,
+            format: true,
+            ignoreAttributes: false,
+        };
+        const builder   = new XMLBuilder(options)
+        const xml       = '<?xml version="1.0" encoding="UTF-8" ?>\n' + builder.build(this.apf);
+
+        let filename        = 'apf-calc.xml';
+        const file          = new Blob([xml], {type: 'text/xml'});
+        const link          = document.createElement('a');
+        link.href           = URL.createObjectURL(file);
+        link.download       = filename;
+        link.style.display  = 'none';
+        link.click();
+        link.remove();
     }
 }

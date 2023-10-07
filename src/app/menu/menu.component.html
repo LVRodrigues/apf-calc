@@ -34,11 +34,13 @@
             <mat-icon>dashboard</mat-icon>
         </button>
 
-        <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Importar APF.">
+        <button mat-mini-fab color="accent" class="card-action-button" 
+            (click)="import()" matTooltip="Importar APF.">
             <mat-icon>upload_file</mat-icon>
         </button>
 
-        <button mat-mini-fab color="accent" class="card-action-button" matTooltip="Exportar APF.">
+        <button mat-mini-fab color="accent" class="card-action-button" 
+            (click)="export()" matTooltip="Exportar APF.">
             <mat-icon>download_file</mat-icon>
         </button>
     </mat-toolbar-row>
