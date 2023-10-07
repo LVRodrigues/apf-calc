@@ -17,6 +17,16 @@ Calculadora de esforço de projeto usando Análise de Pontos de Função, basead
 
 * [![Static Badge](https://img.shields.io/badge/Function_Point_Analisys-blue)](https://ifpug.org/ifpug-standards/fpa)
 
+## Publicar nova versão.
+
+Usando o fluxo de trabalho [Git Flow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow), execute os comandos:
+
+```bash
+git flow release start <id>
+npm run release
+git commit -a
+git flow release finish '<id>'
+```
 
 ## Diagrama de Classes
 
