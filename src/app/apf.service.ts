@@ -1,8 +1,29 @@
 import { Injectable } from '@angular/core';
 import { Project } from './model/project';
 import { Module } from './model/module';
-import { FunctionAIE, FunctionALI, FunctionCE, FunctionEE, FunctionSE } from './model/function';
+import { FunctionAIE, FunctionALI, FunctionCE, FunctionData, FunctionEE, FunctionSE, FunctionTransaction } from './model/function';
 import { Data } from './model/data';
+import { create } from 'xmlbuilder2';
+import { FunctionType } from './model/function-type';
+
+const XML_PROJECT       = 'project';
+const XML_ID            = 'id';
+const XML_NAME          = 'name';
+const XML_DESCRIPTION   = 'description';
+const XML_RESPONSIBLE   = 'responsible';
+const XML_DATE          = 'date';
+const XML_VERSION       = 'version';
+const XML_TYPE          = 'type';
+const XML_DERS          = 'ders';
+const XML_DER           = 'der';
+const XML_RLRS          = 'rlrs';
+const XML_RLR           = 'rlr';
+const XML_MODULES       = 'modules';
+const XML_MODULE        = 'module';
+const XML_FUNCTIONS     = 'functions';
+const XML_FUNCTION      = 'function';
+const XML_ALRS          = 'alrs';
+const XML_ALR           = 'alr';
 
 @Injectable({
     providedIn: 'root'
@@ -163,5 +184,65 @@ export class ApfService {
         mod3.id = 3;
         mod3.name = 'Terceiro';
         this.project.modules.push(mod3);
+    }
+
+    toXML(): string {
+        const xml = create({version: '1.0', encoding: 'UTF-8', standalone: true});
+        const xproject = xml.ele(XML_PROJECT)
+                .ele(XML_NAME).txt(this.project.name).up()
+                .ele(XML_DESCRIPTION).txt(this.project.description!).up()
+                .ele(XML_RESPONSIBLE).txt(this.project.responsible!).up()
+                .ele(XML_DATE).txt(this.project.date.toUTCString()).up()
+                .ele(XML_VERSION).txt(this.project.version.toString()).up();
+        const xmodules = xproject.ele(XML_MODULES);
+        this.project.modules.forEach(module => {
+            const xmodule = xmodules.ele(XML_MODULE)
+                .ele(XML_ID).txt(module.id.toString()).up()
+                .ele(XML_NAME).txt(module.name).up()
+                .ele(XML_DESCRIPTION).txt(module.description!).up();
+            const xfunctions = xmodule.ele(XML_FUNCTIONS);
+            module.functions.filter(fun => fun instanceof FunctionData).forEach(func => {
+                if (func instanceof FunctionData) {
+                    const xfunction = xfunctions.ele(XML_FUNCTION, {type: FunctionType[func.type]})
+                        .ele(XML_ID).txt(func.id.toString()).up()
+                        .ele(XML_NAME).txt(func.name).up()
+                        .ele(XML_DESCRIPTION).txt(func.description!).up();
+                    const xders = xfunction.ele(XML_DERS);
+                    func.ders.forEach(data => {
+                        const xder = xders.ele(XML_DER)
+                            .ele(XML_ID).txt(data.id.toString()).up()
+                            .ele(XML_NAME).txt(data.name).up()
+                            .ele(XML_DESCRIPTION).txt(data.description!).up();
+                    });
+                    const xrlrs = xfunction.ele(XML_RLRS);
+                    func.rlrs.forEach(data => {
+                        const xrlr = xrlrs.ele(XML_RLR)
+                            .ele(XML_ID).txt(data.id.toString()).up()
+                            .ele(XML_NAME).txt(data.name).up()
+                            .ele(XML_DESCRIPTION).txt(data.description!).up();                        
+                    });
+                }
+            });
+            module.functions.filter(fun => fun instanceof FunctionTransaction).forEach(func => {
+                if (func instanceof FunctionTransaction) {
+                    const xfunction = xfunctions.ele(XML_FUNCTION, {type: FunctionType[func.type]})
+                        .ele(XML_ID).txt(func.id.toString()).up()
+                        .ele(XML_NAME).txt(func.name).up()
+                        .ele(XML_DESCRIPTION).txt(func.description!).up();
+                        const xalrs = xfunction.ele(XML_ALRS);
+                        func.alrs.forEach(alr => {
+                            xalrs.ele(XML_ALR, {id: alr.id.toString()});
+                        });
+                        const xders = xfunction.ele(XML_DERS);
+                        func.ders.forEach(data => {
+                            const xder = xders.ele(XML_DER)
+                                .ele(XML_ID).txt(data.id.toString()).up()
+                                .ele(XML_NAME).txt(data.name).up()
+                                .ele(XML_DESCRIPTION).txt(data.description!).up();
+                        });
+                }
+            });
+        });
+        return xml.end({prettyPrint: true});
     }
 }
