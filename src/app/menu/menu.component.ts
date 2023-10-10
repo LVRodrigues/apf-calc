@@ -7,8 +7,6 @@ import { Module } from '../model/module';
 import { MatDialog } from '@angular/material/dialog';
 import { ModuleDialogComponent } from '../modules/module-dialog/module-dialog.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
-import { XMLParser, XMLBuilder, XMLValidator } from 'fast-xml-parser';
-import { readFileSync, writeFileSync } from 'fs';
 
 @Component({
     selector: 'app-menu',
@@ -118,18 +116,32 @@ export class MenuComponent {
     }
 
     import() {
-        throw Error('Ainda não implementado.')
+        const self          = this;
+        const file          = document.createElement('input');
+        file.style.display  = 'none';
+        file.type           = 'file';
+        file.onchange       = (event:any) => {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                let project: Project = new Project();
+                reader.onload = (e: any) => {
+                    const xml = e.target.result;
+                    try {
+                        self.apf.fromXML(xml);
+                    } catch (error) {
+                        alert(error);
+                    }
+                }
+                reader.readAsText(file, 'UTF-8');
+            }
+        }
+        file.click();
+        file.remove();
     }
 
     export() {
-        const options = {
-            processEntities:false,
-            format: true,
-            ignoreAttributes: false,
-        };
-        const builder   = new XMLBuilder(options)
-        const xml       = '<?xml version="1.0" encoding="UTF-8" ?>\n' + builder.build(this.apf);
-
+        const xml           = this.apf.toXML();
         let filename        = 'apf-calc.xml';
         const file          = new Blob([xml], {type: 'text/xml'});
         const link          = document.createElement('a');
@@ -140,3 +152,4 @@ export class MenuComponent {
         link.remove();
     }
 }
+
