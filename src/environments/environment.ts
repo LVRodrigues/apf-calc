@@ -1,5 +1,5 @@
 export const environment = {
     appVersion: require('../../package.json').version,
     production: true,
-    releaseStamp: '2023-10-06T21:46:47-03:00'
+    releaseStamp: '2023-10-09T21:18:23-03:00'
 };
