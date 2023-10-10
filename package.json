@@ -1,6 +1,6 @@
 {
   "name": "apf-calc",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -30,6 +30,7 @@
     "replace-in-file": "^7.0.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "xmlbuilder2": "^3.1.1",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

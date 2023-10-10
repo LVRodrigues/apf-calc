@@ -114,4 +114,42 @@ export class MenuComponent {
             });
         }
     }
+
+    import() {
+        const self          = this;
+        const file          = document.createElement('input');
+        file.style.display  = 'none';
+        file.type           = 'file';
+        file.onchange       = (event:any) => {
+            let file = event.target.files[0];
+            if (file) {
+                let reader = new FileReader();
+                let project: Project = new Project();
+                reader.onload = (e: any) => {
+                    const xml = e.target.result;
+                    try {
+                        self.apf.fromXML(xml);
+                    } catch (error) {
+                        alert(error);
+                    }
+                }
+                reader.readAsText(file, 'UTF-8');
+            }
+        }
+        file.click();
+        file.remove();
+    }
+
+    export() {
+        const xml           = this.apf.toXML();
+        let filename        = 'apf-calc.xml';
+        const file          = new Blob([xml], {type: 'text/xml'});
+        const link          = document.createElement('a');
+        link.href           = URL.createObjectURL(file);
+        link.download       = filename;
+        link.style.display  = 'none';
+        link.click();
+        link.remove();
+    }
 }
+

@@ -9,4 +9,5 @@ import { environment } from '../environments/environment';
 export class AppComponent {
     title: string = 'APF Calc';
     version: string = environment.appVersion;
+    releaseStamp = new Date(environment.releaseStamp);
 }
