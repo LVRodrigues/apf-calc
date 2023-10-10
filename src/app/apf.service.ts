@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Project } from './model/project';
 import { Module } from './model/module';
-import { FunctionAIE, FunctionALI, FunctionCE, FunctionData, FunctionEE, FunctionSE, FunctionTransaction } from './model/function';
+import { Function, FunctionAIE, FunctionALI, FunctionCE, FunctionData, FunctionEE, FunctionSE, FunctionTransaction } from './model/function';
 import { Data } from './model/data';
 import { create } from 'xmlbuilder2';
 import { FunctionType } from './model/function-type';
@@ -34,156 +34,6 @@ export class ApfService {
 
     constructor() {
         this.project = new Project();
-        this.project.name = 'Auto Exemplo';
-        this.project.description = 'Exemplo criado automaticamente para teste';
-        this.project.responsible = 'Luciano Vieira Rodrigues';
-
-        let mod1 = new Module();
-        mod1.id = 1;
-        mod1.name = 'Primeiro'
-        mod1.description = 'A descrição ficou longa para verificar o comportoamento do componente redimensionando-se automaticamente.';
-        this.project.modules.push(mod1);
-
-        let fun1 = new FunctionALI();
-        fun1.id = 1;
-        fun1.name = 'Usuários';
-        fun1.description = 'Informações de Usuários do Sistema';
-        fun1.ders = [
-            { id: 1, name: 'id', description: undefined },
-            { id: 2, name: 'nome', description: undefined },
-            { id: 3, name: 'email', description: undefined },
-            { id: 4, name: 'endereco', description: undefined },
-            { id: 5, name: 'telefone', description: undefined },
-            { id: 6, name: 'cpf', description: undefined }
-        ];
-        fun1.rlrs = [
-            { id: 1, name: 'Usuário', description: undefined}
-        ];
-        mod1.functions.push(fun1);
-
-        let fun2 = new FunctionAIE();
-        fun2.id = 2;
-        fun2.name = 'LDAP';
-        fun2.description = 'Informações de Usuários do Externos';
-        fun2.ders = [
-            { id: 1, name: 'id', description: undefined },
-            { id: 2, name: 'nome', description: undefined },
-            { id: 3, name: 'email', description: undefined }
-        ];
-        fun2.rlrs = [
-            { id: 1, name: 'Usuário', description: undefined },
-            { id: 2, name: 'Fornecedor', description: undefined },
-            { id: 3, name: 'Autônome', description: undefined },
-            { id: 4, name: 'Visitante', description: undefined },
-            { id: 5, name: 'Dependente', description: undefined },
-            { id: 6, name: 'Sabotador', description: undefined },
-            { id: 7, name: 'Sistema', description: undefined },
-        ];
-        mod1.functions.push(fun2);
-
-        let fun3 = new FunctionCE();
-        fun3.id = 3;
-        fun3.name = 'Consultar Usuários';
-        fun3.description = 'Consultar Usuários e LDAP';
-        fun3.alrs.push(fun1);
-        fun3.alrs.push(fun2);
-        fun3.ders = [
-            { id: 1, name: 'CPF', description: undefined },
-            { id: 2, name: 'Nome', description: undefined },
-            { id: 3, name: 'Telefone', description: undefined },
-            { id: 4, name: 'Email', description: undefined },
-            { id: 5, name: 'RG', description: undefined },
-            { id: 6, name: 'Apelido', description: undefined },
-        ];
-        mod1.functions.push(fun3);
-
-        let fun4 = new FunctionALI();
-        fun4.id = 4;
-        fun4.name = 'Fornecedor';
-        fun4.description = 'Teste de fonecimento e CRUD';
-        for (let i = 1; i < 60; i++) {
-            let der: Data = {
-                id: i, 
-                name: 'Name__'+i, 
-                description: undefined
-            };
-            fun4.ders.push(der);
-        }
-        fun4.rlrs = [
-            { id: 1, name: 'Fornecedor', description: undefined },
-            { id: 2, name: 'Cobrador', description: undefined }
-        ];
-        mod1.functions.push(fun4);
-
-        let fun5 = new FunctionCE();
-        fun5.id = 5;
-        fun5.name = 'Consultar Fornecedor';
-        fun5.description = 'Consultar Fonecedor do banco de dados';
-        fun5.alrs.push(fun4);
-        fun5.ders = [
-            { id: 1, name: 'CNPJ', description: undefined }
-        ];
-        mod1.functions.push(fun5);
-
-        let fun6 = new FunctionEE();
-        fun6.id = 6;
-        fun6.name = 'Incluir Fornecedor';
-        fun6.description = 'Incluir Fonecedor do banco de dados';
-        fun6.alrs.push(fun4);
-        fun6.ders = [
-            { id: 1, name: 'CNPJ', description: undefined },
-            { id: 2, name: 'Nome', description: undefined}
-        ];        
-        mod1.functions.push(fun6);
-
-        let fun7 = new FunctionEE();
-        fun7.id = 7;
-        fun7.name = 'Alterar Fornecedor';
-        fun7.description = 'Alterar Fonecedor do banco de dados';
-        fun7.alrs.push(fun4);
-        fun7.ders = [
-            { id: 1, name: 'CNPJ', description: undefined },
-            { id: 2, name: 'Nome', description: undefined}
-        ];          
-        mod1.functions.push(fun7);
-
-        let fun8 = new FunctionEE();
-        fun8.id = 8;
-        fun8.name = 'Excluir Fornecedor';
-        fun8.description = 'Excluir Fonecedor do banco de dados';
-        fun8.alrs.push(fun4);
-        fun8.ders = [
-            { id: 1, name: 'CNPJ', description: undefined },
-            { id: 2, name: 'Nome', description: undefined}
-        ];          
-        mod1.functions.push(fun8);
-
-        let fun9 = new FunctionSE();
-        fun9.id = 9;
-        fun9.name = 'Relatório';
-        fun9.description = 'Relatório consolidado';
-        fun9.alrs.push(fun1);
-        fun9.alrs.push(fun2);
-        fun9.alrs.push(fun4);
-        for (let i = 1; i < 25; i++) {
-            let der: Data = {
-                id: i, 
-                name: 'Name__'+i, 
-                description: undefined
-            };
-            fun9.ders.push(der);
-        }
-        mod1.functions.push(fun9);
-
-        let mod2 = new Module();
-        mod2.id = 2;
-        mod2.name = 'Segundo';
-        this.project.modules.push(mod2);
-
-        let mod3 = new Module();
-        mod3.id = 3;
-        mod3.name = 'Terceiro';
-        this.project.modules.push(mod3);
     }
 
     toXML(): string {
@@ -244,5 +94,172 @@ export class ApfService {
             });
         });
         return xml.end({prettyPrint: true});
+    }
+
+    fromXML(xml: string): void {
+        const parser    = new DOMParser();
+        const document  = parser.parseFromString(xml, "text/xml");
+        if (document.documentElement.nodeName !== XML_PROJECT) {
+            throw Error('XML não é um projeto de Análise de Pontos de Função.');
+        }
+        const project   = new Project();
+        const nodes     = document.documentElement.children;
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            switch (nodes[i].nodeName) {
+                case XML_NAME: 
+                    project.name = node.textContent!;
+                    break;
+                case XML_DESCRIPTION:
+                    project.description = node.textContent!;
+                    break;
+                case XML_RESPONSIBLE:
+                    project.responsible = node.textContent!;
+                    break;
+                case XML_DATE:
+                    project.date = new Date(node.textContent!);
+                    break;
+                case XML_VERSION:
+                    project.version = +node.textContent!;
+                    break;
+                case XML_MODULES:
+                    this.fromXMLModules(project, node.children);
+                    break;
+            }
+        }
+        this.project = project;
+    }
+
+    fromXMLModules(project: Project, modules: HTMLCollection) {
+        for (let i = 0; i < modules.length; i++) {
+            const module = new Module();
+            const nodes = modules[i].children;
+            for (let j = 0; j < nodes.length; j++) {
+                const node = nodes[j];
+                switch (node.nodeName) {
+                    case XML_ID:
+                        module.id = +node.textContent!;
+                        break;
+                    case XML_NAME:
+                        module.name = node.textContent!;
+                        break;
+                    case XML_DESCRIPTION:
+                        module.description = node.textContent!;
+                        break;
+                    case XML_FUNCTIONS:
+                        this.fromXMLFunctions(module, node.children);
+                        break;
+                }
+            }
+            project.modules.push(module);
+        }
+    }
+
+    fromXMLFunctions(module: Module, functions: HTMLCollection) {
+        for (let i = 0; i < functions.length; i++) {
+            const text = functions[i].getAttribute(XML_TYPE);
+            const type = FunctionType[text as keyof typeof FunctionType];
+            let func;
+            switch (type) {
+                case FunctionType.ALI:
+                    func = new FunctionALI();
+                    this.fromXMLFunctionsData(func, functions[i].children);
+                    break;
+                case FunctionType.AIE:
+                    func = new FunctionAIE();
+                    this.fromXMLFunctionsData(func, functions[i].children);
+                    break;
+                case FunctionType.CE:
+                    func = new FunctionCE();
+                    this.fromXMLFunctionsTransaction(func, functions[i].children, module);
+                    break;
+                case FunctionType.EE:
+                    func = new FunctionEE();
+                    this.fromXMLFunctionsTransaction(func, functions[i].children, module);
+                    break;
+                case FunctionType.SE:
+                    func = new FunctionSE();
+                    this.fromXMLFunctionsTransaction(func, functions[i].children, module);
+                    break;
+            }
+            module.functions.push(func);
+        }
+    }
+
+    fromXMLFunctionsData(func: FunctionData, nodes: HTMLCollection) {
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            switch (node.nodeName) {
+                case XML_DERS:
+                    this.fromXMLFunctionsDatas(func.ders, node.children);
+                    break;
+                case XML_RLRS:
+                    this.fromXMLFunctionsDatas(func.rlrs, node.children);
+                    break;
+                default:
+                    this.fromXMLFunctionsBase(func, node);
+            }
+        }
+    }
+
+    fromXMLFunctionsBase(func: Function, node: Element) {
+        switch (node.nodeName) {
+            case XML_ID:
+                func.id = +node.textContent!;
+                break;
+            case XML_NAME:
+                func.name = node.textContent!;
+                break;
+            case XML_DESCRIPTION:
+                func.description = node.textContent!;
+                break;
+        }
+    }
+
+    fromXMLFunctionsDatas(datas: Data[], nodes: HTMLCollection) {
+        for (let i = 0; i < nodes.length; i++) {
+            const data = new Data();
+            for (let j = 0; j < nodes[i].children.length; j++) {
+                const node = nodes[i].children[j];
+                switch (node.nodeName) {
+                    case XML_ID:
+                        data.id = +node.textContent!;
+                        break;
+                    case XML_NAME:
+                        data.name = node.textContent!;
+                        break;
+                    case XML_DESCRIPTION:
+                        data.description = node.textContent!;
+                        break;
+                }
+            }
+            datas.push(data);
+        }
+    }
+
+    fromXMLFunctionsTransaction(func: FunctionTransaction, nodes: HTMLCollection, module: Module) {
+        for (let i = 0; i < nodes.length; i++) {
+            const node = nodes[i];
+            switch (node.nodeName) {
+                case XML_DERS:
+                    this.fromXMLFunctionsDatas(func.ders, node.children);
+                    break;
+                case XML_ALRS:
+                    this.fromXMLFunctionsALRs(func.alrs, node.children, module);
+                    break;
+                default:
+                    this.fromXMLFunctionsBase(func, node);
+            }
+        }
+    }
+
+    fromXMLFunctionsALRs(datas: FunctionData[], nodes: HTMLCollection, module: Module) {
+        for (let i = 0; i < nodes.length; i++) {
+            const id = +nodes[i].getAttribute(XML_ID)!;
+            let data = module.function(id);
+            if (data instanceof FunctionData) {
+                datas.push(data);
+            }
+        }
     }
 }

@@ -128,7 +128,7 @@ export class MenuComponent {
                 reader.onload = (e: any) => {
                     const xml = e.target.result;
                     try {
-                        // TODO Parse do XML.
+                        self.apf.fromXML(xml);
                     } catch (error) {
                         alert(error);
                     }
