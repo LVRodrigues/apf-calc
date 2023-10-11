@@ -1,4 +1,4 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -36,11 +36,6 @@ import { FunctionsListComponent } from './modules/functions-list/functions-list.
 import { FunctionEditDataComponent } from './modules/function-edit-data/function-edit-data.component';
 import { EditDataDialogComponent } from './modules/edit-data-dialog/edit-data-dialog.component';
 import { FunctionEditTransactionComponent } from './modules/function-edit-transaction/function-edit-transaction.component';
-
-import localePT from '@angular/common/locales/pt';
-import localeExtraPT from '@angular/common/locales/extra/pt';
-import { registerLocaleData } from '@angular/common';
-registerLocaleData(localePT, 'pt', localeExtraPT);
 
 @NgModule({
     declarations: [
@@ -85,9 +80,7 @@ registerLocaleData(localePT, 'pt', localeExtraPT);
             echarts: () => import('echarts')
         })
     ],
-    providers: [
-        { provide: LOCALE_ID, useValue: 'pt' },
-    ],
+    providers: [],
     bootstrap: [AppComponent]
 })
 export class AppModule { }
