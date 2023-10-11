@@ -3,7 +3,6 @@ import { Project } from './model/project';
 import { Module } from './model/module';
 import { FunctionAIE, FunctionALI, FunctionCE, FunctionData, FunctionEE, FunctionSE, FunctionTransaction } from './model/function';
 import { Data } from './model/data';
-import { create } from 'xmlbuilder2';
 import { FunctionType } from './model/function-type';
 
 const XML_PROJECT       = 'project';
@@ -186,10 +185,10 @@ export class ApfService {
         this.project.modules.push(mod3);
     }
 
-    import(file: any) {
+    import(file: string) {
         throw new Error('Method not implemented.');
     }
-    export() {
+    export(): string {
         throw new Error('Method not implemented.');
     }
 }
