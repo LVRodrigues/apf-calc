@@ -126,9 +126,9 @@ export class MenuComponent {
                 let reader = new FileReader();
                 let project: Project = new Project();
                 reader.onload = (e: any) => {
-                    const xml = e.target.result;
+                    const file = e.target.result;
                     try {
-                        self.apf.fromXML(xml);
+                        self.apf.import(file);
                     } catch (error) {
                         alert(error);
                     }
@@ -141,9 +141,9 @@ export class MenuComponent {
     }
 
     export() {
-        const xml           = this.apf.toXML();
-        let filename        = 'apf-calc.xml';
-        const file          = new Blob([xml], {type: 'text/xml'});
+        let content         = this.apf.export();
+        let filename        = 'apf-calc.dat';
+        const file          = new Blob([content], {type: 'text/xml'});
         const link          = document.createElement('a');
         link.href           = URL.createObjectURL(file);
         link.download       = filename;
