@@ -5,7 +5,7 @@
 ![Static Badge](https://img.shields.io/badge/angular-16-blue?logo=angular) 
 ![Static Badge](https://img.shields.io/badge/SAAS-yellow)
 ![Static Badge](https://img.shields.io/badge/NGXecharts-yellow)
-![Static Badge](https://img.shields.io/badge/XML-yellow)
+![Static Badge](https://img.shields.io/badge/RSA-yellow)
 
 
 Calculadora de esforço de projeto usando Análise de Pontos de Função, baseado nas informações do

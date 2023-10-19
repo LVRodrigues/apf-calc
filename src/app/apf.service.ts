@@ -205,7 +205,98 @@ export class ApfService {
     }
 
     import(file: string) {
-        throw new Error('Method not implemented.');
+        let json: IAPF = JSON.parse(file);
+        this.project = this.importProject(json.project);
+    }
+
+    private importProject(project: IProject): Project {
+        let result: Project = new Project();
+        result.name         = project.name;
+        result.description  = project.description;
+        result.date         = project.date;
+        result.responsible  = project.responsible;
+        result.version      = project.version,
+        result.modules      = this.importModules(project.modules);
+        return result;
+    }
+
+    private importModules(modules: IModule[] | undefined): Module[] {
+        let result: Module[] = [];
+        modules?.forEach(item => {
+            let module          = new Module();
+            module.id           = item.id;
+            module.name         = item.name;
+            module.description  = item.description;
+            this.importFunctions(module, item.functions);
+            result.push(module);
+        });
+        return result;
+    }
+
+    private importFunctions(module: Module, functions: IFunction[] | undefined) {
+        functions?.forEach(item => {
+            let func: Function;
+            switch (item.type) {
+                case FunctionType.ALI:
+                    func = this.importFunctionsData(new FunctionALI(), item);
+                    break;
+                case FunctionType.AIE:
+                    func = this.importFunctionsData(new FunctionAIE(), item);
+                    break;
+                case FunctionType.EE:
+                    func = this.importFunctionsTransaction(new FunctionEE(), item, module);
+                    break;
+                case FunctionType.CE:
+                    func = this.importFunctionsTransaction(new FunctionCE(), item, module);
+                    break;
+                case FunctionType.SE:
+                    func = this.importFunctionsTransaction(new FunctionSE(), item, module);
+                    break;
+            }
+            module.functions.push(func);
+        });
+    }
+
+    private importFunctionsTransaction(func: FunctionEE, item: IFunction, module: Module): Function {
+        func.id             = item.id;
+        func.name           = item.name;
+        func.description    = item.description;
+        func.ders           = this.importItemData(item.ders);
+        func.alrs           = this.importALR(module, item.alrs);
+        return func;
+    }
+
+    private importALR(module: Module, alrs: number[] | undefined): FunctionData[] {
+        let result: FunctionData[] = [];
+        alrs?.forEach(alr => {
+            let data = module.function(alr);
+            if (data instanceof FunctionData) {
+                result.push(data);
+            }
+        });
+        return result;
+    }
+
+    private importFunctionsData(func: FunctionALI, item: IFunction): Function {
+        func.id             = item.id;
+        func.name           = item.name;
+        func.description    = item.description;
+        func.ders           = this.importItemData(item.ders);
+        func.rlrs           = this.importItemData(item.rlrs);
+        return func;
+    }
+
+    private importItemData(datas: IData[] | undefined): Data[] {
+        let result: Data[] = [];
+        datas?.forEach(item => {
+            let data: Data = {
+                id: item.id,
+                name: item.name,
+                description: item.description
+            };
+            result.push(data);
+        })
+        return result;
     }
 
     export(): string {
@@ -293,7 +384,6 @@ export class ApfService {
         })
         return result;
     }
-    
 }
 
 
