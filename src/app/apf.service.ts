@@ -4,6 +4,7 @@ import { Module } from './model/module';
 import { Function, FunctionAIE, FunctionALI, FunctionCE, FunctionData, FunctionEE, FunctionSE, FunctionTransaction } from './model/function';
 import { Data } from './model/data';
 import { FunctionType } from './model/function-type';
+import { SignerService } from './signer.service';
 
 interface IData {
     id: number;
@@ -50,7 +51,7 @@ export class ApfService {
 
     project!: Project;
 
-    constructor() {
+    constructor(private signer: SignerService) {
         this.project = new Project();
         this.project.name = 'Auto Exemplo';
         this.project.description = 'Exemplo criado automaticamente para teste';

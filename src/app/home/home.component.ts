@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import type { EChartsOption } from 'echarts';
 import { ApfService } from '../apf.service';
+import { SignerService } from '../signer.service';
 
 type DataT = {
     name: string;
@@ -20,7 +21,10 @@ export class HomeComponent {
     private data: DataT[];
     private timer: any;
 
-    constructor(public apf: ApfService) {
+    constructor(
+        public apf: ApfService,
+        private signer: SignerService,
+    ) {
         this.chartOptions = this.prepareChartOptions();
         this.data = [];
         this.timer = setInterval(() => {
@@ -86,5 +90,13 @@ export class HomeComponent {
                 }],
         };
         return result;
+    }
+
+    testSigner(): void {
+        const data = 'Luciano Vieira Rodrigues';
+        let signed = this.signer.sign(data);
+        console.log('Signed: ' + signed);
+        let verified = this.signer.verify(data, signed);
+        console.log('Verified: ' + verified);
     }
 }
