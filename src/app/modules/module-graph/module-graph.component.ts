@@ -14,6 +14,7 @@ type Data = {
     id: string;
     name: string;
     category: number;
+    value: number;
 };
 
 type Link = {
@@ -66,7 +67,8 @@ export class ModuleGraphComponent {
             let data : Data = {
                 id: fun.id.toString(),
                 name: fun.name,
-                category: (fun instanceof FunctionData)?this.CATEGORY_DATA.id:this.CATEGORY_TRANSACTION.id
+                category: (fun instanceof FunctionData)?this.CATEGORY_DATA.id:this.CATEGORY_TRANSACTION.id,
+                value: fun.value
             };
             result.push(data);
         })
@@ -90,30 +92,46 @@ export class ModuleGraphComponent {
     }
 
     prepareChartOptions(): EChartsOption {
+        let prefersColor = '';
+        let prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        if (prefersDark) {
+            prefersColor = 'white';
+        } else {
+            prefersColor = 'black' ;
+        }
         let result: EChartsOption = {
             title: {},
-            tooltip: {},
+            tooltip: {
+                trigger: 'item',
+                formatter: '{b}<br/>{c} pontos.',
+                type: 'shadow',
+            },
             legend: {
-                align: 'auto'
+                align: 'auto',
+                textStyle: {
+                    color: prefersColor,
+                }
             },
             series: [
                 {
                     type: 'graph',
                     layout: 'force',
-                    symbolSize: [75, 20],
-                    symbol: 'roundRect',
+                    force: {
+                        repulsion: 300,
+                        edgeLength: 150,
+                        initLayout: 'circular'
+                    },
+                    symbolSize: [25, 25],
+                    symbol: 'circle',
                     data: this.data,
                     links: this.links,
                     categories: this.CATEGORIES,
                     roam: true,
                     label: {
                         show: true,
-                        position: 'inside'
+                        position: [0, 30], //'inside',
+                        color: prefersColor,
                     },
-                    force: {
-                        repulsion: 300,
-                        edgeLength: 50
-                    }
                 }
             ]
         };
