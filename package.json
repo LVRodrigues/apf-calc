@@ -1,6 +1,6 @@
 {
   "name": "apf-calc",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "debug": "ng serve --configuration development --host=127.0.0.1",
-    "github": "ng build --configuration production --base-href='apf-calc'",
+    "github": "ng build --configuration production --base-href=/apf-calc/",
     "release": "npm --no-git-tag-version version patch && node ./release.js"
   },
   "private": true,

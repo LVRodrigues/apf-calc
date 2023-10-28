@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ApfService } from 'src/app/apf.service';
+import { ConfirmDialogComponent } from 'src/app/confirm-dialog/confirm-dialog.component';
 import { ComplexType } from 'src/app/model/complex-type';
 import { Function, FunctionData, FunctionTransaction } from 'src/app/model/function';
 import { FunctionType } from 'src/app/model/function-type';
@@ -19,11 +21,15 @@ export class FunctionsListComponent {
     FunctionType = FunctionType;
     ComplexType = ComplexType;
 
+    private opened: boolean;
+
     constructor(
         private router: Router,
         private activatedRoute: ActivatedRoute,
-        private apf: ApfService
+        private apf: ApfService,
+        private dialog: MatDialog,
     ) {
+        this.opened = false;
         this.module = new Module();
         this.activatedRoute.paramMap.subscribe((params) => {
             let id      = +params.get('id')!;
@@ -40,7 +46,26 @@ export class FunctionsListComponent {
     }
 
     remove(item: Function): void {
-        this.module.functions = this.module.functions.filter(fun => fun.id != item.id);
+        if (!this.opened) {
+            this.opened = true;
+            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+                data: {
+                    title: 'Remover Função',
+                    question: 'Isso apagará a função selecionada do módulo corrente. Deseja realmente excluir a função?',
+                },
+                maxHeight: '100%',
+                width: '440px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((result: boolean) => {
+                if (result) {
+                    this.module.functions = this.module.functions.filter(fun => fun.id != item.id);
+                }
+                this.opened = false;
+            });
+        }
     }
 
     canRemove(item: Function): boolean {

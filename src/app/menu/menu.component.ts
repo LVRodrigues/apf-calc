@@ -116,28 +116,48 @@ export class MenuComponent {
     }
 
     import() {
-        const self          = this;
-        const file          = document.createElement('input');
-        file.style.display  = 'none';
-        file.type           = 'file';
-        file.onchange       = (event:any) => {
-            let file = event.target.files[0];
-            if (file) {
-                let reader = new FileReader();
-                let project: Project = new Project();
-                reader.onload = (e: any) => {
-                    const file = e.target.result;
-                    try {
-                        self.apf.import(file);
-                    } catch (error) {
-                        alert(error);
+        if (!this.opened) {
+            this.opened = true;
+            const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+                data: {
+                    title: 'Importar Projeto',
+                    question: 'Isso apagará as funções analisadas atualmente. Deseja realmente importar um projeto?',
+                },
+                maxHeight: '100%',
+                width: '440px',
+                maxWidth: '100%',
+                disableClose: false,
+                hasBackdrop: true
+            });
+            dialogRef.afterClosed().subscribe((result: boolean) => {
+                if (result) {
+                    const self          = this;
+                    const file          = document.createElement('input');
+                    file.style.display  = 'none';
+                    file.type           = 'file';
+                    file.onchange       = (event:any) => {
+                        let file = event.target.files[0];
+                        if (file) {
+                            let reader = new FileReader();
+                            let project: Project = new Project();
+                            reader.onload = (e: any) => {
+                                const file = e.target.result;
+                                try {
+                                    self.apf.import(file);
+                                    self.showHome();
+                                } catch (error) {
+                                    alert(error);
+                                }
+                            }
+                            reader.readAsText(file, 'UTF-8');
+                        }
                     }
+                    file.click();
+                    file.remove();
                 }
-                reader.readAsText(file, 'UTF-8');
-            }
+                this.opened = false;
+            });
         }
-        file.click();
-        file.remove();
     }
 
     export() {
