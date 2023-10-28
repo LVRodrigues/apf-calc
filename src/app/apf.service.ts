@@ -1,29 +1,47 @@
 import { Injectable } from '@angular/core';
 import { Project } from './model/project';
 import { Module } from './model/module';
-import { FunctionAIE, FunctionALI, FunctionCE, FunctionData, FunctionEE, FunctionSE, FunctionTransaction } from './model/function';
+import { Function, FunctionAIE, FunctionALI, FunctionCE, FunctionData, FunctionEE, FunctionSE, FunctionTransaction } from './model/function';
 import { Data } from './model/data';
-import { create } from 'xmlbuilder2';
 import { FunctionType } from './model/function-type';
 
-const XML_PROJECT       = 'project';
-const XML_ID            = 'id';
-const XML_NAME          = 'name';
-const XML_DESCRIPTION   = 'description';
-const XML_RESPONSIBLE   = 'responsible';
-const XML_DATE          = 'date';
-const XML_VERSION       = 'version';
-const XML_TYPE          = 'type';
-const XML_DERS          = 'ders';
-const XML_DER           = 'der';
-const XML_RLRS          = 'rlrs';
-const XML_RLR           = 'rlr';
-const XML_MODULES       = 'modules';
-const XML_MODULE        = 'module';
-const XML_FUNCTIONS     = 'functions';
-const XML_FUNCTION      = 'function';
-const XML_ALRS          = 'alrs';
-const XML_ALR           = 'alr';
+interface IData {
+    id: number;
+    name: string;
+    description?: string;
+}
+
+interface IFunction {
+    id: number;
+    name: string;
+    description?: string;
+    type: FunctionType;
+    ders?: IData[];
+    rlrs?: IData[];
+    alrs?: number[];
+}
+
+interface IModule {
+    id: number;
+    name: string;
+    description?: string;
+    functions?: IFunction[];
+}
+
+interface IProject {
+    name: string;
+    description?: string;
+    responsible?: string;
+    date: Date;
+    version: number;
+    modules?: IModule[];
+}
+
+interface IAPF {
+    signature?: string;
+    version: number;
+    project: IProject;
+}
 
 @Injectable({
     providedIn: 'root'
@@ -186,10 +204,186 @@ export class ApfService {
         this.project.modules.push(mod3);
     }
 
-    import(file: any) {
-        throw new Error('Method not implemented.');
+    import(file: string) {
+        let json: IAPF = JSON.parse(file);
+        this.project = this.importProject(json.project);
     }
-    export() {
-        throw new Error('Method not implemented.');
+
+    private importProject(project: IProject): Project {
+        let result: Project = new Project();
+        result.name         = project.name;
+        result.description  = project.description;
+        result.date         = project.date;
+        result.responsible  = project.responsible;
+        result.version      = project.version,
+        result.modules      = this.importModules(project.modules);
+        return result;
+    }
+
+    private importModules(modules: IModule[] | undefined): Module[] {
+        let result: Module[] = [];
+        modules?.forEach(item => {
+            let module          = new Module();
+            module.id           = item.id;
+            module.name         = item.name;
+            module.description  = item.description;
+            this.importFunctions(module, item.functions);
+            result.push(module);
+        });
+        return result;
+    }
+
+    private importFunctions(module: Module, functions: IFunction[] | undefined) {
+        functions?.forEach(item => {
+            let func: Function;
+            switch (item.type) {
+                case FunctionType.ALI:
+                    func = this.importFunctionsData(new FunctionALI(), item);
+                    break;
+                case FunctionType.AIE:
+                    func = this.importFunctionsData(new FunctionAIE(), item);
+                    break;
+                case FunctionType.EE:
+                    func = this.importFunctionsTransaction(new FunctionEE(), item, module);
+                    break;
+                case FunctionType.CE:
+                    func = this.importFunctionsTransaction(new FunctionCE(), item, module);
+                    break;
+                case FunctionType.SE:
+                    func = this.importFunctionsTransaction(new FunctionSE(), item, module);
+                    break;
+            }
+            module.functions.push(func);
+        });
+    }
+
+    private importFunctionsTransaction(func: FunctionEE, item: IFunction, module: Module): Function {
+        func.id             = item.id;
+        func.name           = item.name;
+        func.description    = item.description;
+        func.ders           = this.importItemData(item.ders);
+        func.alrs           = this.importALR(module, item.alrs);
+        return func;
+    }
+
+    private importALR(module: Module, alrs: number[] | undefined): FunctionData[] {
+        let result: FunctionData[] = [];
+        alrs?.forEach(alr => {
+            let data = module.function(alr);
+            if (data instanceof FunctionData) {
+                result.push(data);
+            }
+        });
+        return result;
+    }
+
+    private importFunctionsData(func: FunctionALI, item: IFunction): Function {
+        func.id             = item.id;
+        func.name           = item.name;
+        func.description    = item.description;
+        func.ders           = this.importItemData(item.ders);
+        func.rlrs           = this.importItemData(item.rlrs);
+        return func;
+    }
+
+    private importItemData(datas: IData[] | undefined): Data[] {
+        let result: Data[] = [];
+        datas?.forEach(item => {
+            let data: Data = {
+                id: item.id,
+                name: item.name,
+                description: item.description
+            };
+            result.push(data);
+        })
+        return result;
+    }
+
+    export(): string {
+        let project: IProject = this.exportProject();
+        let data: IAPF = {
+            version: 1,
+            signature: 'assinatura RSA do projeto',
+            project: project
+        };        
+        return JSON.stringify(data);
+    }
+
+    private exportProject(): IProject {
+        let result: IProject = {
+            name: this.project.name,
+            description: this.project.description,
+            responsible: this.project.responsible,
+            date: this.project.date,
+            version: this.project.version,
+            modules: this.exportModules(this.project.modules)
+        };
+        return result;
+    }
+
+    private exportModules(modules: Module[]): IModule[] | undefined {
+        let result: IModule[] = [];
+        modules.forEach(item => {
+            let module: IModule = {
+                id: item.id,
+                name: item.name,
+                description: item.description,
+                functions: this.exportFunctions(item.functions)
+            };
+            result.push(module);
+        });
+        return result;
+    }
+
+    private exportFunctions(functions: Function[]): IFunction[] | undefined {
+        let result: IFunction[] = [];
+        functions.filter(f => f instanceof FunctionData).forEach(item => {
+            if (item instanceof FunctionData) {
+                let func: IFunction = {
+                    id: item.id,
+                    name: item.name,
+                    description: item.description,
+                    type: item.type,
+                    ders: this.exportItemData(item.ders),
+                    rlrs: this.exportItemData(item.rlrs)
+                };
+                result.push(func);
+            }
+        });
+        functions.filter(f => f instanceof FunctionTransaction).forEach(item => {
+            if (item instanceof FunctionTransaction) {
+                let func: IFunction = {
+                    id: item.id,
+                    name: item.name,
+                    description: item.description,
+                    type: item.type,
+                    ders: this.exportItemData(item.ders),
+                    alrs: this.exportALRs(item.alrs)
+                };
+                result.push(func);
+            }
+        });
+        return result;
+    }
+
+    private exportALRs(alrs: FunctionData[]): number[] | undefined {
+        let result: number[] = [];
+        alrs.forEach(item => result.push(item.id) );
+        return result;
+    }
+
+    private exportItemData(datas: Data[]): IData[] | undefined {
+        let result: IData[] = [];
+        datas.forEach(item => {
+            let data: IData = {
+                id: item.id,
+                name: item.name,
+                description: item.description
+            };
+            result.push(data);
+        })
+        return result;
     }
 }
+
+
