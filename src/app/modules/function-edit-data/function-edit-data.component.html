@@ -1,7 +1,9 @@
 <section class="container">
     <mat-card class="unique-item">
-        <mat-toolbar color="primary">
-            Função de Dados ({{ Functiontype[data.type] }})
+        <mat-card-header>
+            <mat-card-title>
+                Função de Dados ({{ Functiontype[data.type] }})
+            </mat-card-title>
             <span class="spacer"></span>
             <mat-divider vertical></mat-divider>
             <button mat-mini-fab class="card-action-button" color="accent" 
@@ -13,7 +15,7 @@
                 (click)="cancel()" matTooltip="Canclear">
                 <mat-icon>close</mat-icon>
             </button>
-        </mat-toolbar>
+        </mat-card-header>
         <mat-card-content>
             <mat-form-field appearance="fill">
                 <mat-label>Nome</mat-label>

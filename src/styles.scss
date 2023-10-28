@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 @use '@angular/material' as mat;
 @use './app/header/header.component.scss' as header;
 @use './app/menu/menu.component.scss' as menu;
@@ -26,6 +28,21 @@ $light-theme: mat.define-light-theme((
     ),
 ));
 
+@mixin config-components-colors($theme) {
+    $config: mat.get-color-config($theme);
+    $primary: map.get($config, 'primary');
+    $accent: map.get($config, 'accent');
+
+    .mat-mdc-card-header {
+        background-color: mat.get-color-from-palette($primary, default);
+        color: mat.get-color-from-palette($primary, default-contrast);
+    }      
+
+    .mat-divider-vertical {
+        border-color: mat.get-color-from-palette($accent, default) !important;
+    }
+}
+
 @include mat.core-theme($dark-theme);
 @include mat.all-component-themes($dark-theme);
 @include header.theme($dark-theme);
@@ -34,6 +51,7 @@ $light-theme: mat.define-light-theme((
 @include home.theme($dark-theme);
 @include properties.theme($dark-theme);
 @include modules.theme($dark-theme);
+@include config-components-colors($dark-theme);
 
 @media (prefers-color-scheme: light) {
     @include mat.core-theme($light-theme);
@@ -44,6 +62,7 @@ $light-theme: mat.define-light-theme((
     @include home.theme($light-theme);
     @include properties.theme($light-theme);
     @include modules.theme($light-theme);
+    @include config-components-colors($light-theme);
 }
 
 html,
@@ -95,14 +114,10 @@ main {
     flex: 1 1 auto;
 }
 
-.card-action-button {
-    margin-left: 3px;
-    margin-right: 3px;
-}
-
 .mat-divider-vertical {
     height: 80%;
-    margin: 10px !important;
+    min-height: 40px;
+    margin: 0px 5px 0px 5px !important;
 }
 
 .mat-mdc-card-content {
@@ -136,4 +151,34 @@ main {
 }
 .divTableBody {
 	display: table-row-group;
+}
+
+.mat-mdc-card-header {
+    margin: 0px;
+    min-height: 40px;
+    padding: 5px 16px 5px 16px !important;
+    align-items: center; 
+    font-weight: bolder;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+}
+
+.card-action-button {
+    margin-left: 3px;
+    margin-right: 3px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.mat-mdc-card-header > .card-action-button:last-child {
+    margin-right: 0px;
+}
+
+.mat-mdc-card-actions {
+    margin: 5px 16px 5px 16px !important;
+    padding: 0px !important;
+}
+
+.mat-mdc-card-actions > .card-action-button:last-child {
+    margin-right: 0px;
 }

@@ -1,21 +1,19 @@
 <section class="container">
     <ng-container *ngIf="apf.project.modules.length; else noModules">
         <mat-card *ngFor="let module of apf.project.modules" class="module'">
-            <mat-toolbar color="primary">
-                <mat-toolbar-row>
-                    <span>{{ module.name }}</span>
-                    <span class="spacer"></span>
-                    <mat-divider vertical></mat-divider>
-                    <button mat-mini-fab class="card-action-button" color="accent"
-                        (click)="edit(module)" matTooltip="Editar Módulo">
-                        <mat-icon>edit</mat-icon>
-                    </button>
-                    <button mat-mini-fab class="card-action-button" color="accent"
-                        (click)="delete(module)" matTooltip="Excluir Módulo">
-                        <mat-icon>delete</mat-icon>
-                    </button>
-                </mat-toolbar-row>
-            </mat-toolbar>
+            <mat-card-header>
+                <span>{{ module.name }}</span>
+                <span class="spacer"></span>
+                <mat-divider vertical></mat-divider>
+                <button mat-mini-fab class="card-action-button" color="accent"
+                    (click)="edit(module)" matTooltip="Editar Módulo">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button mat-mini-fab class="card-action-button" color="accent"
+                    (click)="delete(module)" matTooltip="Excluir Módulo">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card-header>
             <mat-card-content>
                 <div class="container module-content">
                     <span class="description">
