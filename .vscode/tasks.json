@@ -55,6 +55,13 @@
           }
         }
       }
+    },
+    {
+      "type": "npm",
+      "script": "github",
+      "problemMatcher": [],
+      "label": "npm: github",
+      "detail": "npm run github"
     }
   ]
 }
