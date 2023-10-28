@@ -17,7 +17,6 @@ const routes: Routes = [
     { path: 'function-edit-data', component: FunctionEditDataComponent, data: { title: 'Função de Dados'} },
     { path: 'function-edit-transaction', component: FunctionEditTransactionComponent, data: { title: 'Função de Transação'} },
     { path: '', redirectTo: 'home', pathMatch: 'full' },
-    { path: '**', component: HomeComponent },    
 ];
 
 @NgModule({
