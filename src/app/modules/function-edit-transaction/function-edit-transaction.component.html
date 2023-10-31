@@ -30,7 +30,7 @@
 
             <mat-card appearance="outlined">
                 <mat-card-content>
-                    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start">
+                    <mat-tab-group mat-stretch-tabs="true" mat-align-tabs="start" color="accent">
                         <mat-tab label="ALR (Arquivos Lógicos Referenciados)">
                             <mat-selection-list [(ngModel)]="data.alrs" [compareWith]="compareFunctions">
                                 <mat-list-option *ngFor="let fun of listFunctionData()" [value]="fun">

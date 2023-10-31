@@ -41,6 +41,7 @@ export class HomeComponent {
                     },
                 },
                 legend: {
+                    show: true,
                     textStyle: {
                         color: preferColor,
                     },
