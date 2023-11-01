@@ -55,11 +55,19 @@
             </mat-tab>
             
             <mat-tab label="Fatores de Ajustes">
-
+                <mat-list>
+                    <mat-list-item *ngFor="let factor of project.factors">
+                        <span>{{ factor.description }}</span>
+                    </mat-list-item>
+                </mat-list>
             </mat-tab>
 
             <mat-tab label="Fatores Empíricos">
-
+                <mat-list>
+                    <mat-list-item *ngFor="let empirical of project.empiricals">
+                        <span>{{ empirical.description }}</span>
+                    </mat-list-item>
+                </mat-list>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

@@ -26,18 +26,20 @@ export class Project {
     }
 
     private prepareFactors() {
-        Object.keys(FactorType).forEach((key, index) => {
+        const keys = Object.keys(FactorType).filter((v) => isNaN(Number(v)));
+        keys.forEach((key, index) => {
             let data        = new Factor();
-            data.id         = index;
+            data.id         = FactorType[key as keyof typeof FactorType];
             data.influence  = InfluenceType.ABSENT;
             this.factors.push(data);
         });
     }
 
     private prepareEmpiricals() {
-        Object.keys(EmpiricalType).forEach((key, index) => {
+        const keys = Object.keys(EmpiricalType).filter((v) => isNaN(Number(v)));
+        keys.forEach((key, index) => {
             let data    = new Empirical();
-            data.id     = index;
+            data.id     = EmpiricalType[key as keyof typeof EmpiricalType];
             data.value  = 0;
             this.empiricals.push(data);
         });
