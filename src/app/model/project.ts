@@ -4,6 +4,7 @@ import { Factor } from "./factor";
 import { FactorType } from "./factor-type";
 import { InfluenceType } from "./influence-type";
 import { Module } from "./module";
+import { environment } from '../../environments/environment';
 
 export class Project {
     name!: string ;
@@ -33,8 +34,9 @@ export class Project {
     }
 
     public set productivity(value: number) {
-        if (value < 1 || value > 50) {
-            throw Error("Valor inválido para o índice de produtividade. Deve estar na faixa de 1 até 50");
+        if (value < environment.productivityMin || value > environment.productivityMax) {
+            throw Error('Valor inválido para o índice de produtividade. Deve estar na faixa de '
+                + environment.productivityMin + ' até ' + environment.productivityMax);
         }
         this._productivity = value;
     }

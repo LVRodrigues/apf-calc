@@ -58,7 +58,7 @@
                 <mat-list>
                     <mat-list-item *ngFor="let factor of project.factors">
                         <div class="adjustment-container">
-                            <span class="adjustment-factor">{{ factor.description }}</span>
+                            <span class="adjustment-factor">{{ factor.description }}:</span>
                             <mat-slider class="item" min="0" max="5" step="1" color="accent">
                                 <input matSliderThumb [(ngModel)]="factor.influence">
                             </mat-slider>
@@ -69,24 +69,32 @@
             </mat-tab>
 
             <mat-tab label="Fatores Empíricos">
-                <mat-card appearance="outlined">
-                    <p class="warning">
-                        Os ajustes da área de conhecimento empírico servem para uma previsão
-                        de esforço baseado na análise de pontos de função e conhecimento da 
-                        equipe envolvida. Não afetam os índices da área de desenvolvimento.
-                    </p>
-                    <mat-list>
-                        <mat-list-item *ngFor="let empirical of project.empiricals">
-                            <div class="adjustment-container">
-                                <span class="adjustment-empirical">{{ empirical.description }}</span>
-                                <mat-slider class="item" min="0" max="100" step="1" color="accent">
-                                    <input matSliderThumb [(ngModel)]="empirical.value">
-                                </mat-slider>
-                                <span>{{ empirical.value }}</span>
-                            </div>
-                        </mat-list-item>
-                    </mat-list>
-                </mat-card>
+                <p class="warning">
+                    O índice de Produtividade afeta diretamente a área de desenvolvimento e
+                    o tempo de projeto. Os demais índices da área de conhecimento empírico 
+                    servem para uma previsão de esforço baseado na análise de pontos de 
+                    função e dependem da maturidade da equipe envolvida. 
+                </p>
+                <mat-list>
+                    <mat-list-item>
+                        <div class="adjustment-container">
+                            <span class="adjustment-empirical">Produtividade:</span>
+                            <mat-slider class="item" [min]="productivityMin" [max]="productivityMax" step="1" color="accent">
+                                <input matSliderThumb [(ngModel)]="project.productivity">
+                            </mat-slider>
+                            <span>{{ project.productivity }}h</span>
+                        </div> 
+                    </mat-list-item>
+                    <mat-list-item *ngFor="let empirical of project.empiricals">
+                        <div class="adjustment-container">
+                            <span class="adjustment-empirical">{{ empirical.description }}:</span>
+                            <mat-slider class="item" min="0" max="100" step="1" color="accent">
+                                <input matSliderThumb [(ngModel)]="empirical.value">
+                            </mat-slider>
+                            <span>{{ empirical.value }}%</span>
+                        </div>
+                    </mat-list-item>
+                </mat-list>
             </mat-tab>
         </mat-tab-group>
     </mat-card-content>

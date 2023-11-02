@@ -3,6 +3,7 @@ import { Project } from '../model/project';
 import { ApfService } from '../apf.service';
 import { Router } from '@angular/router';
 import { InfluenceType } from '../model/influence-type';
+import { environment } from '../../environments/environment';
 
 @Component({
     selector: 'app-properties',
@@ -13,6 +14,9 @@ export class PropertiesComponent {
 
     project: Project;
     InfluenceType = InfluenceType;
+
+    productivityMin: number = environment.productivityMin;
+    productivityMax: number = environment.productivityMax;
 
     constructor(
         private apf: ApfService,
