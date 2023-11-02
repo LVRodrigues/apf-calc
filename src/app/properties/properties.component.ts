@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Project } from '../model/project';
 import { ApfService } from '../apf.service';
 import { Router } from '@angular/router';
+import { InfluenceType } from '../model/influence-type';
 
 @Component({
     selector: 'app-properties',
@@ -11,6 +12,7 @@ import { Router } from '@angular/router';
 export class PropertiesComponent {
 
     project: Project;
+    InfluenceType = InfluenceType;
 
     constructor(
         private apf: ApfService,

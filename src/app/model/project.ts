@@ -14,15 +14,29 @@ export class Project {
     modules!: Module[];
     empiricals: Empirical[];
     factors: Factor[];
+    
+    private _productivity: number;
 
     constructor() {
-        this.date       = new Date();
-        this.modules    = [];
-        this.version    = 1;
-        this.empiricals = [];
-        this.factors    = [];
+        this.date           = new Date();
+        this.modules        = [];
+        this.version        = 1;
+        this.empiricals     = [];
+        this.factors        = [];
+        this._productivity  = 1;
         this.prepareEmpiricals();
         this.prepareFactors();
+    }
+
+    public get productivity(): number {
+        return this._productivity;
+    }
+
+    public set productivity(value: number) {
+        if (value < 1 || value > 50) {
+            throw Error("Valor inválido para o índice de produtividade. Deve estar na faixa de 1 até 50");
+        }
+        this._productivity = value;
     }
 
     private prepareFactors() {

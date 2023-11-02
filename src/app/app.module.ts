@@ -17,6 +17,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatListModule } from '@angular/material/list';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatSliderModule } from '@angular/material/slider';
 
 import { NgxEchartsModule } from 'ngx-echarts';
 
@@ -76,6 +77,7 @@ import { FunctionEditTransactionComponent } from './modules/function-edit-transa
         MatListModule,
         MatTableModule,
         MatTabsModule,
+        MatSliderModule,
         NgxEchartsModule.forRoot({
             echarts: () => import('echarts')
         })

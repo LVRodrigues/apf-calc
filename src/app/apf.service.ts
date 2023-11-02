@@ -32,6 +32,7 @@ interface IProject {
     name: string;
     description?: string;
     responsible?: string;
+    productivity: number;
     date: Date;
     version: number;
     modules?: IModule[];
@@ -215,6 +216,7 @@ export class ApfService {
         result.description  = project.description;
         result.date         = project.date;
         result.responsible  = project.responsible;
+        result.productivity = project.productivity;
         result.version      = project.version,
         result.modules      = this.importModules(project.modules);
         return result;
@@ -314,6 +316,7 @@ export class ApfService {
             name: this.project.name,
             description: this.project.description,
             responsible: this.project.responsible,
+            productivity: this.project.productivity,
             date: this.project.date,
             version: this.project.version,
             modules: this.exportModules(this.project.modules)
@@ -381,7 +384,7 @@ export class ApfService {
                 description: item.description
             };
             result.push(data);
-        })
+        });
         return result;
     }
 }
