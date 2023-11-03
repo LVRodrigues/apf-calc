@@ -4,6 +4,21 @@ import { Module } from './model/module';
 import { Function, FunctionAIE, FunctionALI, FunctionCE, FunctionData, FunctionEE, FunctionSE, FunctionTransaction } from './model/function';
 import { Data } from './model/data';
 import { FunctionType } from './model/function-type';
+import { FactorType } from './model/factor-type';
+import { InfluenceType } from './model/influence-type';
+import { EmpiricalType } from './model/empirical-type';
+import { Factor } from './model/factor';
+import { Empirical } from './model/empirical';
+
+interface IEmpirical {
+    id: EmpiricalType;
+    value: number;
+}
+
+interface IFactor {
+    id: FactorType;
+    influence: InfluenceType;
+}
 
 interface IData {
     id: number;
@@ -36,6 +51,8 @@ interface IProject {
     date: Date;
     version: number;
     modules?: IModule[];
+    factors: IFactor[];
+    empiricals: IEmpirical[];
 }
 
 interface IAPF {
@@ -219,6 +236,30 @@ export class ApfService {
         result.productivity = project.productivity;
         result.version      = project.version,
         result.modules      = this.importModules(project.modules);
+        result.factors      = this.importFactors(project.factors);
+        result.empiricals   = this.importEmpiricals(project.empiricals);
+        return result;
+    }
+
+    private importEmpiricals(empiricals: IEmpirical[]): Empirical[] {
+        let result: Empirical[] = [];
+        empiricals.forEach(item => {
+            let empirical   = new Empirical();
+            empirical.id    = item.id;
+            empirical.value = item.value;
+            result.push(empirical);
+        });
+        return result;
+    }
+
+    private importFactors(factors: IFactor[]): Factor[] {
+        let result: Factor[] = [];
+        factors.forEach(item => {
+            let factor          = new Factor();
+            factor.id           = item.id;
+            factor.influence    = item.influence;
+            result.push(factor);
+        });
         return result;
     }
 
@@ -226,7 +267,7 @@ export class ApfService {
         let result: Module[] = [];
         modules?.forEach(item => {
             let module          = new Module();
-            module.id           = item.id;
+            module.id           = item.id;throw new Error('Method not implemented.');
             module.name         = item.name;
             module.description  = item.description;
             this.importFunctions(module, item.functions);
@@ -319,8 +360,34 @@ export class ApfService {
             productivity: this.project.productivity,
             date: this.project.date,
             version: this.project.version,
-            modules: this.exportModules(this.project.modules)
+            modules: this.exportModules(this.project.modules),
+            factors: this.exportFactors(this.project.factors),
+            empiricals: this.exportEmpiricals(this.project.empiricals),
         };
+        return result;
+    }
+
+    private exportEmpiricals(empiricals: Empirical[]): IEmpirical[] {
+        let result: IEmpirical[] = [];
+        empiricals.forEach(item => {
+            let empirical: IEmpirical = {
+                id: item.id,
+                value: item.value,
+            };
+            result.push(empirical);
+        });
+        return result;
+    }
+
+    private exportFactors(factors: Factor[]): IFactor[] {
+        let result: IFactor[] = [];
+        factors.forEach(item => {
+            let factor: IFactor = {
+                id: item.id,
+                influence: item.influence,
+            };
+            result.push(factor);
+        });
         return result;
     }
 
