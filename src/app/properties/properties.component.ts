@@ -31,6 +31,7 @@ export class PropertiesComponent {
         this.project.responsible    = this.apf.project.responsible;
         this.project.version        = this.apf.project.version;
         this.project.productivity   = this.apf.project.productivity;
+        this.project.modules        = this.apf.project.modules;
         this.overwriteFactors(this.apf.project.factors, this.project.factors);
         this.overwriteEmpiricals(this.apf.project.empiricals, this.project.empiricals);
     }

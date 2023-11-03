@@ -267,7 +267,7 @@ export class ApfService {
         let result: Module[] = [];
         modules?.forEach(item => {
             let module          = new Module();
-            module.id           = item.id;throw new Error('Method not implemented.');
+            module.id           = item.id;
             module.name         = item.name;
             module.description  = item.description;
             this.importFunctions(module, item.functions);
@@ -455,5 +455,3 @@ export class ApfService {
         return result;
     }
 }
-
-
