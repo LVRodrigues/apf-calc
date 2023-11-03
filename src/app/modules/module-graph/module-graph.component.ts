@@ -116,7 +116,10 @@ export class ModuleGraphComponent {
                         title: 'Restaurar'
                     },
                 },
-                bottom: '10'
+                bottom: '10',
+                iconStyle: {
+                    borderColor: prefersColor,
+                },
             },
             legend: {
                 align: 'auto',
