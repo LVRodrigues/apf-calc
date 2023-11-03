@@ -42,10 +42,10 @@ export class ModuleGraphComponent {
     module: Module;
 
     chartOptions: EChartsOption;
-    chartUpdate!: EChartsOption;
 
     private data: Data[];
     private links: Link[];
+    private timer: any;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -106,6 +106,21 @@ export class ModuleGraphComponent {
                 formatter: '{b}<br/>{c} pontos.',
                 type: 'shadow',
             },
+            toolbox: {
+                show: true,
+                feature: {
+                    saveAsImage: {
+                        title: 'Salvar imagem'
+                    },
+                    restore: {
+                        title: 'Restaurar'
+                    },
+                },
+                bottom: '10',
+                iconStyle: {
+                    borderColor: prefersColor,
+                },
+            },
             legend: {
                 align: 'auto',
                 textStyle: {
@@ -129,7 +144,7 @@ export class ModuleGraphComponent {
                     roam: true,
                     label: {
                         show: true,
-                        position: [0, 30], //'inside',
+                        position: [0, 30],
                         color: prefersColor,
                     },
                 }
