@@ -5,6 +5,7 @@ import { FactorType } from "./factor-type";
 import { InfluenceType } from "./influence-type";
 import { Module } from "./module";
 import { environment } from '../../environments/environment';
+import { env } from "process";
 
 export class Project {
     name!: string ;
@@ -56,7 +57,20 @@ export class Project {
         keys.forEach((key, index) => {
             let data    = new Empirical();
             data.id     = EmpiricalType[key as keyof typeof EmpiricalType];
-            data.value  = 0;
+            switch (data.id) {
+                case EmpiricalType.COORDINATION:
+                    data.value = +environment.empiricalCoordination;
+                    break;
+                case EmpiricalType.IMPLANTATION:
+                    data.value = +environment.empiricalImplantation;
+                    break;
+                case EmpiricalType.PLANNING:
+                    data.value = +environment.empiricalPlanning;
+                    break;
+                case EmpiricalType.TESTS:
+                    data.value = +environment.empiricalTests;
+                    break;
+            }
             this.empiricals.push(data);
         });
     }
