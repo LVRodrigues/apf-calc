@@ -34,8 +34,23 @@
                 </div>
 
                 <div class="divTableRow">
+                    <div class="divTableHeading">Pontos:</div>
+                    <div class="divTableCell">{{ apf.project.value }} pontos</div>
+                </div>
+
+                <div class="divTableRow">
+                    <div class="divTableHeading">Produtividade:</div>
+                    <div class="divTableCell">{{ apf.project.productivity }} horas</div>
+                </div>                
+
+                <div class="divTableRow">
+                    <div class="divTableHeading">Fatores de Ajustes:</div>
+                    <div class="divTableCell">{{ apf.project.adjustments | number:'1.2-2' }}</div>
+                </div>
+
+                <div class="divTableRow">
                     <div class="divTableHeading">Total:</div>
-                    <div class="divTableCell">{{ apf.project.score }} pontos</div>
+                    <div class="divTableCell">{{ apf.project.score | number:'.2-2' }} horas</div>
                 </div>
             </div>
         </mat-card-content>

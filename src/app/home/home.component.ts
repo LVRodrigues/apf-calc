@@ -56,11 +56,11 @@ export class HomeComponent {
     }
     
     private updateData(): void {
-        const score = this.apf.project.score;
+        const score = this.apf.project.value;
         this.data = [];
         this.data.push({ name: 'Planejamento', value: score*0.1 });
         this.data.push({ name: 'Coordenação', value: score*0.3 });
-        this.data.push({ name: 'Desenvolvimento', value: this.apf.project.score });
+        this.data.push({ name: 'Desenvolvimento', value: this.apf.project.value });
         this.data.push({ name: 'Testes', value: score*0.4 });
         this.data.push({ name: 'Implantação', value: score*0.1 });
     }

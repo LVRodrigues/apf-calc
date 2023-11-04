@@ -66,9 +66,27 @@ export class Project {
         return result;
     }
 
-    public get score(): number {
+    public get value(): number {
         let result = 0;
         this.modules.forEach(item => result += item.value);
         return result;
+    }
+
+    public get adjustments(): number {
+        let result = 0;
+        let tdi = 0;
+        this.factors.forEach(factor => tdi += factor.influence);
+        if (tdi > 0) {
+            result = (tdi * 0.01) + 0.65;
+        }
+        return result;
+    }
+
+    public get score(): number {
+        let result = this.value * this.productivity;
+        if (this.adjustments > 0) {
+            result *= this.adjustments;
+        }
+        return  result;
     }
 }
