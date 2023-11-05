@@ -25,7 +25,7 @@ export class Project {
         this.version        = 1;
         this.empiricals     = [];
         this.factors        = [];
-        this._productivity  = 1;
+        this._productivity  = 14;
         this.prepareEmpiricals();
         this.prepareFactors();
     }
@@ -83,24 +83,58 @@ export class Project {
     public get value(): number {
         let result = 0;
         this.modules.forEach(item => result += item.value);
-        return result;
+        return 601; //result; // FIXME Corigir cálculo de pontos defunção
     }
 
     public get adjustments(): number {
-        let result = 0;
         let tdi = 0;
         this.factors.forEach(factor => tdi += factor.influence);
-        if (tdi > 0) {
-            result = (tdi * 0.01) + 0.65;
+        return (tdi * 0.01) + 0.65;
+    }
+
+    public get score(): number {
+        return this.value * this.adjustments;
+    }
+
+    public get months(): number {
+        let result = 1;
+        if (this.score > 50) {
+            result = this.varJ() * (((this.score * this.varE()) / 168) ** 0.3188);
         }
         return result;
     }
 
-    public get score(): number {
-        let result = this.value * this.productivity;
-        if (this.adjustments > 0) {
-            result *= this.adjustments;
+    public get hours(): number {
+        return this.score * this.productivity;
+    }
+
+    private varJ(): number {
+        let result = 0;
+        switch (true) {
+            case (this.score < 300):
+                result = 2;
+                break;
+            case (this.score < 1000):
+                result = 2.5;
+                break;
+            default:
+                result = 3;
         }
-        return  result;
+        return result;
+    }
+
+    private varE(): number {
+        let result = 0;
+        switch (true) {
+            case (this.score < 300):
+                result = 5;
+                break;
+            case (this.score < 1000):
+                result = 7.5;
+                break;
+            default:
+                result = 10;
+        }
+        return result;
     }
 }
