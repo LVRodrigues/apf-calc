@@ -7,6 +7,24 @@ import { Module } from "./module";
 import { environment } from '../../environments/environment';
 import { env } from "process";
 
+const FACTOR_K: number = 0.3188;
+const WORKING_HOURS: number = 168;
+const WORKING_DAYS: number = 21;
+const WORKING_DAY: number = WORKING_HOURS / WORKING_DAYS;
+
+// A distribuição das porcentagens para a tabela de esforço, prazo, dias úteis e recursos 
+// é para apoiar a distribuição das unidades e não tem por objetivo definir como o 
+// projeto deverá ser planejado efetivamente.
+const EFFORT_PERCENT_STARTUP: number = 5 / 100;
+const EFFORT_PERCENT_ELABORATION: number = 20 / 100;
+const EFFORT_PERCENT_BUILD: number = 65 / 100;
+const EFFORT_PERCENT_TRANSITION: number = 10 / 100;
+
+const DEADLINE_PERCENT_STARTUP: number = 10 / 100;
+const DEADLINE_PERCENT_ELABORATION: number = 30 / 100;
+const DEADLINE_PERCENT_BUILD: number = 50 / 100;
+const DEADLINE_PERCENT_TRANSITION: number = 10 / 100;
+
 export class Project {
     name!: string ;
     description: string | undefined;
@@ -83,13 +101,17 @@ export class Project {
     public get value(): number {
         let result = 0;
         this.modules.forEach(item => result += item.value);
-        return 601; //result; // FIXME Corigir cálculo de pontos defunção
+        return result;
     }
 
     public get adjustments(): number {
+        let result = 1;
         let tdi = 0;
         this.factors.forEach(factor => tdi += factor.influence);
-        return (tdi * 0.01) + 0.65;
+        if (tdi > 0) {
+            result = (tdi * 0.01) + 0.65;
+        }
+        return result;
     }
 
     public get score(): number {
@@ -99,9 +121,17 @@ export class Project {
     public get months(): number {
         let result = 1;
         if (this.score > 50) {
-            result = this.varJ() * (((this.score * this.varE()) / 168) ** 0.3188);
+            result = this.varJ() * (((this.score * this.varE()) / WORKING_HOURS) ** FACTOR_K);
         }
         return result;
+    }
+
+    public get scorePerMonth(): number {
+        return this.hours / this.months;
+    }
+
+    public get scorePerHour(): number {
+        return this.scorePerMonth / WORKING_HOURS;
     }
 
     public get hours(): number {
@@ -137,4 +167,52 @@ export class Project {
         }
         return result;
     }
+
+    public get effortStartup(): number {
+        return this.hours * EFFORT_PERCENT_STARTUP;
+    }
+
+    public get effortElaboration(): number {
+        return this.hours * EFFORT_PERCENT_ELABORATION;
+    }
+
+    public get effortBuild(): number {
+        return this.hours * EFFORT_PERCENT_BUILD;
+    }
+
+    public get effortTransition(): number {
+        return this.hours * EFFORT_PERCENT_TRANSITION;
+    }
+
+    public get deadlineStartup(): number {
+        return this.months * WORKING_DAYS * DEADLINE_PERCENT_STARTUP;
+    }
+
+    public get deadlineElaboration(): number {
+        return this.months * WORKING_DAYS * DEADLINE_PERCENT_ELABORATION;
+    }
+
+    public get deadlineBuild(): number {
+        return this.months * WORKING_DAYS * DEADLINE_PERCENT_BUILD;
+    }
+
+    public get deadlineTransition(): number {
+        return this.months * WORKING_DAYS * DEADLINE_PERCENT_TRANSITION;
+    }    
+
+    public get resourceStartup(): number {
+        return this.effortStartup / WORKING_DAY / this.deadlineStartup;
+    }
+
+    public get resourceElaboration(): number {
+        return this.effortElaboration / WORKING_DAY / this.deadlineElaboration;
+    }
+
+    public get resourceBuild(): number {
+        return this.effortBuild / WORKING_DAY / this.deadlineBuild;
+    }
+
+    public get resourceTransition(): number {
+        return this.effortTransition / WORKING_DAY / this.deadlineTransition;
+    }    
 }

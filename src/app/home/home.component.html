@@ -68,7 +68,67 @@
             </mat-card-title>
         </mat-card-header>
         <mat-card-content>
-            <p>Tempo de Desenvolvimento: {{ apf.project.months | number:'.0-1' }} meses</p>
+            <div  class="divTable">
+                <div class="divTableBody">
+                    <div class="divTableRow">
+                        <div class="divTableHeading">Tempo de Desenvolvimento:</div>
+                        <div class="divTableCell">{{ apf.project.months | number:'.0-1' }} meses</div>
+                    </div>
+
+                    <div class="divTableRow">
+                        <div class="divTableHeading">Pontos de Função por Homem Mês:</div>
+                        <div class="divTableCell">{{ apf.project.scorePerMonth | number:'.0-1' }} pontos</div>
+                    </div>
+
+                    <div class="divTableRow">
+                        <div class="divTableHeading">Pontos de Função por Hora:</div>
+                        <div class="divTableCell">{{ apf.project.scorePerHour | number:'.0-1' }} pontos</div>
+                    </div>
+                </div>
+            </div>
+
+            <mat-card class="effort" appearance="outlined">
+                <div  class="divTable effort-table">
+                    <div class="divTableHeading">
+                        <div class="divTableRow">
+                            <div class="divTableHead">Desenvolvimento</div>
+                            <div class="divTableHead effort-value">Esforço</div>
+                            <div class="divTableHead effort-value">Prazo</div>
+                            <div class="divTableHead effort-value">Recursos</div>
+                        </div>
+                    </div>
+
+                    <div class="divTableBody">
+                        <div class="divTableRow">
+                            <div class="divTableCell">Iniciação</div>
+                            <div class="divTableCell effort-value">{{ apf.project.effortStartup | number:'.0-0' }}h</div>
+                            <div class="divTableCell effort-value">{{ apf.project.deadlineStartup | number:'.0-0' }}d</div>
+                            <div class="divTableCell effort-value">{{ apf.project.resourceStartup | number:'.0-0' }}</div>
+                        </div>
+
+                        <div class="divTableRow">
+                            <div class="divTableCell">Elaboração</div>
+                            <div class="divTableCell effort-value">{{ apf.project.effortElaboration | number:'.0-0' }}h</div>
+                            <div class="divTableCell effort-value">{{ apf.project.deadlineElaboration | number:'.0-0' }}d</div>
+                            <div class="divTableCell effort-value">{{ apf.project.resourceElaboration | number:'.0-0' }}</div>
+                        </div>
+
+                        <div class="divTableRow">
+                            <div class="divTableCell">Construção</div>
+                            <div class="divTableCell effort-value">{{ apf.project.effortBuild | number:'.0-0' }}h</div>
+                            <div class="divTableCell effort-value">{{ apf.project.deadlineBuild | number:'.0-0' }}d</div>
+                            <div class="divTableCell effort-value">{{ apf.project.resourceBuild | number:'.0-0' }}</div>
+                        </div>
+
+                        <div class="divTableRow">
+                            <div class="divTableCell">Transição</div>
+                            <div class="divTableCell effort-value">{{ apf.project.effortTransition | number:'.0-0' }}h</div>
+                            <div class="divTableCell effort-value">{{ apf.project.deadlineTransition | number:'.0-0' }}d</div>
+                            <div class="divTableCell effort-value">{{ apf.project.resourceTransition | number:'.0-0' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card>
         </mat-card-content>        
     </mat-card>
 
