@@ -56,13 +56,17 @@ export class HomeComponent {
     }
     
     private updateData(): void {
-        const score = this.apf.project.score;
         this.data = [];
-        this.data.push({ name: 'Planejamento', value: score*0.1 });
-        this.data.push({ name: 'Coordenação', value: score*0.3 });
-        this.data.push({ name: 'Desenvolvimento', value: this.apf.project.score });
-        this.data.push({ name: 'Testes', value: score*0.4 });
-        this.data.push({ name: 'Implantação', value: score*0.1 });
+        this.apf.project.empiricals.forEach(item => {
+            if (item.value > 0) {
+                const serie: DataT = {
+                    name: item.description,
+                    value: (this.apf.project.score * item.value) / 100
+                };
+                this.data.push(serie);
+            }
+        });
+        this.data.push({name: 'Desenvolvimento', value: this.apf.project.score});
     }
 
     prepareChartOptions(): EChartsOption {
